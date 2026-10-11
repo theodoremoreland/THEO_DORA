@@ -67,14 +67,15 @@ const ThumbnailCard = ({
                 <Corner position="bottom-left" />
                 <div className="top">
                     <div className="pills-and-links">
-                        {projectContext.length > 0 && (
-                            <span
-                                title="Project type"
-                                className="project-context"
-                            >
-                                {projectContext}
-                            </span>
-                        )}
+                        {projectContext.length > 0 &&
+                            projectContext.map((context) => (
+                                <span
+                                    title="Project type"
+                                    className="project-context"
+                                >
+                                    {context}
+                                </span>
+                            ))}
                     </div>
                     <div
                         className={`project-image-container ${hasSettled ? 'loaded' : 'loading'}`}

@@ -18,9 +18,13 @@ const getProjectContext = (projectData: TaggedRepoData): ProjectContext[] => {
 
     if (hasTopic(projectData, 'practical')) {
         projectContexts.push(ProjectContext.Practical);
-    } else if (hasTopic(projectData, 'experiment')) {
+    }
+
+    if (hasTopic(projectData, 'experiment')) {
         projectContexts.push(ProjectContext.Experiment);
-    } else if (hasTopic(projectData, 'modernization')) {
+    }
+
+    if (hasTopic(projectData, 'modernization')) {
         projectContexts.push(ProjectContext.Modernization);
     }
 

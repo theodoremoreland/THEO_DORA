@@ -13,13 +13,14 @@
     height: 100vh;
     width: 100vw;
     color: var(--primary-font-color);
+    background-color: #000000;
     visibility: visible;
     transition:
         opacity 2s linear,
         visibility 2s linear;
     transition-delay: 1s;
 
-    &::before {
+    #intro-video {
         content: '';
         z-index: -1;
         position: absolute;
@@ -28,9 +29,7 @@
         left: 0;
         width: 100%;
         height: 100%;
-        background-color: #000000;
-        background-position: center;
-        background-attachment: fixed;
+
         opacity: 1;
     }
 }

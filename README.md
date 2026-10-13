@@ -34,6 +34,9 @@ _NOTE: The terms "project" and "repository" are used interchangeably throughout 
 - SonarQube
 - Vite
 - Axios
+- Docker
+- AWS
+- AWS SAM
 
 ### DORA Metrics
 
@@ -235,10 +238,7 @@ Start API with environment variable and parameter overrides:
 
 ```bash
 sam local start-api \
-  --env-vars env.json \
-  --parameter-overrides \
-  DbSecretName=your-secret-name \
-  AccessToken=your-access-token
+  --env-vars env.json
 ```
 
 The AWS SAM CLI reads the application template to determine the API's routes and the functions that they invoke. The `Events` property on each function's definition includes the route and method for each path.

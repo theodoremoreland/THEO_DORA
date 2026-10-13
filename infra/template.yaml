@@ -15,6 +15,7 @@ Resources:
           src: authored
           conf: high
     Properties:
+      TableName: project-events-table
       BillingMode: PAY_PER_REQUEST
       SSESpecification:
         SSEEnabled: true
@@ -71,6 +72,7 @@ Resources:
                   - ProjectEventsTable
                   - Arn
       Environment:
+        # Ref functions are not read when running API locally, must substitute with env.json
         Variables:
           PROJECT_EVENTS_TABLE:
             Ref: ProjectEventsTable

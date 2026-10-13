@@ -72,7 +72,10 @@ export const postIssueHandler = async (event) => {
 
     return {
       statusCode: 500,
-      body: JSON.stringify({ error: "Could not save issue record." }),
+      body: JSON.stringify({
+        error: "Could not save issue record.",
+        TABLE_NAME,
+      }),
     };
   }
 };

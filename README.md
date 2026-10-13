@@ -7,8 +7,10 @@
 ## Table of contents
 
 - [Overview](#overview)
+  - [Technologies Used](#technologies-used)
   - [DORA Metrics](#dora-metrics)
-- [Technologies Used](#technologies-used)
+  - [SonarQube Cloud Quality Measures](#sonarqube-cloud-quality-measures)
+- [Serverless infrastructure]
 
 Change failure rate = How often a deployment causes an incident or deployment failure
 Deployment rework rate = How often are hotfixes deployed
@@ -19,9 +21,23 @@ DORA metrics, code quality, and metadata for my GitHub projects.
 
 _NOTE: The terms "project" and "repository" are used interchangeably throughout this document._
 
+## Technologies Used
+
+- React
+- TypeScript
+- JavaScript
+- HTML
+- CSS
+- Tanstack React Query
+- MUI X Charts
+- GitHub API
+- SonarQube
+- Vite
+- Axios
+
 ### DORA Metrics
 
-https://dora.dev/guides/dora-metrics/
+[DORA Metrics](https://dora.dev/guides/dora-metrics/)
 
 #### Throughput and instability
 
@@ -138,16 +154,122 @@ Issues
 - labels
 ```
 
-## Technologies Used
+### SonarQube Cloud Quality Measures
 
-- React
-- TypeScript
-- JavaScript
-- HTML
-- CSS
-- Tanstack React Query
-- MUI X Charts
-- GitHub API
-- SonarQube
-- Vite
-- Axios
+### Serverless infrastructure
+
+### Files and folders
+
+This project contains source code and supporting files for a serverless application that you can deploy with the AWS Serverless Application Model (AWS SAM) command line interface (CLI). It includes the following files and folders:
+
+- `src` - Code for the application's Lambda functions.
+  - `__tests__` - Unit tests for the application code.
+  - `handlers` - Folder for all of the Lambda event handlers.
+- `events` - Invocation events that you can use to invoke the function. Only used to test lambdas locally.
+- `env.json.example` - A template for an env.json file that stores variable overrides for the lambdas. Custom variables must be declared in the Globals section of the template.yaml file.
+- `template.yaml` - A template that defines the application's AWS resources.
+- `seed` - Files for creating tables and rows in PostgreSQL database.
+
+The application uses several AWS resources, including Lambda functions, an API Gateway API, AWS Secrets Manager, and AWS RDS. Only the latter of which is not defined in the `template.yaml` file in this project. You can update the template to add/configure AWS resources through the same deployment process that updates the application code.
+
+## How the application is deployed
+
+The AWS SAM CLI is an extension of the AWS CLI that adds functionality for building and testing Lambda applications. It uses Docker to run your functions in an Amazon Linux environment that matches Lambda. It can also emulate your application's build environment and API.
+
+To use the AWS SAM CLI, you need the following tools:
+
+- AWS SAM CLI - [Install the AWS SAM CLI](https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/serverless-sam-cli-install.html).
+- Node.js - [Install Node.js 22](https://nodejs.org/en/), including the npm package management tool.
+- Docker - [Install Docker community edition](https://hub.docker.com/search/?type=edition&offering=community).
+
+To build and deploy application for the first time, run the following in your shell:
+
+```bash
+sam build
+sam deploy --guided
+```
+
+Deploy with parameter overrides:
+
+```bash
+sam deploy \
+  --parameter-overrides \
+  DbSecretName=your-secret-name \
+  AccessToken=your-access-token
+```
+
+The API Gateway endpoint API will be displayed in the outputs when the deployment is complete assuming the API resource is referenced in the Outputs of the `template.yaml`.
+
+## How the AWS SAM CLI is used to build and test locally
+
+Validate template.yaml.
+
+```bash
+sam validate --template-file template.yaml
+```
+
+Build your application by using the `sam build` command.
+
+```bash
+sam build
+```
+
+The AWS SAM CLI installs dependencies that are defined in `package.json`, creates a deployment package, and saves it in the `.aws-sam/build` folder.
+
+Test a single function by invoking it directly with a test event. An event is a JSON document that represents the input that the function receives from the event source. Test events are included in the `events` folder in this project.
+
+Run functions locally and invoke them with the `sam local invoke` command.
+
+```bash
+sam local invoke {function name} --event events/event-{event name}.json
+```
+
+The AWS SAM CLI can also emulate your application's API. Use the `sam local start-api` command to run the API locally on port 3000.
+
+```bash
+sam local start-api
+curl http://localhost:3000/
+```
+
+Start API with environment variable and parameter overrides:
+
+```bash
+sam local start-api \
+  --env-vars env.json \
+  --parameter-overrides \
+  DbSecretName=your-secret-name \
+  AccessToken=your-access-token
+```
+
+The AWS SAM CLI reads the application template to determine the API's routes and the functions that they invoke. The `Events` property on each function's definition includes the route and method for each path.
+
+```yaml
+Events:
+  Api:
+    Type: Api
+    Properties:
+      Path: /
+      Method: GET
+```
+
+## Unit tests
+
+Tests are defined in the `src/__tests__` folder in this project. Use `npm` to install the [Jest test framework](https://jestjs.io/) and run unit tests.
+
+```bash
+cd src/
+npm install
+npm run test
+```
+
+## Cleanup
+
+To delete the sample application that you created, use the AWS CLI. Assuming you used your project name for the stack name, you can run the following:
+
+```bash
+sam delete --stack-name view-count-api
+```
+
+## Resources
+
+For an introduction to the AWS SAM specification, the AWS SAM CLI, and serverless application concepts, see the [AWS SAM Developer Guide](https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/what-is-sam.html).

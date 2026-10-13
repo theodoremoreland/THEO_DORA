@@ -16,8 +16,8 @@ import Analytics from './components/features/Analytics/Analytics';
 import NavBar from './components/layout/NavBar/NavBar';
 import ProjectRow from './components/features/ProjectRow/ProjectRow';
 import ToolBar from './components/layout/ToolBar/ToolBar';
-import Overview from './components/common/Modal/Overview/Overview';
-import Error from './components/common/Modal/Error/Error';
+import Overview from './components/common/interactive/Modal/Overview/Overview';
+import Error from './components/common/interactive/Modal/Error/Error';
 import NotAScrollbar from './components/features/NotAScrollbar/NotAScrollbar';
 import Cursor from './components/features/Cursor/Cursor';
 

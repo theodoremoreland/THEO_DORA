@@ -4,7 +4,7 @@ import { ReactElement, useCallback, useMemo, useState } from 'react';
 // Components
 import Corner from '../../../common/primitives/Corner/Corner';
 import GlyphLane from '../../../common/primitives/GlyphLane/GlyphLane';
-import ImageCarousel from '../../../common/ImageCarousel/ImageCarousel';
+import ImageCarousel from '../../../common/interactive/ImageCarousel/ImageCarousel';
 
 // Custom
 import { TaggedRepoData } from '../../../../types';

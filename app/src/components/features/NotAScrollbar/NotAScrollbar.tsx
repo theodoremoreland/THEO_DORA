@@ -2,7 +2,7 @@
 import { ReactElement } from 'react';
 
 // Components
-import Barcode from '../../common/Barcode/Barcode';
+import Barcode from '../../common/primitives/Barcode/Barcode';
 import Corner from '../../common/primitives/Corner/Corner';
 
 // Types

@@ -12,7 +12,7 @@ import {
 } from 'react';
 
 // Images
-import ArrowUpwardIcon from '../../../assets/images/icons/arrow_upward.svg?react';
+import ArrowUpwardIcon from '../../../../assets/images/icons/arrow_upward.svg?react';
 
 // Styles
 import './ImageCarousel.css';

@@ -1,3 +1,0 @@
-const id = {};
-
-const issueFields = {};

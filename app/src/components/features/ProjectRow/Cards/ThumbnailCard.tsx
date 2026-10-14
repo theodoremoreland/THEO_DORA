@@ -70,6 +70,7 @@ const ThumbnailCard = ({
                         {projectContext.length > 0 &&
                             projectContext.map((context) => (
                                 <span
+                                    key={context}
                                     title="Project type"
                                     className="project-context"
                                 >

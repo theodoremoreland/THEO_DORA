@@ -1,5 +1,5 @@
 import isValidDate from "./isValidDate.mjs";
-import validFields from "./validFields.mjs";
+import validateEvent from "./validateEvent.mjs";
 
 const requiredFields = [
   "id",
@@ -13,11 +13,8 @@ const requiredFields = [
 const validateIssue = (issue) => {
   try {
     const _issue = JSON.parse(issue);
-    const { created_timestamp, closed_timestamp, status, labels } = validFields(
-      _issue,
-      requiredFields,
-      "Issue",
-    );
+    const { created_timestamp, closed_timestamp, status, labels } =
+      validateEvent(_issue, requiredFields, "Issue");
 
     if (!Array.isArray(labels)) {
       throw new TypeError("Labels must be a valid array");

@@ -1,5 +1,5 @@
 import isValidDate from "./isValidDate.mjs";
-import validFields from "./validFields.mjs";
+import validateEvent from "./validateEvent.mjs";
 
 const requiredFields = [
   "id",
@@ -19,7 +19,7 @@ const validatePullRequest = (pullRequest) => {
       first_commit_timestamp,
       submitted_timestamp,
       labels,
-    } = validFields(_pullRequest, requiredFields, "Pull Request");
+    } = validateEvent(_pullRequest, requiredFields, "Pull Request");
 
     if (!Array.isArray(labels)) {
       throw new TypeError("Labels must be a valid array");

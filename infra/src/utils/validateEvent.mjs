@@ -1,4 +1,4 @@
-const validFields = (obj, requiredFields, objName) => {
+const validateEvent = (obj, requiredFields, objName) => {
   const missingFields = [];
 
   for (const field of requiredFields) {
@@ -16,4 +16,4 @@ const validFields = (obj, requiredFields, objName) => {
   return obj;
 };
 
-export default validFields;
+export default validateEvent;

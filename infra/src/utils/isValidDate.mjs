@@ -1,5 +1,7 @@
 const isValidDate = (date) => {
-  return date instanceof Date && !Number.isNaN(date.getTime());
+  const _date = new Date(date);
+
+  return _date instanceof Date && !Number.isNaN(_date.getTime());
 };
 
 export default isValidDate;

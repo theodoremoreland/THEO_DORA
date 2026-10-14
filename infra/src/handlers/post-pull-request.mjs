@@ -10,8 +10,6 @@ const TABLE_NAME = process.env.PROJECT_EVENTS_TABLE;
 
 export const postPullRequestHandler = async (event) => {
   try {
-    const body = JSON.parse(event.body || "{}");
-
     const {
       id,
       project_id,
@@ -20,14 +18,14 @@ export const postPullRequestHandler = async (event) => {
       labels,
       submitted_timestamp,
       target_branch,
-    } = validatePullRequest(body);
+    } = validatePullRequest(event.body);
 
     const mergedTimestampISO = new Date(merged_timestamp).toISOString();
     const firstCommitTimestampISO = new Date(
       first_commit_timestamp,
     ).toISOString();
     const submittedTimestampISO = new Date(submitted_timestamp).toISOString();
-    const eventTypeAndTimestamp = `PULL_REQUEST#${id}#${merged_timestamp}`;
+    const eventTypeAndTimestamp = `PULL_REQUEST#${id}#${mergedTimestampISO}`;
     const repoId = `REPO#${project_id}`;
 
     const newItem = {
@@ -64,16 +62,13 @@ export const postPullRequestHandler = async (event) => {
         statusCode: 400,
         body: JSON.stringify({
           error: error.message,
-          TABLE_NAME,
         }),
       };
     }
-
     return {
       statusCode: 500,
       body: JSON.stringify({
         error: "Could not save pull request record.",
-        TABLE_NAME,
       }),
     };
   }

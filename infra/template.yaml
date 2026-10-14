@@ -124,45 +124,6 @@ Resources:
             Path: /pull-requests
             Method: POST
 
-  PostDeploymentFunction:
-    Type: AWS::Serverless::Function
-    Metadata:
-      com.aws.cloudformation.Context:
-        why: "Handles POST requests for GitHub action deployment run records in Project Metrics DynamoDB table."
-        trust:
-          src: authored
-          conf: high
-    Properties:
-      CodeUri: ./
-      Handler: src/handlers/post-deployment.postDeploymentHandler
-      Runtime: nodejs22.x
-      Architectures:
-        - x86_64
-      MemorySize: 128
-      Timeout: 10
-      Policies:
-        - Version: "2012-10-17"
-          Statement:
-            - Effect: Allow
-              Action: dynamodb:PutItem
-              Resource:
-                Fn::GetAtt:
-                  - ProjectEventsTable
-                  - Arn
-      Environment:
-        # Ref functions are not read when running API locally, must substitute with env.json
-        Variables:
-          PROJECT_EVENTS_TABLE:
-            Ref: ProjectEventsTable
-      Events:
-        LogDeploymentRuns:
-          Type: Api
-          Properties:
-            RestApiId:
-              Ref: ProjectEventsApi
-            Path: /deployments
-            Method: POST
-
 Outputs:
   ApiEndpoint:
     Description: API Gateway endpoint URL

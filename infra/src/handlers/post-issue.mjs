@@ -10,7 +10,6 @@ const TABLE_NAME = process.env.PROJECT_EVENTS_TABLE;
 
 export const postIssueHandler = async (event) => {
   try {
-    const body = JSON.parse(event.body || "{}");
     const {
       id,
       project_id,
@@ -18,11 +17,11 @@ export const postIssueHandler = async (event) => {
       closed_timestamp,
       status,
       labels,
-    } = validateIssue(body);
+    } = validateIssue(event.body);
 
     const createdTimestampISO = new Date(created_timestamp).toISOString();
     const closedTimestampISO = new Date(closed_timestamp).toISOString();
-    const eventTypeAndTimestamp = `ISSUE#${id}#${closed_timestamp}`; // Format: ISSUE#2026-10-12T23:00:00.000Z
+    const eventTypeAndTimestamp = `ISSUE#${id}#${closedTimestampISO}`; // Format: ISSUE#2026-10-12T23:00:00.000Z
     const projectId = `REPO#${project_id}`;
 
     const newItem = {
@@ -58,7 +57,6 @@ export const postIssueHandler = async (event) => {
         statusCode: 400,
         body: JSON.stringify({
           error: error.message,
-          TABLE_NAME,
         }),
       };
     }
@@ -67,7 +65,6 @@ export const postIssueHandler = async (event) => {
       statusCode: 500,
       body: JSON.stringify({
         error: "Could not save issue record.",
-        TABLE_NAME,
       }),
     };
   }

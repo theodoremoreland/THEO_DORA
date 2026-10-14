@@ -1,7 +1,7 @@
 import isValidDate from "./isValidDate.mjs";
 import validateEvent from "./validateEvent.mjs";
 
-const requiredFields = [
+export const requiredFields = [
   "id",
   "project_id",
   "merged_timestamp",

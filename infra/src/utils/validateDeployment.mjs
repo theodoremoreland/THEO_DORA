@@ -1,7 +1,7 @@
 import isValidDate from "./isValidDate.mjs";
 import validateEvent from "./validateEvent.mjs";
 
-const requiredFields = [
+export const requiredFields = [
   "id",
   "project_id",
   "target",
@@ -10,7 +10,7 @@ const requiredFields = [
   "workflow_run_id",
 ];
 const validTargets = ["aws-amplify", "s3", "lightsail", "github-pages"];
-const validStatuses = ["success"];
+const validStatuses = ["success", "failed"];
 
 const validateDeployment = (deployment) => {
   try {

@@ -3,6 +3,19 @@ Description: Infrastructure as Code for recording and calculating GitHub project
 Transform:
   - AWS::Serverless-2016-10-31
 
+Parameters:
+  DbSecretName:
+    Type: String
+    Description: Name of the Secrets Manager secret storing DB credentials
+  AccessToken:
+    Type: String
+    Description: The access token used to access POST endpoint.
+    NoEcho: true
+  DevApiStageName:
+    Type: String
+    Default: "Dev"
+    Description: The stage for the Rest API Gateway. The implicitly created endpoints are suffixed with /Prod and /Stage. So, this parameter can be used to override the Prod stage.
+
 Resources:
   ProjectEventsTable:
     Type: AWS::DynamoDB::Table
@@ -162,6 +175,37 @@ Resources:
               Ref: ProjectEventsApi
             Path: /deployments
             Method: POST
+
+  GetSonarMeasuresFunction:
+    Type: AWS::Serverless::Function
+    Metadata:
+      com.aws.cloudformation.Context:
+        why: "Handles GET requests for project SonarQube Cloud quality measures."
+        trust:
+          src: authored
+          conf: high
+    Properties:
+      CodeUri: ./
+      Handler: src/handlers/get-sonar-measures.getSonarMeasuresHandler
+      Runtime: nodejs22.x
+      Architectures:
+        - x86_64
+      MemorySize: 128
+      Timeout: 10
+      Environment:
+        # Ref functions are not read when running API locally, must substitute with env.json
+        Variables:
+          SONAR_TOKEN:
+            Ref: ProjectEventsTable
+          SONAR_HOST:
+      Events:
+        GetSonarMeasures:
+          Type: Api
+          Properties:
+            RestApiId:
+              Ref: ProjectEventsApi
+            Path: /quality-measures
+            Method: GET
 
 Outputs:
   ApiEndpoint:

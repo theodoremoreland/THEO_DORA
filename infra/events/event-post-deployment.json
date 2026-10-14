@@ -1,0 +1,11 @@
+{
+  "httpMethod": "POST",
+  "pathParameters": {
+    "id": 565,
+    "project_id": 1233232,
+    "target": "aws-amplify",
+    "status": "success",
+    "timestamp": "2026-10-01T12:00:00Z",
+    "workflow_run_id": "5757567666"
+  }
+}

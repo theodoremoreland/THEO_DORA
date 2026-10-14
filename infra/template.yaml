@@ -50,7 +50,7 @@ Resources:
     Type: AWS::Serverless::Function
     Metadata:
       com.aws.cloudformation.Context:
-        why: "Handles POST requests for GitHub Issue records in Project Metrics DynamoDB table."
+        why: "Handles POST requests for closed GitHub Issue records in Project Metrics DynamoDB table."
         trust:
           src: authored
           conf: high
@@ -83,6 +83,45 @@ Resources:
             RestApiId:
               Ref: ProjectEventsApi
             Path: /issues
+            Method: POST
+
+  PostPullRequestFunction:
+    Type: AWS::Serverless::Function
+    Metadata:
+      com.aws.cloudformation.Context:
+        why: "Handles POST requests for merged GitHub Pull Requests records in Project Metrics DynamoDB table."
+        trust:
+          src: authored
+          conf: high
+    Properties:
+      CodeUri: ./
+      Handler: src/handlers/post-pull-request.postPullRequestHandler
+      Runtime: nodejs22.x
+      Architectures:
+        - x86_64
+      MemorySize: 128
+      Timeout: 10
+      Policies:
+        - Version: "2012-10-17"
+          Statement:
+            - Effect: Allow
+              Action: dynamodb:PutItem
+              Resource:
+                Fn::GetAtt:
+                  - ProjectEventsTable
+                  - Arn
+      Environment:
+        # Ref functions are not read when running API locally, must substitute with env.json
+        Variables:
+          PROJECT_EVENTS_TABLE:
+            Ref: ProjectEventsTable
+      Events:
+        CreateIssue:
+          Type: Api
+          Properties:
+            RestApiId:
+              Ref: ProjectEventsApi
+            Path: /pull-requests
             Method: POST
 
 Outputs:

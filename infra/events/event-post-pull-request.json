@@ -1,0 +1,12 @@
+{
+  "httpMethod": "POST",
+  "pathParameters": {
+    "id": 101,
+    "project_id": 121313123,
+    "merged_timestamp": "2026-10-13T17:00:00Z",
+    "first_commit_timestamp": "2026-10-10T09:15:00Z",
+    "labels": ["enhancement", "bugfix"],
+    "submitted_timestamp": "2026-10-12T14:30:00Z",
+    "target_branch": "main"
+  }
+}

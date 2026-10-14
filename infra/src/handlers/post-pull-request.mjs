@@ -1,5 +1,9 @@
+// AWS
 import { DynamoDBClient } from "@aws-sdk/client-dynamodb";
 import { DynamoDBDocumentClient, PutCommand } from "@aws-sdk/lib-dynamodb";
+
+// Utils
+import validatePullRequest from "../utils/validatePullRequest.mjs";
 
 const docClient = DynamoDBDocumentClient.from(new DynamoDBClient({}));
 const TABLE_NAME = process.env.PROJECT_EVENTS_TABLE;
@@ -7,17 +11,6 @@ const TABLE_NAME = process.env.PROJECT_EVENTS_TABLE;
 export const postPullRequestHandler = async (event) => {
   try {
     const body = JSON.parse(event.body || "{}");
-
-    /**
-     * Example:
-     * id
-     * project_id
-     * merged_timestamp
-     * first_commit_timestamp
-     * labels
-     * submitted_timestamp
-     * target_branch
-     */
 
     const {
       id,
@@ -27,24 +20,7 @@ export const postPullRequestHandler = async (event) => {
       labels,
       submitted_timestamp,
       target_branch,
-    } = body;
-
-    if (
-      !project_id ||
-      !id ||
-      !merged_timestamp ||
-      !first_commit_timestamp ||
-      !submitted_timestamp ||
-      !target_branch
-    ) {
-      return {
-        statusCode: 400,
-        body: JSON.stringify({
-          error:
-            "Missing required fields: 'id', 'project_id', 'merged_timestamp', 'first_commit_timestamp', 'submitted_timestamp', and 'target_branch'",
-        }),
-      };
-    }
+    } = validatePullRequest(body);
 
     const mergedTimestampISO = new Date(merged_timestamp).toISOString();
     const firstCommitTimestampISO = new Date(
@@ -82,6 +58,16 @@ export const postPullRequestHandler = async (event) => {
     };
   } catch (error) {
     console.error("Error saving pull request:", error);
+
+    if (error instanceof TypeError) {
+      return {
+        statusCode: 400,
+        body: JSON.stringify({
+          error: error.message,
+          TABLE_NAME,
+        }),
+      };
+    }
 
     return {
       statusCode: 500,

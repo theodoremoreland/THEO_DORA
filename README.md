@@ -130,6 +130,7 @@ PRs
 
 ```raw
 - id
+- project_id
 - merged_timestamp
 - first_commit_timestamp
 - labels
@@ -141,6 +142,7 @@ Deployments
 
 ```raw
 - id
+- project_id
 - target
 - status
 - timestamp
@@ -151,6 +153,7 @@ Issues
 
 ```raw
 - id
+- project_id
 - created_timestamp
 - closed_timestamp
 - status

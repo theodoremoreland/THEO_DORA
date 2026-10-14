@@ -1,5 +1,9 @@
+// AWS
 import { DynamoDBClient } from "@aws-sdk/client-dynamodb";
 import { DynamoDBDocumentClient, PutCommand } from "@aws-sdk/lib-dynamodb";
+
+// Utils
+import validateIssue from "../utils/validateIssue.mjs";
 
 const docClient = DynamoDBDocumentClient.from(new DynamoDBClient({}));
 const TABLE_NAME = process.env.PROJECT_EVENTS_TABLE;
@@ -7,17 +11,6 @@ const TABLE_NAME = process.env.PROJECT_EVENTS_TABLE;
 export const postIssueHandler = async (event) => {
   try {
     const body = JSON.parse(event.body || "{}");
-
-    /**
-     * Example:
-     * id
-     * project_id
-     * created_timestamp
-     * closed_timestamp
-     * status
-     * labels
-     */
-
     const {
       id,
       project_id,
@@ -25,17 +18,7 @@ export const postIssueHandler = async (event) => {
       closed_timestamp,
       status,
       labels,
-    } = body;
-
-    // Validate that we at least have the required keys
-    if (!project_id || !id) {
-      return {
-        statusCode: 400,
-        body: JSON.stringify({
-          error: "Missing required fields: 'project_id' and 'id'",
-        }),
-      };
-    }
+    } = validateIssue(body);
 
     const createdTimestampISO = new Date(created_timestamp).toISOString();
     const closedTimestampISO = new Date(closed_timestamp).toISOString();
@@ -69,6 +52,16 @@ export const postIssueHandler = async (event) => {
     };
   } catch (error) {
     console.error("Error saving issue:", error);
+
+    if (error instanceof TypeError) {
+      return {
+        statusCode: 400,
+        body: JSON.stringify({
+          error: error.message,
+          TABLE_NAME,
+        }),
+      };
+    }
 
     return {
       statusCode: 500,

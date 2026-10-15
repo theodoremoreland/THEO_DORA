@@ -276,3 +276,49 @@ sam delete --stack-name view-count-api
 ## Resources
 
 For an introduction to the AWS SAM specification, the AWS SAM CLI, and serverless application concepts, see the [AWS SAM Developer Guide](https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/what-is-sam.html).
+
+### SAM template notes
+
+Note to self regarding linting errors in VS Code and template.yml files, specifically in reference to !Ref, !Sub, etc...
+
+Environment variables in a Lambda function are defined as a generic dictionary (map) of keys and values. Because it accepts an object, it doesn't care if that object contains a Ref. It passes validation cleanly.
+
+AWS expects developers to reference other APIs frequently inside API Events. Because of this, the official AWS specification specifically defines RestApiId as a mixed type: it can be a plain String OR it can be a Supported Functions Object (like Ref or Fn::ImportValue). Your schema file explicitly has a rule allowing an object there.
+
+This is an oversight/strictness bug in the AWS schema generation for that specific property. The schema for ApiStages defines ApiId strictly as a "type": "string".
+
+When you deploy a SAM template, AWS doesn't name your resources exactly what you call them in the YAML file. To prevent naming conflicts, AWS automatically appends random characters and stack names to the end.
+• Your logical resource ProjectEventsApi might end up named my-stack-ProjectEventsApi-1A2B3C4D in the actual AWS console.
+• If you hardcode "ProjectEventsApi", AWS won't be able to find it because it doesn't match the auto-generated physical name.
+
+CloudFormation uses Ref to figure out the order in which it needs to build your infrastructure.
+• By using a reference, you tell AWS: "Hey, you cannot create this stage until after you finish building the ProjectEventsApi."
+• If you use a plain string literal, AWS thinks the resources are completely independent. It will try to build the stage and the API at the exact same time. The stage deployment will fail immediately with a "Resource not found" error because the API doesn't exist yet.
+
+https://docs.aws.amazon.com/AWSCloudFormation/latest/TemplateReference/intrinsic-function-reference.html
+
+Workplace settings:
+
+{
+"yaml.customTags": [
+"!Base64 scalar",
+"!Cidr scalar",
+"!And sequence",
+"!Equals sequence",
+"!If sequence",
+"!Not sequence",
+"!Or sequence",
+"!Condition scalar",
+"!FindInMap sequence",
+"!GetAtt scalar",
+"!GetAtt sequence",
+"!GetAZs scalar",
+"!ImportValue scalar",
+"!Join sequence",
+"!Select sequence",
+"!Split sequence",
+"!Sub scalar",
+"!Transform mapping",
+"!Ref scalar",
+]
+}

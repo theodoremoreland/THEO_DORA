@@ -200,8 +200,8 @@ Deploy with parameter overrides:
 ```bash
 sam deploy \
   --parameter-overrides \
-  DbSecretName=your-secret-name \
-  AccessToken=your-access-token
+  SonarToken=your-sonar-token \
+  SonarHost=your-sonar-host
 ```
 
 The API Gateway endpoint API will be displayed in the outputs when the deployment is complete assuming the API resource is referenced in the Outputs of the `template.yaml`.

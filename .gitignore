@@ -4,6 +4,7 @@ debug.json
 env.json
 build/
 dist/
+.secret
 
 # Logs
 logs

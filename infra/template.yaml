@@ -4,17 +4,14 @@ Transform:
   - AWS::Serverless-2016-10-31
 
 Parameters:
-  DbSecretName:
+  SonarToken:
     Type: String
-    Description: Name of the Secrets Manager secret storing DB credentials
-  AccessToken:
-    Type: String
-    Description: The access token used to access POST endpoint.
+    Description: The access token used to access SonarQube Cloud endpoint.
     NoEcho: true
-  DevApiStageName:
+  SonarHost:
     Type: String
-    Default: "Dev"
-    Description: The stage for the Rest API Gateway. The implicitly created endpoints are suffixed with /Prod and /Stage. So, this parameter can be used to override the Prod stage.
+    Default: "https://sonarcloud.io"
+    Description: URL for SonarQube Cloud.
 
 Resources:
   ProjectEventsTable:
@@ -55,7 +52,7 @@ Resources:
       StageName: Prod
       OpenApiVersion: "3.0.1"
       Cors:
-        AllowMethods: "'GET,PUT,OPTIONS'"
+        AllowMethods: "'GET,POST,PUT,OPTIONS'"
         AllowHeaders: "'Content-Type,X-Amz-Date,Authorization,X-Api-Key'"
         AllowOrigin: "'*'"
 
@@ -196,15 +193,17 @@ Resources:
         # Ref functions are not read when running API locally, must substitute with env.json
         Variables:
           SONAR_TOKEN:
-            Ref: ProjectEventsTable
+            Ref: SonarToken
           SONAR_HOST:
+            Ref: SonarHost
+
       Events:
         GetSonarMeasures:
           Type: Api
           Properties:
             RestApiId:
               Ref: ProjectEventsApi
-            Path: /quality-measures
+            Path: /sonar-measures
             Method: GET
 
 Outputs:

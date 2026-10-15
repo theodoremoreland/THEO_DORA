@@ -270,7 +270,7 @@ npm run test
 To delete the sample application that you created, use the AWS CLI. Assuming you used your project name for the stack name, you can run the following:
 
 ```bash
-sam delete --stack-name view-count-api
+sam delete --stack-name theo-dora-infra
 ```
 
 ## Resources
@@ -299,26 +299,28 @@ https://docs.aws.amazon.com/AWSCloudFormation/latest/TemplateReference/intrinsic
 
 Workplace settings:
 
+```json
 {
-"yaml.customTags": [
-"!Base64 scalar",
-"!Cidr scalar",
-"!And sequence",
-"!Equals sequence",
-"!If sequence",
-"!Not sequence",
-"!Or sequence",
-"!Condition scalar",
-"!FindInMap sequence",
-"!GetAtt scalar",
-"!GetAtt sequence",
-"!GetAZs scalar",
-"!ImportValue scalar",
-"!Join sequence",
-"!Select sequence",
-"!Split sequence",
-"!Sub scalar",
-"!Transform mapping",
-"!Ref scalar",
-]
+  "yaml.customTags": [
+    "!Base64 scalar",
+    "!Cidr scalar",
+    "!And sequence",
+    "!Equals sequence",
+    "!If sequence",
+    "!Not sequence",
+    "!Or sequence",
+    "!Condition scalar",
+    "!FindInMap sequence",
+    "!GetAtt scalar",
+    "!GetAtt sequence",
+    "!GetAZs scalar",
+    "!ImportValue scalar",
+    "!Join sequence",
+    "!Select sequence",
+    "!Split sequence",
+    "!Sub scalar",
+    "!Transform mapping",
+    "!Ref scalar"
+  ]
 }
+```

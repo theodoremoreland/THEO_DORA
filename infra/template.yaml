@@ -55,6 +55,48 @@ Resources:
         AllowMethods: "'GET,POST,PUT,OPTIONS'"
         AllowHeaders: "'Content-Type,X-Amz-Date,Authorization,X-Api-Key'"
         AllowOrigin: "'*'"
+      Auth:
+        ApiKeyRequired: false
+
+  PostApiKey:
+    Type: AWS::ApiGateway::ApiKey
+    Metadata:
+      com.aws.cloudformation.Context:
+        why: "API Key for POST routes"
+        trust:
+          src: authored
+          conf: high
+    DependsOn: ProjectEventsApi
+    Properties:
+      Name: PostApiKey
+      Enabled: true
+
+  ApiUsagePlan:
+    Type: AWS::ApiGateway::UsagePlan
+    Metadata:
+      com.aws.cloudformation.Context:
+        why: ""
+        trust:
+          src: authored
+          conf: high
+    Properties:
+      UsagePlanName: "ApiUsagePlan"
+      ApiStages:
+        - ApiId: !Ref ProjectEventsApi
+          Stage: Prod
+
+  ApiUsagePlanKey:
+    Type: AWS::ApiGateway::UsagePlanKey
+    Metadata:
+      com.aws.cloudformation.Context:
+        why: ""
+        trust:
+          src: authored
+          conf: high
+    Properties:
+      KeyId: !Ref PostApiKey
+      KeyType: API_KEY
+      UsagePlanId: !Ref ApiUsagePlan
 
   PostIssueFunction:
     Type: AWS::Serverless::Function
@@ -94,6 +136,8 @@ Resources:
               Ref: ProjectEventsApi
             Path: /issues
             Method: POST
+            Auth:
+              ApiKeyRequired: true
 
   PostPullRequestFunction:
     Type: AWS::Serverless::Function
@@ -133,6 +177,8 @@ Resources:
               Ref: ProjectEventsApi
             Path: /pull-requests
             Method: POST
+            Auth:
+              ApiKeyRequired: true
 
   PostDeploymentFunction:
     Type: AWS::Serverless::Function
@@ -165,13 +211,15 @@ Resources:
           PROJECT_EVENTS_TABLE:
             Ref: ProjectEventsTable
       Events:
-        LogMergedPullRequest:
+        LogDeployment:
           Type: Api
           Properties:
             RestApiId:
               Ref: ProjectEventsApi
             Path: /deployments
             Method: POST
+            Auth:
+              ApiKeyRequired: true
 
   GetSonarMeasuresFunction:
     Type: AWS::Serverless::Function
@@ -196,7 +244,6 @@ Resources:
             Ref: SonarToken
           SONAR_HOST:
             Ref: SonarHost
-
       Events:
         GetSonarMeasures:
           Type: Api
@@ -211,6 +258,9 @@ Outputs:
     Description: API Gateway endpoint URL
     Value:
       Fn::Sub: "https://${ProjectEventsApi}.execute-api.${AWS::Region}.amazonaws.com/Prod/"
+  PostApiKeyValue:
+    Description: This does not do anything of value. For the time being, find the actual key on AWS console.
+    Value: !Ref PostApiKey
   ProjectEventsTableName:
     Description: DynamoDB table storing records to calculate GitHub project DORA metrics
     Value:

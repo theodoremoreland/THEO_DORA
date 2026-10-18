@@ -234,6 +234,9 @@ The AWS SAM CLI can also emulate your application's API. Use the `sam local star
 
 ```bash
 sam local start-api
+```
+
+```bash
 curl http://localhost:3000/
 ```
 

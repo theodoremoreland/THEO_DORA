@@ -3,7 +3,7 @@ import { DynamoDBClient } from "@aws-sdk/client-dynamodb";
 import { DynamoDBDocumentClient, QueryCommand } from "@aws-sdk/lib-dynamodb";
 
 // Custom
-import getRecoveryTime from "../utils/getRecoveryTime.mjs";
+import { getRecoveryTime } from "../modules/dora";
 
 const docClient = DynamoDBDocumentClient.from(new DynamoDBClient({}));
 const TABLE_NAME = process.env.PROJECT_EVENTS_TABLE;

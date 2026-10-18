@@ -33,20 +33,49 @@ export const getDoraMetricsHandler = async (event) => {
     };
   }
 
-  const params = {
-    TableName: TABLE_NAME,
-    // KeyConditionExpression dictates how we query the primary/sort keys efficiently
-    KeyConditionExpression: "pk = :pkVal AND begins_with(sk, :skPrefix)",
-    ExpressionAttributeValues: {
-      ":pkVal": "USER#123",
-      ":skPrefix": "ORDER#2026-", // Finds items where SK starts with this
-    },
-  };
+  let allItems = [];
+  let lastEvaluatedKey = undefined;
 
   try {
-    // Send the GetCommand to DynamoDB
-    const command = new GetCommand(params);
-    const response = await docClient.send(command);
+    do {
+      const params = {
+        TableName: TABLE_NAME,
+        KeyConditionExpression: "pk = :pkVal",
+        ExpressionAttributeValues: {
+          ":pkVal": `REPO#${projectId}`,
+        },
+        ExclusiveStartKey: lastEvaluatedKey,
+      };
+
+      const command = new GetCommand(params);
+      const response = await docClient.send(command);
+
+      if (response.Items) {
+        allItems = allItems.concat(response.Items);
+      }
+
+      lastEvaluatedKey = response.LastEvaluatedKey;
+    } while (lastEvaluatedKey);
+
+    const deployments = allItems.filter((item) => {
+      const matchesPrefix = item.sk.startsWith("ORDER#2026");
+      const matchesSuffix = item.sk.endsWith("#COMPLETED");
+
+      return matchesPrefix && matchesSuffix;
+    });
+    const prs = allItems.filter((item) => {
+      const matchesPrefix = item.sk.startsWith("ORDER#2026");
+      const matchesSuffix = item.sk.endsWith("#COMPLETED");
+
+      return matchesPrefix && matchesSuffix;
+    });
+
+    const issues = allItems.filter((item) => {
+      const matchesPrefix = item.sk.startsWith("ORDER#2026");
+      const matchesSuffix = item.sk.endsWith("#COMPLETED");
+
+      return matchesPrefix && matchesSuffix;
+    });
 
     return {
       statusCode: 200,

@@ -253,6 +253,32 @@ Resources:
             Path: /sonar-measures
             Method: GET
 
+  GetDoraMetricsFunction:
+    Type: AWS::Serverless::Function
+    Metadata:
+      com.aws.cloudformation.Context:
+        why: "Handles GET requests for project DORA metrics."
+        trust:
+          src: authored
+          conf: high
+    Properties:
+      CodeUri: ./
+      Handler: src/handlers/get-dora-metrics.getDoraMetricsHandler
+      Runtime: nodejs22.x
+      Architectures:
+        - x86_64
+      MemorySize: 128
+      Timeout: 10
+      ReservedConcurrentExecutions: 10
+      Events:
+        GetDoraMetrics:
+          Type: Api
+          Properties:
+            RestApiId:
+              Ref: ProjectEventsApi
+            Path: /dora
+            Method: GET
+
 Outputs:
   ApiEndpoint:
     Description: API Gateway endpoint URL

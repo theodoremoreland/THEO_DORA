@@ -270,6 +270,22 @@ Resources:
       MemorySize: 128
       Timeout: 10
       ReservedConcurrentExecutions: 10
+      Policies:
+        - Version: "2012-10-17"
+          Statement:
+            - Effect: Allow
+              Action:
+                - dynamodb:GetItem
+                - dynamodb:Query
+              Resource:
+                Fn::GetAtt:
+                  - ProjectEventsTable
+                  - Arn
+      Environment:
+        # Ref functions are not read when running API locally, must substitute with env.json
+        Variables:
+          PROJECT_EVENTS_TABLE:
+            Ref: ProjectEventsTable
       Events:
         GetDoraMetrics:
           Type: Api

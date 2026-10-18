@@ -1,6 +1,6 @@
 // AWS
 import { DynamoDBClient } from "@aws-sdk/client-dynamodb";
-import { DynamoDBDocumentClient, GetCommand } from "@aws-sdk/lib-dynamodb";
+import { DynamoDBDocumentClient, QueryCommand } from "@aws-sdk/lib-dynamodb";
 
 // Custom
 import getRecoveryTime from "../utils/getRecoveryTime.mjs";
@@ -61,14 +61,14 @@ export const getDoraMetricsHandler = async (event) => {
     do {
       const params = {
         TableName: TABLE_NAME,
-        KeyConditionExpression: "pk = :pkVal",
+        KeyConditionExpression: "project_id = :pkValue",
         ExpressionAttributeValues: {
-          ":pkVal": `REPO#${projectId}`,
+          ":pkValue": `REPO#${projectId}`,
         },
         ExclusiveStartKey: lastEvaluatedKey,
       };
 
-      const command = new GetCommand(params);
+      const command = new QueryCommand(params);
       const response = await docClient.send(command);
 
       if (response.Items) {
@@ -79,17 +79,19 @@ export const getDoraMetricsHandler = async (event) => {
     } while (lastEvaluatedKey);
 
     const deployments = allItems.filter((item) => {
-      const matchesPrefix = item.sk.startsWith("DEPLOYMENT#");
+      const matchesPrefix =
+        item.event_type_and_timestamp.startsWith("DEPLOYMENT#");
 
       return matchesPrefix;
     });
     const prs = allItems.filter((item) => {
-      const matchesPrefix = item.sk.startsWith("PULL_REQUEST#");
+      const matchesPrefix =
+        item.event_type_and_timestamp.startsWith("PULL_REQUEST#");
 
       return matchesPrefix;
     });
     const issues = allItems.filter((item) => {
-      const matchesPrefix = item.sk.startsWith("ISSUE#");
+      const matchesPrefix = item.event_type_and_timestamp.startsWith("ISSUE#");
 
       return matchesPrefix;
     });
@@ -98,7 +100,7 @@ export const getDoraMetricsHandler = async (event) => {
       statusCode: 200,
       headers: CORS_HEADERS,
       body: JSON.stringify({
-        items: response.Items,
+        items: allItems,
         recoveryTime: getRecoveryTime(issues),
       }),
     };
@@ -107,7 +109,7 @@ export const getDoraMetricsHandler = async (event) => {
       statusCode: 500,
       headers: CORS_HEADERS,
       body: JSON.stringify({
-        error: "Internal Proxy Error",
+        error: "Internal server error",
         details: String(error),
       }),
     };

@@ -28,7 +28,7 @@ const getDeploymentFrequency = (items) => {
   let totalWeeks = 0;
 
   if (items.length === 0) {
-    return null;
+    return 0;
   }
 
   const successfulDeployments = items.filter(

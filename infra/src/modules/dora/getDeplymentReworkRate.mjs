@@ -1,28 +1,39 @@
-const getDeploymentReworkRate = (items) => {
-  const itemsCount = items.length;
-  let totalDifferenceBetweenIncidents = 0;
+/**
+ * Deployment rework rate: (Number of issues labeled "incidents" closed and PRs labeled "hotfix" submitted) / number of successful deployments \* 100
+      **Issues**
+      created_timestamp,
+      closed_timestamp,
+      status,
+      labels
 
-  if (itemsCount === 0) {
-    return null;
-  }
-
-  const incidents = items.filter((item) => {
+      **PRs**
+      merged_timestamp,
+      first_commit_timestamp,
+      labels,
+      submitted_timestamp,
+      target_branch,
+ * @param {*} items
+ * @returns
+ */
+const getDeploymentReworkRate = (issues, prs, deployments) => {
+  const incidents = issues.filter((item) => {
     const isIncident = item.labels.includes("incident");
 
     return isIncident;
   });
 
-  for (const item of incidents) {
-    const createdTime = item.created_timestamp;
-    const closedTime = item.closed_timestamp;
+  const hotfixes = prs.filter((item) => {
+    const isHotfix =
+      item.labels.includes("hotfix") || item.labels.includes("hot-fix");
 
-    const difference =
-      new Date(createdTime).getTime() - new Date(closedTime).getTime();
+    return isHotfix;
+  });
 
-    totalDifferenceBetweenIncidents += difference;
-  }
+  const successfulDeployments = deployments.filter(
+    (deployment) => deployment.status === "success",
+  );
 
-  return totalDifferenceBetweenIncidents / itemsCount;
+  return (incidents.length + hotfixes.length / successfulDeployments) * 100;
 };
 
 export default getDeploymentReworkRate;

@@ -1,28 +1,79 @@
-const getDeploymentFrequency = (items) => {
-  const itemsCount = items.length;
-  let totalDifferenceBetweenIncidents = 0;
+import dayjs from "dayjs";
+import weekOfYear from "dayjs/plugin/weekOfYear";
+import isLeapYear from "dayjs/plugin/isLeapYear";
+import isoWeeksInYear from "dayjs/plugin/isoWeeksInYear";
 
-  if (itemsCount === 0) {
+dayjs.extend(isLeapYear);
+dayjs.extend(weekOfYear);
+dayjs.extend(isoWeeksInYear);
+
+const today = new Date();
+const currentYear = dayjs(today).year();
+const currentWeek = dayjs(today).week();
+
+/**
+ * Deployment frequency: average successful "deploy" action runs per week
+ *    project_id,
+      event_type_and_timestamp,
+      id,
+      target,
+      status,
+      timestamp: timestampISO,
+      workflow_run_id,
+
+ */
+const getDeploymentFrequency = (items) => {
+  const deploymentCountsByWeek = {};
+  let totalDeployments = 0;
+  let totalWeeks = 0;
+
+  if (items.length === 0) {
     return null;
   }
 
-  const incidents = items.filter((item) => {
-    const isIncident = item.labels.includes("incident");
+  const successfulDeployments = items.filter(
+    (deployment) => deployment.status === "success",
+  );
 
-    return isIncident;
-  });
+  for (const item of successfulDeployments) {
+    const timestamp = item.timestamp;
+    const date = new Date(timestamp);
+    const djs = dayjs(date);
+    const year = djs.year();
+    const week = djs.week();
 
-  for (const item of incidents) {
-    const createdTime = item.created_timestamp;
-    const closedTime = item.closed_timestamp;
+    if (deploymentCountsByWeek[year] === undefined) {
+      const numberOfWeeksInYear = dayjs(`${year}-01-01`).isoWeeksInYear();
+      let weeksObject = {};
 
-    const difference =
-      new Date(createdTime).getTime() - new Date(closedTime).getTime();
+      for (let i = 1; i < numberOfWeeksInYear + 1; i++) {
+        weeksObject[i] = 0;
 
-    totalDifferenceBetweenIncidents += difference;
+        if (year === currentYear && currentWeek === i) {
+          break;
+        }
+      }
+
+      deploymentCountsByWeek[year] = weeksObject;
+    }
+
+    deploymentCountsByWeek[year][week] += 1;
   }
 
-  return totalDifferenceBetweenIncidents / itemsCount;
+  for (const [year, weeks] of Object.entries(deploymentCountsByWeek)) {
+    console.log(year);
+
+    for (const deployments of Object.values(weeks)) {
+      totalDeployments += deployments;
+      totalWeeks += 1;
+    }
+  }
+
+  if (totalWeeks === 0 || totalDeployments === 0) {
+    return 0;
+  }
+
+  return Number(totalDeployments / totalWeeks).toFixed(2);
 };
 
 export default getDeploymentFrequency;

@@ -19,9 +19,9 @@ export const postIssueHandler = async (event) => {
       labels,
     } = validateIssue(event.body);
 
-    const createdTimestampISO = new Date(created_timestamp).toISOString();
+    const createdTimestampISO = new Date(created_timestamp).toISOString(); // Format: ISSUE#2026-10-12T23:00:00.000Z
     const closedTimestampISO = new Date(closed_timestamp).toISOString();
-    const eventTypeAndTimestamp = `ISSUE#${id}#${closedTimestampISO}`; // Format: ISSUE#2026-10-12T23:00:00.000Z
+    const eventTypeAndTimestamp = `ISSUE#${id}#${closedTimestampISO}`;
     const projectId = `REPO#${project_id}`;
 
     const newItem = {

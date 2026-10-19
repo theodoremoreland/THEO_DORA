@@ -1,19 +1,9 @@
 /**
  * Deployment rework rate: (Number of issues labeled "incidents" closed and PRs labeled "hotfix" submitted) / number of successful deployments \* 100
-      **Issues**
-      created_timestamp,
-      closed_timestamp,
-      status,
-      labels
-
-      **PRs**
-      merged_timestamp,
-      first_commit_timestamp,
-      labels,
-      submitted_timestamp,
-      target_branch,
- * @param {*} items
- * @returns
+ * @param {{id: number, project_id: number, created_timestamp: string, closed_timestamp: string, status: string, labels: string[]}[]} issues
+ * @param {{ id: number, project_id: number, merged_timestamp: string, first_commit_timestamp: string, labels: string[], submitted_timestamp: string, target_branch: string }} prs
+ * @param {{ project_id: number, id: number, target: string, status: string, timestamp: string, workflow_run_id: string}} deployments
+ * @returns {number}
  */
 const getDeploymentReworkRate = (issues, prs, deployments) => {
   const incidents = issues.filter((item) => {

@@ -1,13 +1,13 @@
-import getRecoveryTime from "./getRecoveryTime.mjs";
+import calculateRecoveryTime from "./calculateRecoveryTime.mjs";
 import getChangeFailureRate from "./getChangeFailureRate.mjs";
 import getDeploymentFrequency from "./getDeploymentFrequency.mjs";
 import getDeploymentReworkRate from "./getDeplymentReworkRate.mjs";
-import getLeadTime from "./getLeadTime.mjs";
+import calculateLeadTime from "./calculateLeadTime.mjs";
 
 export {
-  getLeadTime,
+  calculateLeadTime,
   getChangeFailureRate,
   getDeploymentFrequency,
   getDeploymentReworkRate,
-  getRecoveryTime,
+  calculateRecoveryTime,
 };

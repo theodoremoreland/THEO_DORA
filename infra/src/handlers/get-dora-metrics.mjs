@@ -3,7 +3,7 @@ import { DynamoDBClient } from "@aws-sdk/client-dynamodb";
 import { DynamoDBDocumentClient, QueryCommand } from "@aws-sdk/lib-dynamodb";
 
 // Custom
-import { getRecoveryTime } from "../modules/dora";
+import { calculateRecoveryTime } from "../modules/dora";
 
 const docClient = DynamoDBDocumentClient.from(new DynamoDBClient({}));
 const TABLE_NAME = process.env.PROJECT_EVENTS_TABLE;
@@ -14,22 +14,11 @@ const CORS_HEADERS = {
 };
 
 /**
- * Formula:
-
-- Lead Time for Changes: average (Deploy action timestamp - First commit of PR timestamp labeled "enhancement" or "bugfix")
-  **PRs** and **Deploy action metadata**
-
-- Deployment frequency: average successful "deploy" action runs per week
-  **Deploy action metadata**
-
-- Change failure rate: Number of deployments with AT LEAST ONE issue labeled "incident" or AT LEAST ONE PR labeled "hotfix" or a failed deployment / total deployment runs \* 100
-  **Deploy action metadata** and **PRs** and **Issues**
-
-- Deployment rework rate: (Number of issues labeled "incidents" closed and PRs labeled "hotfix" submitted) / number of successful deployments \* 100
-  **Issues** and **PRs**
-
-- Recovery time: average (issue labeled "incident" closed time - issue labeled "incident" created time)
-  **Issues**
+ * - Lead Time for Changes: average (merged timestamp - First commit of PR timestamp labeled "enhancement" or "bugfix")
+ * - Deployment frequency: average successful "deploy" action runs per week
+ * - Change failure rate: Number of deployments with AT LEAST ONE issue labeled "incident" or AT LEAST ONE PR labeled "hotfix" or a failed deployment / total deployment runs \* 100
+ * - Deployment rework rate: (Number of issues labeled "incidents" closed and PRs labeled "hotfix" submitted) / number of successful deployments \* 100
+ * - Recovery time: average (issue labeled "incident" closed time - issue labeled "incident" created time)
  */
 export const getDoraMetricsHandler = async (event) => {
   const httpMethod = event.requestContext?.http?.method || event.httpMethod;
@@ -101,7 +90,7 @@ export const getDoraMetricsHandler = async (event) => {
       headers: CORS_HEADERS,
       body: JSON.stringify({
         items: allItems,
-        recoveryTime: getRecoveryTime(issues),
+        recoveryTime: calculateRecoveryTime(issues),
       }),
     };
   } catch (error) {

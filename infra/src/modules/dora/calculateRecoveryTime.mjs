@@ -1,16 +1,9 @@
 /**
  * Recovery time: average (issue labeled "incident" closed time - issue labeled "incident" created time)
- **Issues**
-       id,
-      project_id,
-      created_timestamp,
-      closed_timestamp,
-      status,
-      labels,
- * @param {*} items
- * @returns
+ * @param {{id: number, project_id: number, created_timestamp: string, closed_timestamp: string, status: string, labels: string[]}[]} issues
+ * @returns {number} -
  */
-const getRecoveryTime = (issues) => {
+const calculateRecoveryTime = (issues) => {
   const incidents = issues.filter((item) => {
     const isIncident = item.labels.includes("incident");
 
@@ -30,4 +23,4 @@ const getRecoveryTime = (issues) => {
   return totalDifferenceBetweenIncidents / itemsCount;
 };
 
-export default getRecoveryTime;
+export default calculateRecoveryTime;

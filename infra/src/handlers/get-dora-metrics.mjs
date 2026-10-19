@@ -3,7 +3,12 @@ import { DynamoDBClient } from "@aws-sdk/client-dynamodb";
 import { DynamoDBDocumentClient, QueryCommand } from "@aws-sdk/lib-dynamodb";
 
 // Custom
-import { calculateRecoveryTime } from "../modules/dora";
+import {
+  calculateLeadTime,
+  calculateDeploymentFrequency,
+  calculateDeploymentReworkRate,
+  calculateRecoveryTime,
+} from "../modules/dora";
 
 const docClient = DynamoDBDocumentClient.from(new DynamoDBClient({}));
 const TABLE_NAME = process.env.PROJECT_EVENTS_TABLE;
@@ -90,6 +95,13 @@ export const getDoraMetricsHandler = async (event) => {
       headers: CORS_HEADERS,
       body: JSON.stringify({
         items: allItems,
+        leadTime: calculateLeadTime(prs),
+        deploymentFrequency: calculateDeploymentFrequency(deployments),
+        deploymentReworkRate: calculateDeploymentReworkRate(
+          issues,
+          prs,
+          deployments,
+        ),
         recoveryTime: calculateRecoveryTime(issues),
       }),
     };

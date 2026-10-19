@@ -42,7 +42,6 @@ const validateDeployment = (deployment) => {
     return _deployment;
   } catch (error) {
     if (error instanceof SyntaxError) {
-      // Converting Error type to signal bad request instead of server side issue.
       throw new TypeError("Labels must be a valid array");
     } else {
       throw error;

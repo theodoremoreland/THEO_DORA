@@ -16,7 +16,7 @@ const currentWeek = dayjs(today).week();
  * @param {{ project_id: number, id: number, target: string, status: string, timestamp: string, workflow_run_id: string}} deployments
  * @returns {number}
  */
-const getDeploymentFrequency = (deployments) => {
+const calculateDeploymentFrequency = (deployments) => {
   const deploymentCountsByWeek = {};
   let totalDeployments = 0;
   let totalWeeks = 0;
@@ -70,4 +70,4 @@ const getDeploymentFrequency = (deployments) => {
   return Number(totalDeployments / totalWeeks).toFixed(2);
 };
 
-export default getDeploymentFrequency;
+export default calculateDeploymentFrequency;

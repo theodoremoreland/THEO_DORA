@@ -2,9 +2,9 @@
 import { jest } from "@jest/globals";
 
 // Custom
-import getDeploymentFrequency from "../../../../src/modules/dora/getDeploymentFrequency.mjs";
+import calculateDeploymentFrequency from "../../../../src/modules/dora/calculateDeploymentFrequency.mjs";
 
-describe.only("getDeploymentFrequency", () => {
+describe.only("calculateDeploymentFrequency", () => {
   const deploymentEvents = [
     {
       id: 1,
@@ -413,7 +413,7 @@ describe.only("getDeploymentFrequency", () => {
   });
 
   it("stores an issue payload using the project event schema", async () => {
-    const result = getDeploymentFrequency(deploymentEvents);
+    const result = calculateDeploymentFrequency(deploymentEvents);
 
     console.log(result);
 

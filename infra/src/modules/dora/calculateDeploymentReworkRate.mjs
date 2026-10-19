@@ -5,7 +5,7 @@
  * @param {{ project_id: number, id: number, target: string, status: string, timestamp: string, workflow_run_id: string}} deployments
  * @returns {number}
  */
-const getDeploymentReworkRate = (issues, prs, deployments) => {
+const calculateDeploymentReworkRate = (issues, prs, deployments) => {
   const incidents = issues.filter((item) => {
     const isIncident = item.labels.includes("incident");
 
@@ -26,4 +26,4 @@ const getDeploymentReworkRate = (issues, prs, deployments) => {
   return (incidents.length + hotfixes.length / successfulDeployments) * 100;
 };
 
-export default getDeploymentReworkRate;
+export default calculateDeploymentReworkRate;

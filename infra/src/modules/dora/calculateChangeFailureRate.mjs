@@ -5,7 +5,7 @@
  * @param {{ project_id: number, id: number, target: string, status: string, timestamp: string, workflow_run_id: string}} deployments
  * @returns {number}
  */
-const getChangeFailureRate = (issues, prs, deployments) => {
+const calculateChangeFailureRate = (issues, prs, deployments) => {
   const incidents = issues.filter((item) => {
     const isIncident = item.labels.includes("incident");
 
@@ -17,4 +17,4 @@ const getChangeFailureRate = (issues, prs, deployments) => {
   return 0;
 };
 
-export default getChangeFailureRate;
+export default calculateChangeFailureRate;

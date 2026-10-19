@@ -1,3 +1,9 @@
+/**
+ * Change failure rate: Number of deployments with AT LEAST ONE issue labeled "incident" or AT LEAST ONE PR labeled "hotfix" or a failed deployment / total deployment runs \* 100
+ **Deploy action metadata** and **PRs** and **Issues**
+ * @param {*} items
+ * @returns
+ */
 const getChangeFailureRate = (items) => {
   const itemsCount = items.length;
   let totalDifferenceBetweenIncidents = 0;

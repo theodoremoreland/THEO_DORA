@@ -1,4 +1,4 @@
-import { TaggedRepoData } from '../../types';
+import { TaggedRepoData } from '../../../types';
 
 export const getTopTechnologies = (
     projects: TaggedRepoData[],

@@ -114,7 +114,6 @@ const MetricsCard = ({
     sonarMeasures,
     doraMetrics,
     isSonarMeasuresFetching,
-    isDoraMetricsFetching,
 }: Props): ReactElement => {
     const hasValidDemoLink: boolean =
         projectData.name !== 'ProjectDashboard' && projectData.demo_link !== '';

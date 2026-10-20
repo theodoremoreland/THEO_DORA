@@ -6,7 +6,20 @@
  * @returns {number}
  */
 const calculateChangeFailureRate = (issues, prs, deployments) => {
+  if (deployments.length === 0) {
+    return 0;
+  }
+
+  const incidents = issues.filter((item) => item.labels.includes("incident"));
+  const hotfixes = prs.filter((pr) => pr.labels.includes("hotfix"));
+
+  if (incidents.length === 0 && hotfixes.length === 0) {
+    return 0;
+  }
+
   const timeStamps = [];
+  const timeStampsBucketed = [];
+  const changeFailuresByDeployment = {};
 
   for (const deployment of deployments) {
     timeStamps.push(deployment.timestamp);
@@ -14,25 +27,59 @@ const calculateChangeFailureRate = (issues, prs, deployments) => {
 
   timeStamps.sort();
 
-  const incidents = issues.filter((item) => item.labels.includes("incident"));
-  const hotfixes = prs.filter((pr) => pr.labels.includes("hotfix"));
+  for (let i = 0; i < timeStamps.length; i++) {
+    const deploymentTimestamp = timeStamps[i];
+    const nextDeploymentTimestamp = timeStamps[i + 1];
+
+    if (nextDeploymentTimestamp) {
+      timeStampsBucketed.push([deploymentTimestamp, nextDeploymentTimestamp]);
+    } else {
+      timeStampsBucketed.push([deploymentTimestamp, undefined]);
+    }
+  }
 
   incidents.forEach((inc) => {
-    for (let i = timeStamps.length; i > 0; i--) {
-      if (timeStamps[i] === null) continue;
+    timeStampsBucketed.forEach((timeStampsBucket) => {
+      const incidentCreatedTime = new Date(inc.created_timestamp);
+      const deploymentTime = new Date(timeStampsBucket[0]);
+      const nextDeploymentTime = timeStampsBucket[1]
+        ? new Date(timeStampsBucket[1])
+        : new Date();
+      const deploymentRange = `${deploymentTime.toLocaleString()} - ${nextDeploymentTime.toLocaleString()}`;
 
-      const incidentTime = new Date(inc.created_timestamp);
-      const deploymentTime = new Date(timeStamps[i]);
-
-      if (incidentTime > deploymentTime) {
-        timeStamps[i] = null;
+      if (changeFailuresByDeployment[deploymentRange] === undefined) {
+        changeFailuresByDeployment[deploymentRange] = 0;
       }
-    }
+
+      if (
+        incidentCreatedTime > deploymentTime &&
+        incidentCreatedTime < nextDeploymentTime
+      ) {
+        changeFailuresByDeployment[deploymentRange]++;
+      }
+    });
   });
 
-  const remainingTimestamps = timeStamps.filter((ts) => ts !== null);
+  hotfixes.forEach((hf) => {
+    timeStampsBucketed.forEach((timeStampsBucket) => {
+      const hfMergedTime = new Date(hf.merged_timestamp);
+      const deploymentTime = new Date(timeStampsBucket[0]);
+      const nextDeploymentTime = timeStampsBucket[1]
+        ? new Date(timeStampsBucket[1])
+        : new Date();
+      const deploymentRange = `${deploymentTime.toLocaleString()} - ${nextDeploymentTime.toLocaleString()}`;
 
-  return (deployments.length - remainingTimestamps.length) / deployments.length;
+      if (changeFailuresByDeployment[deploymentRange] === undefined) {
+        changeFailuresByDeployment[deploymentRange] = 0;
+      }
+
+      if (hfMergedTime > deploymentTime && hfMergedTime < nextDeploymentTime) {
+        changeFailuresByDeployment[deploymentRange]++;
+      }
+    });
+  });
+
+  return changeFailuresByDeployment;
 };
 
 export default calculateChangeFailureRate;

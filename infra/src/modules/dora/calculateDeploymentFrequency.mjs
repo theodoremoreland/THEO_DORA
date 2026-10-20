@@ -21,7 +21,7 @@ const calculateDeploymentFrequency = (deployments) => {
   let totalDeployments = 0;
   let totalWeeks = 0;
 
-  if (items.length === 0) {
+  if (deployments.length === 0) {
     return 0;
   }
 

@@ -1,11 +1,11 @@
 import { SonarMeasures } from '../types';
 
-const SONAR_PROXY_URL = import.meta.env.VITE_SONAR_PROXY_URL;
+const INFRA_API_URL = import.meta.env.VITE_INFRA_API_URL;
 
 export const getSonarMeasures = async (
     projectName: string
 ): Promise<SonarMeasures> => {
-    const url = `${SONAR_PROXY_URL}/sonar-measures?project_name=${projectName}`;
+    const url = `${INFRA_API_URL}/sonar-measures?project_name=${projectName}`;
 
     const response = await fetch(url, {
         headers: {

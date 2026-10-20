@@ -1,7 +1,7 @@
 import dayjs from "dayjs";
-import weekOfYear from "dayjs/plugin/weekOfYear";
-import isLeapYear from "dayjs/plugin/isLeapYear";
-import isoWeeksInYear from "dayjs/plugin/isoWeeksInYear";
+import weekOfYear from "dayjs/plugin/weekOfYear.js";
+import isLeapYear from "dayjs/plugin/isLeapYear.js";
+import isoWeeksInYear from "dayjs/plugin/isoWeeksInYear.js";
 
 dayjs.extend(isLeapYear);
 dayjs.extend(weekOfYear);

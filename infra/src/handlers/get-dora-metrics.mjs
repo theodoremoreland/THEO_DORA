@@ -9,7 +9,7 @@ import {
   calculateDeploymentReworkRate,
   calculateRecoveryTime,
   calculateChangeFailureRate,
-} from "../modules/dora";
+} from "../modules/dora/index.mjs";
 
 const docClient = DynamoDBDocumentClient.from(new DynamoDBClient({}));
 const TABLE_NAME = process.env.PROJECT_EVENTS_TABLE;
@@ -97,7 +97,6 @@ export const getDoraMetricsHandler = async (event) => {
       statusCode: 200,
       headers: CORS_HEADERS,
       body: JSON.stringify({
-        items: allItems,
         leadTime: calculateLeadTime(prs),
         deploymentFrequency: calculateDeploymentFrequency(deployments),
         deploymentReworkRate: calculateDeploymentReworkRate(

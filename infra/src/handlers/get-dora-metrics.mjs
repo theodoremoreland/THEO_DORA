@@ -9,6 +9,7 @@ import {
   calculateDeploymentReworkRate,
   calculateRecoveryTime,
 } from "../modules/dora";
+import calculateChangeFailureRate from "../modules/dora/calculateChangeFailureRate.mjs";
 
 const docClient = DynamoDBDocumentClient.from(new DynamoDBClient({}));
 const TABLE_NAME = process.env.PROJECT_EVENTS_TABLE;
@@ -72,6 +73,8 @@ export const getDoraMetricsHandler = async (event) => {
       lastEvaluatedKey = response.LastEvaluatedKey;
     } while (lastEvaluatedKey);
 
+    console.log(allItems);
+
     const deployments = allItems.filter((item) => {
       const matchesPrefix =
         item.event_type_and_timestamp.startsWith("DEPLOYMENT#");
@@ -102,6 +105,7 @@ export const getDoraMetricsHandler = async (event) => {
           prs,
           deployments,
         ),
+        changeFailureRate: calculateChangeFailureRate(issues, prs, deployments),
         recoveryTime: calculateRecoveryTime(issues),
       }),
     };

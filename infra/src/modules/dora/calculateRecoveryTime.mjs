@@ -4,6 +4,8 @@
  * @returns {number} -
  */
 const calculateRecoveryTime = (issues) => {
+  let totalDifferenceBetweenIncidents = 0;
+
   const incidents = issues.filter((item) => {
     const isIncident = item.labels.includes("incident");
 
@@ -20,7 +22,13 @@ const calculateRecoveryTime = (issues) => {
     totalDifferenceBetweenIncidents += difference;
   }
 
-  return totalDifferenceBetweenIncidents / itemsCount;
+  if (totalDifferenceBetweenIncidents === 0) {
+    return 0;
+  }
+
+  return Number(
+    totalDifferenceBetweenIncidents / incidents.length / (1000 * 60 * 60),
+  ).toFixed(2);
 };
 
 export default calculateRecoveryTime;

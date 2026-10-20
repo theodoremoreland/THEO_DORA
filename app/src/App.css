@@ -21,6 +21,7 @@
     transition-delay: 1s;
 
     #intro-video {
+        display: none;
         content: '';
         z-index: -1;
         position: absolute;

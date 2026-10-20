@@ -1,0 +1,36 @@
+.Corner {
+    position: absolute;
+    width: 25px;
+    height: 25px;
+    pointer-events: none;
+
+    --border-width: 2px;
+
+    &.top-left {
+        border-top: var(--border-width) solid var(--temp-silver);
+        border-left: var(--border-width) solid var(--temp-silver);
+        top: 0;
+        left: 0;
+    }
+
+    &.top-right {
+        border-top: var(--border-width) solid var(--temp-silver);
+        border-right: var(--border-width) solid var(--temp-silver);
+        top: 0;
+        right: 0;
+    }
+
+    &.bottom-left {
+        border-bottom: var(--border-width) solid var(--temp-silver);
+        border-left: var(--border-width) solid var(--temp-silver);
+        bottom: 0;
+        left: 0;
+    }
+
+    &.bottom-right {
+        border-bottom: var(--border-width) solid var(--temp-silver);
+        border-right: var(--border-width) solid var(--temp-silver);
+        bottom: 0;
+        right: 0;
+    }
+}

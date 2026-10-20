@@ -1,0 +1,126 @@
+.ImageCarousel {
+    z-index: 98;
+    position: fixed;
+    top: 0;
+    left: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.879);
+    animation: fadeIn 0.6s ease-in-out;
+
+    .image-container {
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        height: 50%;
+        aspect-ratio: 4/3;
+        background-color: rgba(0, 0, 0, 0.542);
+        border: 1px solid
+            color-mix(in srgb, var(--quaternary-color), transparent 50%);
+    }
+
+    img {
+        object-fit: contain;
+        height: 100%;
+        max-width: 100%;
+        aspect-ratio: 4/3;
+        opacity: 0;
+        transition: opacity 2s;
+
+        &.loaded {
+            opacity: 1;
+        }
+    }
+
+    .cycle-button {
+        z-index: 2;
+        position: absolute;
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+        padding: 0.85rem;
+        margin: 0;
+        background-color: var(--secondary-color);
+        border-radius: 100%;
+        border: none;
+
+        &:hover {
+            opacity: 0.7;
+        }
+
+        &:active {
+            transform: scale(0.9);
+        }
+
+        .icon {
+            height: 1.5em;
+            fill: var(--secondary-font-color);
+        }
+
+        &.left {
+            left: -0.5em;
+            transform: rotate(270deg);
+        }
+
+        &.right {
+            right: -0.5em;
+            transform: rotate(90deg);
+        }
+
+        @media screen and (min-width: 768px) {
+            &.left {
+                left: -1.5em;
+            }
+
+            &.right {
+                right: -1.5em;
+            }
+        }
+    }
+
+    .circles {
+        position: absolute;
+        top: 102%;
+        display: none;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 8px;
+        width: 90%;
+
+        @media screen and (min-width: 1048px) {
+            display: flex;
+        }
+
+        button {
+            height: 1.55rem;
+            width: 1.55rem;
+            padding: 0;
+            margin: 0;
+            background-color: var(--secondary-color);
+            border-radius: 100%;
+            border: none;
+            transition: background-color 0.3s ease-in-out;
+
+            &.selected {
+                background-color: var(--quaternary-color);
+            }
+
+            &:hover {
+                opacity: 0.7;
+            }
+
+            &:active {
+                transform: scale(0.9);
+            }
+        }
+    }
+}

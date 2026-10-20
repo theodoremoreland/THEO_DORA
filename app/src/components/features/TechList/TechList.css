@@ -1,0 +1,208 @@
+#clickaway-area__filter {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: 7;
+    background-color: rgba(0, 0, 0, 0.776);
+}
+
+#tech-list-container {
+    z-index: 7;
+    position: absolute;
+    right: 0;
+    bottom: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    width: 30rem;
+    max-width: 450px;
+    max-height: 95vh;
+    overflow: hidden;
+    background-color: rgb(4, 4, 4);
+    transition: opacity 0.2s linear;
+
+    .header {
+        position: sticky;
+        top: 0;
+        left: 0;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: flex-start;
+        gap: 5px;
+        width: 100%;
+        font-family: custom-bold;
+        background-color: inherit;
+        padding: 1.5rem;
+        border-bottom: 1px solid var(--border-color);
+        box-shadow:
+            rgba(0, 0, 0, 0.19) 0px 10px 20px,
+            rgba(0, 0, 0, 0.23) 0px 6px 6px;
+    }
+
+    #tech-list {
+        position: relative;
+        width: 100%;
+        height: 100%;
+        padding: 1.5rem;
+        padding-top: 0;
+        overflow-y: auto;
+    }
+}
+
+#tech-list .tech-category-container {
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    margin: 10px 0;
+    padding: 0;
+    border-bottom: 1px solid var(--border-color);
+    transition: transform 0.2s ease-in-out;
+
+    button {
+        padding: 0;
+        margin: 0;
+        background-color: transparent;
+        border: none;
+
+        &:hover {
+            opacity: 0.5;
+        }
+    }
+
+    &.rotated {
+        opacity: 0.6;
+    }
+
+    .toggle-icon {
+        fill: var(--secondary-color);
+        transition: transform 0.2s ease-in-out;
+
+        &.rotated {
+            transform: rotate(180deg);
+        }
+    }
+}
+
+#tech-list .tech-category {
+    width: 100%;
+    padding: 0.35em 0;
+    color: var(--secondary-color);
+    font-family: custom-bold;
+    font-size: 1.1rem;
+}
+
+#tech-list > li {
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    width: 100%;
+    margin: 2px 0;
+    padding: 5px 0.3em;
+    font-size: 1rem;
+    color: var(--primary-font-color);
+    transition: all 0.2s ease-in-out;
+    animation: fadeIn 0.3s ease-in-out;
+    cursor: pointer;
+
+    &.selected .count {
+        color: var(--secondary-color);
+    }
+
+    & > .checkbox-label {
+        position: relative;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 14px;
+        height: 14px;
+        padding: 0;
+        margin: 0;
+        border-radius: 4px;
+        background-color: var(--primary-font-color);
+        transition: background-color 0.2s ease-in-out;
+        pointer-events: none;
+    }
+
+    & input[type='checkbox'] {
+        margin: 0;
+        appearance: none;
+        -webkit-appearance: none;
+    }
+
+    &.selected .checkbox-label {
+        background-color: var(--quaternary-color);
+    }
+
+    & .checkbox-icon {
+        z-index: 2;
+        position: absolute;
+        top: -21%;
+        left: -15%;
+        width: 145%;
+        height: 145%;
+        fill: var(--secondary-color);
+    }
+}
+
+#tech-list > li:hover {
+    opacity: 1;
+    background-color: var(--quaternary-color);
+}
+
+#tech-list > li.active {
+    opacity: 0.7;
+    scale: 0.95;
+}
+
+#tech-list > li:hover,
+#tech-list > li.active {
+    text-decoration: none;
+}
+
+#tech-list > li.selected .tech-icon,
+#tech-list > li:hover .tech-icon,
+#tech-list > li.active .tech-icon {
+    height: 130%;
+    opacity: 1;
+    transform: rotate(15deg);
+}
+
+#tech-list .tech-icon {
+    position: absolute;
+    user-select: none;
+    pointer-events: none;
+    height: 105%;
+    margin-left: 5px;
+    opacity: 0;
+    filter: contrast(2);
+    transition: all 0.5s ease-in-out;
+
+    &.loaded {
+        opacity: 0.4;
+        transition: all 0.3s ease-in-out;
+    }
+}
+
+#tech-list .topic-label-container {
+    position: relative;
+    z-index: 3;
+    padding-left: 10px;
+    padding-right: 4em;
+    transition: all 0.2s ease-in-out;
+    white-space: nowrap; /* Prevent text from wrapping */
+    width: fit-content; /* Adjust width to match the content */
+}
+
+#tech-list .count {
+    position: absolute;
+    right: 0;
+}

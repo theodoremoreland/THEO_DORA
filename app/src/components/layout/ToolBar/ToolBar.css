@@ -1,0 +1,114 @@
+#app-toolbar {
+    position: relative;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: var(--navbar-height);
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    margin: 0;
+    padding: 0;
+    box-shadow:
+        rgba(0, 0, 0, 0.21) 0px 10px 15px 3px,
+        rgba(0, 0, 0, 0.45) 0px 4px 6px 2px;
+    color: var(--primary-font-color);
+    background-color: var(--secondary-color);
+    border-top: 1px solid var(--temp-gray-3);
+
+    #app-toolbar-content {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        width: var(--content-width);
+        max-width: var(--content-max-width);
+        height: 100%;
+    }
+
+    #toolbar-left {
+        display: flex;
+        flex-direction: row;
+        justify-content: flex-start;
+        align-items: center;
+        gap: 0;
+        height: 100%;
+        padding: 0;
+        margin: 0;
+    }
+
+    #toolbar-right {
+        display: flex;
+        flex-direction: row;
+        justify-content: flex-end;
+        align-items: center;
+        gap: 0;
+        height: 100%;
+        padding: 0;
+        margin: 0;
+    }
+
+    a {
+        text-decoration: none;
+        color: inherit;
+    }
+
+    .toolbar-item {
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        gap: 4px;
+        font-family: custom-regular;
+        font-size: 0.9em;
+        height: 100%;
+        padding: 0;
+        margin: 0;
+        border-right: 1px solid var(--temp-gray-3);
+    }
+
+    .toolbar-button {
+        width: 75px;
+        height: 100%;
+        padding: 0;
+        margin: 0;
+        background-color: var(--secondary-color);
+        border: none;
+        outline: transparent;
+        cursor: pointer;
+
+        &:hover {
+            .icon {
+                fill: var(--quaternary-color);
+            }
+        }
+
+        &:active {
+            transform: scale(0.95);
+        }
+
+        &.active {
+            z-index: 7;
+        }
+    }
+
+    .icon {
+        width: 1.5em;
+        height: 1.5em;
+        fill: var(--secondary-font-color);
+        transition: all 0.2s ease-in-out;
+    }
+
+    #desktop-menu {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        gap: 1.2em;
+        list-style: none;
+        margin: 0;
+        padding: 0;
+    }
+}

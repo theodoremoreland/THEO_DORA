@@ -1,23 +1,68 @@
-// GitHub
-import { Octokit } from '@octokit/core';
-import { OctokitResponse } from '@octokit/types';
+// Custom
+import { octokit } from '../constants/octokit';
+import { Commit } from '../types';
+import { REPO_OWNER } from '../constants/RepoOwner';
 
-// Types
-import { CommitResponse, CommitData } from '../types';
+interface GraphQLResponse {
+    repository: {
+        defaultBranchRef: {
+            target: {
+                history: {
+                    nodes: Commit[];
+                };
+            };
+        };
+    };
+}
 
-const accessToken = import.meta.env.VITE_GITHUB_API_ACCESS_TOKEN;
-const octokit = new Octokit({ auth: accessToken });
-
-export const getRecentCommits = async (): Promise<CommitData[]> => {
-    const response: OctokitResponse<CommitResponse> = await octokit.request(
-        'GET /search/commits',
+const RECENT_COMMITS_QUERY: string = `
+  query getRecentCommits($owner: String!, $repo: String!) {
+    repository(owner: $owner, name: $repo) {
+      defaultBranchRef {
+        target {
+          ... on Commit {
+            history(first: 10) {
+              nodes {
+                id
+                commitUrl
+                message
+                committedDate
+                additions
+                deletions
+                author {
+                  user {
+                    login
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+`;
+// NOTE: This uses GraphQL instead of REST because it supports grabbing additions/deletions and basic commit data in one request.
+export const getRecentCommits = async (repo: string): Promise<Commit[]> => {
+    const response = await octokit.graphql<GraphQLResponse>(
+        RECENT_COMMITS_QUERY,
         {
-            q: 'author:theodoremoreland',
-            sort: 'committer-date',
-            order: 'desc',
-            per_page: 10,
+            owner: REPO_OWNER,
+            repo,
         }
     );
 
-    return response.data.items;
+    const nodes = response.repository.defaultBranchRef.target.history.nodes;
+
+    return nodes
+        .map((commit: Commit) => ({
+            id: commit.id,
+            committedDate: commit.committedDate,
+            commitUrl: commit.commitUrl,
+            message: commit.message,
+            additions: commit.additions,
+            deletions: commit.deletions,
+            author: commit.author,
+        }))
+        .filter((commit) => commit.author?.user?.login === REPO_OWNER); // Filter is done to remove history authored by bots or other contributors
 };

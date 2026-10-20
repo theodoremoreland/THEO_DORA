@@ -1,0 +1,176 @@
+#clickaway-area__search {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: 5;
+    background-color: rgba(0, 0, 0, 0.776);
+}
+
+#search-bar {
+    position: relative;
+    width: 100%;
+    min-width: 45rem;
+    background-color: var(--secondary-color);
+
+    &.active {
+        z-index: 6;
+    }
+
+    #search {
+        outline: transparent;
+        width: 100%;
+        height: 2.5em;
+        border-radius: 4px;
+        border: none;
+        padding: 0.25em 2.5em 0.25em 2.5em;
+        font-size: 1.1em;
+        background-color: var(--experimental-color);
+        box-shadow:
+            rgba(0, 0, 0, 0.4) 0px 2px 4px,
+            rgba(0, 0, 0, 0.3) 0px 7px 13px -3px;
+        border: 1px solid var(--border-color);
+        color: var(--secondary-font-color);
+        caret-color: var(--quaternary-color);
+
+        &::placeholder {
+            /* Standard syntax for Chrome, Firefox (19+), Opera, Safari, Edge */
+            color: color-mix(
+                in srgb,
+                var(--secondary-font-color) 50%,
+                transparent
+            );
+            opacity: 1; /* Firefox applies a lower default opacity, so set this explicitly */
+        }
+    }
+
+    #delete-icon-area,
+    #search-icon-area {
+        position: absolute;
+        top: 0;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        width: 2.5em;
+        height: 100%;
+        color: var(--primary-color);
+        padding: 0;
+        border-top-right-radius: 1em;
+        border-bottom-right-radius: 1em;
+        background-color: transparent;
+        cursor: pointer;
+
+        .icon {
+            fill: var(--secondary-font-color);
+
+            &:hover {
+                fill: var(--quaternary-color);
+            }
+        }
+    }
+
+    @media screen and (min-width: 965px) {
+        #delete-icon-area,
+        #search-icon-area {
+            padding: 0.25em 0.5em 0.25em 0.25em;
+        }
+    }
+
+    #search-icon-area {
+        left: 0;
+    }
+
+    #delete-icon-area {
+        right: 0;
+    }
+
+    .search-results-wrapper {
+        position: relative;
+        margin: 0;
+        padding: 0;
+    }
+
+    .search-results-wrapper::after {
+        content: attr(data-result-count);
+        z-index: 8;
+        position: absolute;
+        top: 5px;
+        right: 5px;
+        color: var(--secondary-highlight-color);
+        font-family: custom-bold;
+        background-color: transparent;
+        padding: 0.1rem 0.3rem;
+        pointer-events: none;
+    }
+
+    #search-results {
+        z-index: 7;
+        position: absolute;
+        bottom: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: center;
+        width: 100%;
+        max-height: 85vh;
+        padding: 0;
+        margin-bottom: var(--navbar-height);
+        overflow-y: auto;
+        background-color: rgb(4, 4, 4);
+        box-shadow:
+            rgba(0, 0, 0, 0.4) 0px 2px 4px,
+            rgba(0, 0, 0, 0.3) 0px 7px 13px -3px;
+        border: 1px solid var(--border-color);
+        color: var(--secondary-color);
+
+        .search-result {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: flex-start;
+            gap: 0.5em;
+            width: 100%;
+            padding: 1em 0.5em;
+            border-bottom: solid 1px var(--border-color);
+            transition: background-color 0.3s;
+            list-style: none;
+            cursor: pointer;
+
+            &:hover {
+                background-color: var(--quaternary-color);
+                color: var(--primary-font-color);
+            }
+
+            &:hover .topic {
+                color: var(--primary-font-color-color);
+                background-color: transparent;
+            }
+        }
+
+        img {
+            width: 40%;
+            aspect-ratio: 4/3;
+        }
+
+        .title {
+            font-size: 1.2rem;
+            font-family: custom-bold;
+            font-style: oblique;
+        }
+
+        .topics {
+            display: flex;
+            flex-direction: row;
+            justify-content: flex-start;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 0.5em;
+        }
+
+        .none {
+            font-size: 0.8em;
+        }
+    }
+}

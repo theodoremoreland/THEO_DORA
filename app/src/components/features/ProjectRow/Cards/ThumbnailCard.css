@@ -1,0 +1,198 @@
+.project-card-container.not-featured .project-image-container {
+    &::after {
+        display: none;
+    }
+
+    .project-image {
+        opacity: 0.5;
+    }
+}
+
+.ThumbnailCard {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+
+    .top,
+    .middle,
+    .bottom {
+        position: relative;
+        width: 100%;
+    }
+
+    .top {
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: flex-start;
+        gap: 15px;
+        height: 40%;
+        padding-bottom: 20px;
+    }
+
+    .middle {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        height: 20%;
+    }
+
+    .bottom {
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: center;
+        gap: 20px;
+        height: 40%;
+        padding-top: 20px;
+    }
+
+    .pills-and-links {
+        display: flex;
+        flex-direction: row;
+        justify-content: flex-start;
+        align-items: center;
+        gap: 0.5rem;
+        width: 100%;
+        padding: 0 20px;
+    }
+
+    .project-context {
+        position: relative;
+        color: black;
+        font-size: 0.8em;
+        padding: 0.2em 0.35em;
+        background-color: var(--secondary-color);
+        border-radius: 4px;
+    }
+
+    .project-description {
+        position: relative;
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+        height: 100%;
+        font-family: custom-semibold;
+        font-size: 1rem;
+        padding: 1em 20px;
+    }
+
+    .project-image-container {
+        position: relative;
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+
+        &.loaded::after {
+            content: '';
+            z-index: 4;
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            mix-blend-mode: difference;
+            background-image: url('https://d1p1bf198tl14c.cloudfront.net/theo-dora/untitled-5.gif');
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-position: center;
+            animation: fadeInLowOpacity 0.33s ease-in-out forwards;
+            pointer-events: none;
+
+            @media (prefers-reduced-motion: reduce) {
+                display: none;
+            }
+        }
+
+        &.loaded:hover .project-image {
+            opacity: 0.3;
+        }
+
+        &.loaded:hover::before {
+            content: 'Click to view on GitHub';
+            z-index: 3;
+            position: absolute;
+            top: 0;
+            left: 0;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            font-family: bit-regular;
+            font-size: 1.5rem;
+            color: var(--tertiary-color);
+            background-color: rgba(0, 0, 0, 0.75);
+            width: 100%;
+            height: 100%;
+            animation: fadeIn 0.33s ease-in-out forwards;
+            pointer-events: none;
+        }
+    }
+
+    .project-image {
+        width: 100%;
+        height: 100%;
+        border-radius: 0;
+        object-fit: cover;
+        animation: fadeIn var(--card-fade-speed) ease-in-out forwards;
+    }
+
+    .project-screenshots-title {
+        text-align: center;
+        position: relative;
+        width: 100%;
+        padding: 0.5em 0;
+        border-bottom: 2px solid var(--temp-gray-2);
+    }
+
+    .project-screenshots-container {
+        position: relative;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+        min-height: 0;
+        height: 100%;
+        padding: 0;
+    }
+
+    .project-screenshots {
+        position: relative;
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        grid-template-rows: repeat(2, minmax(0, 1fr));
+        gap: 10px;
+        width: 60%;
+        min-height: 0;
+        height: 100%;
+
+        li {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            cursor: pointer;
+            overflow: hidden;
+
+            &:hover {
+                opacity: 0.8;
+            }
+        }
+
+        img {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            min-height: 0;
+            height: 100%;
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: cover;
+            animation: fadeIn var(--card-fade-speed) ease-in-out forwards;
+        }
+    }
+}

@@ -13,7 +13,10 @@ import {
 import { useQuery } from '@tanstack/react-query';
 
 // Controller
-import { defaultOrder } from './ProjectsContext.controller';
+import {
+    defaultOrder,
+    calculatePairwiseJaccardSimilarity,
+} from './ProjectsContext.controller';
 
 // Custom
 import { getRepoData } from '../http/getRepoData';
@@ -21,7 +24,7 @@ import extractErrorMessage from '../utils/extractErrorMessage';
 import backupData from '../assets/data/backup-data.json';
 
 // Types
-import { RepoData, TaggedRepoData } from '../types';
+import { RepoData, TaggedRepoData, PairwiseJaccardSimilarity } from '../types';
 
 interface ProjectsProviderProps {
     children: ReactElement;
@@ -35,6 +38,8 @@ export const ProjectsContext = createContext({
         SetStateAction<TaggedRepoData | null>
     >,
     featuredTopics: new Set<string>(),
+    allUniqueTopics: new Set<string>(),
+    pairwiseJaccardSimilarity: {} as PairwiseJaccardSimilarity | undefined,
     isError: false,
 });
 
@@ -44,6 +49,12 @@ const ProjectsContextProvider = ({
     const [repos, setRepos] = useState<RepoData[] | undefined>(undefined);
     const [selectedProject, setSelectedProject] =
         useState<TaggedRepoData | null>(null);
+    const [pairwiseJaccardSimilarity, setPairwiseJaccardSimilarity] = useState<
+        PairwiseJaccardSimilarity | undefined
+    >();
+    const [allUniqueTopics, setAllUniqueTopics] = useState<Set<string>>(
+        new Set()
+    );
     const [featuredTopics, setFeaturedTopics] = useState<Set<string>>(
         new Set()
     );
@@ -54,13 +65,17 @@ const ProjectsContextProvider = ({
 
         return repos.map((repo) => {
             const { topics } = repo;
+            const topicsSetRepo = new Set(topics);
+            const isEveryFeaturedTopicInRepo: boolean = [
+                ...featuredTopics,
+            ].every((ft) => topicsSetRepo.has(ft));
 
             return {
                 ...repo,
                 isFeatured:
                     featuredTopics.size === 0
                         ? true
-                        : topics.some((topic) => featuredTopics.has(topic)),
+                        : isEveryFeaturedTopicInRepo,
             };
         });
     }, [repos, featuredTopics]);
@@ -96,8 +111,21 @@ const ProjectsContextProvider = ({
     useEffect(() => {
         if (data) {
             const orderedProjects: RepoData[] = defaultOrder(data);
+            let _pairwise: PairwiseJaccardSimilarity | undefined;
+
+            try {
+                _pairwise = calculatePairwiseJaccardSimilarity(orderedProjects);
+            } catch (e) {
+                const errorMessage: string = extractErrorMessage(e);
+
+                console.log(errorMessage);
+            }
 
             setRepos(orderedProjects);
+            setPairwiseJaccardSimilarity(_pairwise);
+            setAllUniqueTopics(
+                new Set(orderedProjects.flatMap((repo) => repo.topics))
+            );
         }
     }, [data]);
 
@@ -117,6 +145,8 @@ const ProjectsContextProvider = ({
                 selectedProject,
                 setSelectedProject,
                 featuredTopics,
+                pairwiseJaccardSimilarity,
+                allUniqueTopics,
                 isError,
             }}
         >

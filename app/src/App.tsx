@@ -8,27 +8,21 @@ import {
     ReactElement,
 } from 'react';
 
-// Custom Hooks
-import useIncrementAppViewCount from './hooks/useIncrementAppViewCount';
-
 // Context
 import { ProjectsContext } from './contexts/ProjectsContext';
 
 // Custom Components
-import Analytics from './components/Analytics/Analytics';
-import Sidebar from './components/Sidebar/Sidebar';
-import NavBar from './components/NavBar/NavBar';
-import SearchBar from './components/SearchBar/SearchBar';
-import CommitHistoryBanner from './components/CommitHistoryBanner/CommitHistoryBanner';
-import ProjectDetail from './components/ProjectDetail/ProjectDetail';
-import ProjectGrid from './components/ProjectGrid/ProjectGrid';
-import Overview from './components/Modal/Overview/Overview';
-import Error from './components/Modal/Error/Error';
-
-// Images
-import ArrowUpwardIcon from './assets/images/icons/arrow_upward.svg?react';
+import Analytics from './components/features/Analytics/Analytics';
+import NavBar from './components/layout/NavBar/NavBar';
+import ProjectRow from './components/features/ProjectRow/ProjectRow';
+import ToolBar from './components/layout/ToolBar/ToolBar';
+import Overview from './components/common/interactive/Modal/Overview/Overview';
+import Error from './components/common/interactive/Modal/Error/Error';
+import NotAScrollbar from './components/features/NotAScrollbar/NotAScrollbar';
+import Cursor from './components/features/Cursor/Cursor';
 
 // Custom Styles
+import './index.css';
 import './App.css';
 
 const App = (): ReactElement => {
@@ -36,20 +30,17 @@ const App = (): ReactElement => {
     const { repos, isError, selectedProject, setSelectedProject } =
         useContext(ProjectsContext);
 
-    // Custom Hooks
-    useIncrementAppViewCount();
-
     // Refs
     const titleCardRef = useRef<HTMLElement>(null);
     const intervalRef = useRef<number | undefined>(undefined);
-    const appContentContainerRef = useRef<HTMLDivElement>(null);
+    const projectsSectionRef = useRef<HTMLDivElement>(null);
 
     // State (boolean)
-    const [showScrollToTopButton, setShowScrollToTopButton] =
-        useState<boolean>(false);
     const [showErrorModal, setShowErrorModal] = useState<boolean>(false);
     const [showAnalytics, setShowAnalytics] = useState<boolean>(false);
     const [showOverviewModal, setShowOverviewModal] = useState<boolean>(false);
+    const [showDigitalRainAnimation, setShowDigitalRainAnimation] =
+        useState<boolean>(true);
 
     // Handlers
     const handleCloseErrorModal = useCallback(
@@ -57,36 +48,14 @@ const App = (): ReactElement => {
         []
     );
     const handleShowErrorModal = useCallback(() => setShowErrorModal(true), []);
+    const scrollToProject = useCallback((id: string) => {
+        // Search for the ID strictly inside the parent container
+        const sectionElement = projectsSectionRef.current?.querySelector(
+            `#${id}`
+        );
 
-    // Other
-    const scrollToTopOfAppContent = useCallback(() => {
-        const appContentContainer: HTMLDivElement | null =
-            appContentContainerRef.current;
-
-        if (appContentContainer) {
-            appContentContainer.scrollTo({
-                top: 0,
-                behavior: 'smooth',
-            });
-        }
-    }, []);
-
-    const onAppContentContainerScroll = useCallback(() => {
-        const appContentContainer: HTMLDivElement | null =
-            appContentContainerRef.current;
-
-        if (appContentContainer) {
-            const scrollTop = appContentContainer.scrollTop;
-            const scrollHeight =
-                appContentContainer.scrollHeight -
-                appContentContainer.clientHeight;
-            const scrolledRatio = scrollTop / scrollHeight;
-
-            if (scrolledRatio > 0.25) {
-                setShowScrollToTopButton(true);
-            } else {
-                setShowScrollToTopButton(false);
-            }
+        if (sectionElement) {
+            sectionElement.scrollIntoView({ behavior: 'smooth' });
         }
     }, []);
 
@@ -125,13 +94,20 @@ const App = (): ReactElement => {
 
     return (
         <>
+            <Cursor userId="0001" replaceCursor={false} />
             {showErrorModal && <Error handleClose={handleCloseErrorModal} />}
             <header
                 ref={titleCardRef}
                 className={`title-card ${repos ? 'transition' : ''}`}
             >
+                <video id="intro-video" playsInline loop muted autoPlay>
+                    <source
+                        src="https://videos.pexels.com/video-files/34908014/14788136_1920_1080_30fps.mp4"
+                        type="video/mp4"
+                    />
+                </video>
                 <h1 className={`app-title ${repos ? 'transition' : ''}`}>
-                    Project Dashboard
+                    THEO_DORA
                 </h1>
                 {repos ? (
                     <p className="app-subtitle">
@@ -148,28 +124,29 @@ const App = (): ReactElement => {
                     setShowAnalytics={setShowAnalytics}
                     setShowOverviewModal={setShowOverviewModal}
                 />
-                <div
-                    id="app-content"
-                    ref={appContentContainerRef}
-                    onScroll={onAppContentContainerScroll}
-                >
+                <div id="app-content">
                     <div className="row">
-                        <SearchBar />
-                        <CommitHistoryBanner />
-                    </div>
-                    <div className="row">
-                        <Sidebar />
                         {repos && (
-                            <ProjectGrid
-                                projects={repos}
-                                setSelectedProject={setSelectedProject}
-                            />
-                        )}
-                        {selectedProject && (
-                            <ProjectDetail
-                                projectData={selectedProject}
-                                handleClose={() => setSelectedProject(null)}
-                            />
+                            <section id="projects" ref={projectsSectionRef}>
+                                {repos &&
+                                    repos.map((repo) => {
+                                        return (
+                                            <ProjectRow
+                                                key={repo.name}
+                                                projectData={repo}
+                                                setSelectedProject={
+                                                    setSelectedProject
+                                                }
+                                                showDigitalRainAnimation={
+                                                    showDigitalRainAnimation
+                                                }
+                                                setShowDigitalRainAnimation={
+                                                    setShowDigitalRainAnimation
+                                                }
+                                            />
+                                        );
+                                    })}
+                            </section>
                         )}
                         {showAnalytics && repos && (
                             <Analytics
@@ -182,6 +159,13 @@ const App = (): ReactElement => {
                                 handleClose={() => setShowOverviewModal(false)}
                             />
                         )}
+                        {repos && (
+                            <NotAScrollbar
+                                scrollToProject={scrollToProject}
+                                projects={repos}
+                                selectedProject={selectedProject || repos[0]}
+                            />
+                        )}
                     </div>
                     {/* ! This logic assumes the sidebar, repo count, and limited vertical real estate are enough
                         to warrant a scroll to top button fixed beneath the sidebar. I didn't want to base the
@@ -189,20 +173,11 @@ const App = (): ReactElement => {
                         button in the area of the project grid and thus potentially obscuring the projects or being hard
                         to see, it would potentially overlap with the sidebar.
                     */}
-                    {showScrollToTopButton && (
-                        <div id="scroll-to-top-container" className="row">
-                            <button
-                                title="Scroll to top"
-                                aria-label="Scroll to top"
-                                type="button"
-                                className="scroll-to-top"
-                                onClick={scrollToTopOfAppContent}
-                            >
-                                <ArrowUpwardIcon className="icon" />
-                            </button>
-                        </div>
-                    )}
                 </div>
+                <ToolBar
+                    scrollToProject={scrollToProject}
+                    setShowOverviewModal={setShowOverviewModal}
+                />
             </main>
         </>
     );

@@ -3,9 +3,14 @@ const regexPattern: RegExp = new RegExp(
     'g'
 );
 
-const getImagesFromReadme = (readme: string, projectName: string): string[] => {
+const getImagesFromReadme = (
+    readme: string | undefined,
+    projectName: string
+): string[] => {
     const images: string[] = [];
     let match;
+
+    if (!readme) return [];
 
     while ((match = regexPattern.exec(readme)) !== null) {
         let imageUrl = match[0];

@@ -1,0 +1,38 @@
+/**
+ * Recovery time: average (issue labeled "incident" closed time - issue labeled "incident" created time)
+ * @param {{id: number, project_id: number, created_timestamp: string, closed_timestamp: string, status: string, labels: string[]}[]} issues
+ * @returns {number} -
+ */
+const calculateRecoveryTime = (issues) => {
+  let totalDifferenceBetweenIncidents = 0;
+
+  if (issues.length === 0) {
+    return null;
+  }
+
+  const incidents = issues.filter((item) => {
+    const isIncident = item.labels.includes("incident");
+
+    return isIncident;
+  });
+
+  for (const item of incidents) {
+    const createdTime = item.created_timestamp;
+    const closedTime = item.closed_timestamp;
+
+    const difference =
+      new Date(closedTime).getTime() - new Date(createdTime).getTime();
+
+    totalDifferenceBetweenIncidents += difference;
+  }
+
+  if (totalDifferenceBetweenIncidents === 0) {
+    return null;
+  }
+
+  return Number(
+    totalDifferenceBetweenIncidents / incidents.length / (1000 * 60 * 60),
+  ).toFixed(2);
+};
+
+export default calculateRecoveryTime;

@@ -1,0 +1,11 @@
+{
+  "httpMethod": "POST",
+  "pathParameters": {
+    "id": 27,
+    "project_id": 1234233,
+    "created_timestamp": "2026-10-01T12:00:00Z",
+    "closed_timestamp": "2026-10-01T12:00:00Z",
+    "status": "closed",
+    "labels": ["incident"]
+  }
+}

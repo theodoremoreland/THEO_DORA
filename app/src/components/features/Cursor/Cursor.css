@@ -1,0 +1,33 @@
+/* html,
+button,
+a {
+    cursor: none;
+} */
+
+.Cursor {
+    z-index: 9999;
+    display: block;
+    position: absolute;
+    top: 1.5rem;
+    left: -1.5rem;
+    pointer-events: none;
+
+    &.video {
+        .video-cursor {
+            display: block;
+        }
+    }
+
+    svg {
+        fill: #fefefe;
+    }
+
+    span {
+        color: var(--primary-font-color);
+        background-color: transparent;
+        font-family: custom-thin;
+        font-size: 0.9rem;
+        padding: 0.35rem 0.5rem;
+        border-radius: 8px;
+    }
+}

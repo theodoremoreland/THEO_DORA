@@ -1,0 +1,120 @@
+#NotAScrollbar {
+    z-index: 5;
+    position: sticky;
+    top: 0;
+    right: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    width: 8px;
+    background-color: transparent;
+
+    #project-options {
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        height: 90%;
+        width: 100%;
+        padding: 0;
+        margin: 0;
+        background-color: transparent;
+
+        .project-option {
+            position: relative;
+            width: 100%;
+            flex: 1;
+            background-color: var(--secondary-color);
+            border-bottom: 1px dotted black;
+
+            &.selected {
+                background-color: var(--quaternary-color);
+            }
+
+            &.disabled {
+                background-color: darkred;
+                cursor: not-allowed;
+
+                > button {
+                    cursor: not-allowed;
+                }
+            }
+
+            &.selected.disabled {
+                background-color: color-mix(
+                    in srgb,
+                    var(--quaternary-color) 50%,
+                    darkred 50%
+                );
+            }
+
+            &:hover {
+                width: 175%;
+
+                .project-name {
+                    display: flex;
+                }
+            }
+
+            button {
+                display: block;
+                width: 100%;
+                height: 100%;
+                padding: 0;
+                margin: 0;
+                border: none;
+                background-color: transparent;
+            }
+
+            .index {
+                pointer-events: none;
+                position: absolute;
+                top: 0;
+                left: 200%;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                flex-wrap: nowrap;
+                font-size: 0.6rem;
+                color: var(--primary-font-color);
+                height: 100%;
+            }
+
+            .project-name {
+                pointer-events: none;
+                position: absolute;
+                top: -50%;
+                right: 200%;
+                display: none;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                flex-wrap: nowrap;
+                padding: 0.2rem 0.5rem;
+                margin: 0;
+                background-color: rgba(0, 0, 0, 0.739);
+                box-shadow:
+                    rgba(8, 8, 70, 0.25) 0px 13px 27px -5px,
+                    rgba(0, 0, 0, 0.3) 0px 8px 16px -8px;
+
+                > p {
+                    color: var(--primary-font-color);
+                    text-align: center;
+                    letter-spacing: 2px;
+                    font-family: custom-regular;
+                    margin-top: -2%;
+                    padding: 0 0.5rem;
+                    padding-bottom: 4%;
+                }
+
+                .Corner {
+                    width: 15px;
+                    height: 15px;
+                    border-width: 1px;
+                }
+            }
+        }
+    }
+}

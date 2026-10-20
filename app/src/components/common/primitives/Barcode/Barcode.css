@@ -1,0 +1,11 @@
+.Barcode {
+    display: block;
+
+    g {
+        fill: var(--primary-font-color) !important;
+    }
+
+    text {
+        font-family: custom-regular !important;
+    }
+}

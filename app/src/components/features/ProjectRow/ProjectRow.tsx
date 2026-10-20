@@ -10,6 +10,7 @@ import {
     useReadme,
     useRecentCommits,
     useSonarData,
+    useDoraMetrics,
     useTopLanguagesData,
 } from './ProjectRow.hooks';
 
@@ -70,6 +71,10 @@ const ProjectRow = ({
     );
     const { sonarMeasuresData, isSonarMeasuresFetching } = useSonarData(
         projectData.name,
+        hasSettled
+    );
+    const { doraMetricsData, isDoraMetricsFetching } = useDoraMetrics(
+        String(projectData.id),
         hasSettled
     );
     const { commits, isRecentCommitsFetching } = useRecentCommits(
@@ -174,7 +179,9 @@ const ProjectRow = ({
                             hasSettled={showBaseContent}
                             projectData={projectData}
                             sonarMeasures={sonarMeasuresData}
+                            doraMetrics={doraMetricsData}
                             isSonarMeasuresFetching={isSonarMeasuresFetching}
+                            isDoraMetricsFetching={isDoraMetricsFetching}
                         />
                         <ActivityCard
                             hasSettled={showBaseContent}

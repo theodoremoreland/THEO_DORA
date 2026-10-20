@@ -81,6 +81,14 @@ export type SonarMeasures = {
     };
 };
 
+export type DoraMetrics = {
+    leadTime: string;
+    deploymentFrequency: string;
+    deploymentReworkRate: string;
+    changeFailureRate: string;
+    recoveryTime: string;
+};
+
 export interface Commit {
     id: string;
     commitUrl: string;

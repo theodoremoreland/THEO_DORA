@@ -21,7 +21,7 @@ import LayeredBar from '../../../common/charts/LayeredBar/LayeredBar';
 import GlyphLane from '../../../common/primitives/GlyphLane/GlyphLane';
 
 // Types
-import { SonarMeasures, TaggedRepoData } from '../../../../types';
+import { DoraMetrics, SonarMeasures, TaggedRepoData } from '../../../../types';
 
 // Images
 import DeleteHistoryIcon from '../../../../assets/images/icons/delete_history.svg?react';
@@ -103,14 +103,18 @@ interface Props {
     hasSettled: boolean;
     projectData: TaggedRepoData;
     sonarMeasures: SonarMeasures | undefined;
+    doraMetrics: DoraMetrics | undefined;
     isSonarMeasuresFetching: boolean;
+    isDoraMetricsFetching: boolean;
 }
 
 const MetricsCard = ({
     hasSettled,
     projectData,
     sonarMeasures,
+    doraMetrics,
     isSonarMeasuresFetching,
+    isDoraMetricsFetching,
 }: Props): ReactElement => {
     const hasValidDemoLink: boolean =
         projectData.name !== 'ProjectDashboard' && projectData.demo_link !== '';
@@ -214,7 +218,7 @@ const MetricsCard = ({
                             <p>Lead Time</p>
                         </span>
                         <span className="dots"></span>
-                        <p className="metric">1w</p>
+                        <p className="metric">{doraMetrics?.leadTime}</p>
                     </li>
                     <li title="Deployment Frequency: Counts total successful production deployments over a specific timeframe">
                         <span className="label-container">
@@ -222,7 +226,9 @@ const MetricsCard = ({
                             <p>Frequency</p>
                         </span>
                         <span className="dots"></span>
-                        <p className="metric">2pw</p>
+                        <p className="metric">
+                            {doraMetrics?.deploymentFrequency}
+                        </p>
                     </li>
                     <li title="Failed Deployment Recovery Time: Time to recover from a failed deployment">
                         <span className="label-container">
@@ -230,7 +236,7 @@ const MetricsCard = ({
                             <p>Recovery Time</p>
                         </span>
                         <span className="dots"></span>
-                        <p className="metric">2h</p>
+                        <p className="metric">{doraMetrics?.recoveryTime}</p>
                     </li>
                     <li title="Change Failure Rate: Percentage of total deployments that resulted in a hotfix PR or incident issue">
                         <span className="label-container">
@@ -238,7 +244,9 @@ const MetricsCard = ({
                             <p>Failure Rate</p>
                         </span>
                         <span className="dots"></span>
-                        <p className="metric">5%</p>
+                        <p className="metric">
+                            {doraMetrics?.changeFailureRate}
+                        </p>
                     </li>
                     <li title="Deployment rework rate: Percentage of deployments that are unplanned work to fix bugs">
                         <span className="label-container">
@@ -246,7 +254,9 @@ const MetricsCard = ({
                             <p className="label-container">Rework Rate</p>
                         </span>
                         <span className="dots"></span>
-                        <p className="metric">3%</p>
+                        <p className="metric">
+                            {doraMetrics?.deploymentReworkRate}
+                        </p>
                     </li>
                     <div className="deployment-button-container">
                         <a

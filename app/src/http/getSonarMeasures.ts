@@ -15,7 +15,7 @@ export const getSonarMeasures = async (
 
     if (!response.ok) {
         throw new Error(
-            `Failed to fetch Sonar metrics: ${response.statusText}`
+            `Failed to fetch Sonar quality measures: ${response.statusText}`
         );
     }
 

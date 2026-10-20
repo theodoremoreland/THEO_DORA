@@ -14,6 +14,7 @@ import { getProjectReadme } from '../../../modules/readme/';
 
 // Types
 import { Commit } from '../../../types';
+import { getDoraMetrics } from '../../../http/getDoraMetrics';
 
 export const useTopLanguagesData = (projectName: string, enabled: boolean) => {
     const {
@@ -98,6 +99,34 @@ export const useSonarData = (projectName: string, enabled: boolean) => {
         sonarMeasuresError,
         isSonarMeasuresError,
         isSonarMeasuresFetching,
+    };
+};
+
+export const useDoraMetrics = (projectId: string, enabled: boolean) => {
+    const {
+        data: doraMetricsData,
+        error: doraMetricsError,
+        isError: isDoraMetricsError,
+        isFetching: isDoraMetricsFetching,
+    } = useQuery({
+        enabled: enabled,
+        queryKey: ['doraMetrics', projectId],
+        queryFn: () => getDoraMetrics(projectId),
+        staleTime: Infinity,
+        retry: false,
+    });
+
+    useEffect(() => {
+        if (isDoraMetricsError) {
+            console.error(`Failed to fetch Sonar measures ${doraMetricsError}`);
+        }
+    }, [isDoraMetricsError, doraMetricsError]);
+
+    return {
+        doraMetricsData,
+        doraMetricsError,
+        isDoraMetricsError,
+        isDoraMetricsFetching,
     };
 };
 

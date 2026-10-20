@@ -1,6 +1,6 @@
 const FeaturedProjectNames: string[] = [
     'ProjectDashboard',
-    'OrderDashboard',
+    'OrderVIA',
     'EssentialWorkers',
     'PortfolioExample',
     'WebCaesar',

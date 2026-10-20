@@ -1,4 +1,4 @@
-import { CommitActivityData, Commit } from '../../../types';
+import { CommitActivityData, Commit } from '../../../../types';
 
 export type DayCommits = {
     date: Date;

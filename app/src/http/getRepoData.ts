@@ -81,5 +81,6 @@ export const getRepoData = async (): Promise<RepoData[]> => {
         []
     );
 
+    // console.log(repoDataArray);
     return repoDataArray;
 };

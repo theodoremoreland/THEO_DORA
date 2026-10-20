@@ -15,7 +15,7 @@ const calculateRecoveryTime = (issues) => {
     const closedTime = item.closed_timestamp;
 
     const difference =
-      new Date(createdTime).getTime() - new Date(closedTime).getTime();
+      new Date(closedTime).getTime() - new Date(createdTime).getTime();
 
     totalDifferenceBetweenIncidents += difference;
   }

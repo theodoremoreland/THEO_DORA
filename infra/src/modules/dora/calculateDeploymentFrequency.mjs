@@ -54,9 +54,7 @@ const calculateDeploymentFrequency = (deployments) => {
     deploymentCountsByWeek[year][week] += 1;
   }
 
-  for (const [year, weeks] of Object.entries(deploymentCountsByWeek)) {
-    console.log(year);
-
+  for (const weeks of Object.values(deploymentCountsByWeek)) {
     for (const deployments of Object.values(weeks)) {
       totalDeployments += deployments;
       totalWeeks += 1;

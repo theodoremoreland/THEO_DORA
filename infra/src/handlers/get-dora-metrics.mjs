@@ -8,8 +8,8 @@ import {
   calculateDeploymentFrequency,
   calculateDeploymentReworkRate,
   calculateRecoveryTime,
+  calculateChangeFailureRate,
 } from "../modules/dora";
-import calculateChangeFailureRate from "../modules/dora/calculateChangeFailureRate.mjs";
 
 const docClient = DynamoDBDocumentClient.from(new DynamoDBClient({}));
 const TABLE_NAME = process.env.PROJECT_EVENTS_TABLE;
@@ -73,25 +73,25 @@ export const getDoraMetricsHandler = async (event) => {
       lastEvaluatedKey = response.LastEvaluatedKey;
     } while (lastEvaluatedKey);
 
-    console.log(allItems);
+    const deployments = [];
+    const prs = [];
+    const issues = [];
 
-    const deployments = allItems.filter((item) => {
-      const matchesPrefix =
-        item.event_type_and_timestamp.startsWith("DEPLOYMENT#");
+    for (const item of allItems) {
+      const t = item.event_type_and_timestamp;
 
-      return matchesPrefix;
-    });
-    const prs = allItems.filter((item) => {
-      const matchesPrefix =
-        item.event_type_and_timestamp.startsWith("PULL_REQUEST#");
+      if (t.startsWith("DEPLOYMENT#")) {
+        deployments.push(item);
 
-      return matchesPrefix;
-    });
-    const issues = allItems.filter((item) => {
-      const matchesPrefix = item.event_type_and_timestamp.startsWith("ISSUE#");
+        continue;
+      } else if (t.startsWith("PULL_REQUEST#")) {
+        prs.push(item);
 
-      return matchesPrefix;
-    });
+        continue;
+      } else if (t.startsWith("ISSUE#")) {
+        issues.push(item);
+      }
+    }
 
     return {
       statusCode: 200,

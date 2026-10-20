@@ -267,16 +267,14 @@ Resources:
       Runtime: nodejs22.x
       Architectures:
         - x86_64
-      MemorySize: 128
-      Timeout: 10
+      MemorySize: 1024
+      Timeout: 15
       ReservedConcurrentExecutions: 10
       Policies:
         - Version: "2012-10-17"
           Statement:
             - Effect: Allow
-              Action:
-                - dynamodb:GetItem
-                - dynamodb:Query
+              Action: dynamodb:Query
               Resource:
                 Fn::GetAtt:
                   - ProjectEventsTable

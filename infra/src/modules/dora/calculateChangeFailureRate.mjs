@@ -6,15 +6,33 @@
  * @returns {number}
  */
 const calculateChangeFailureRate = (issues, prs, deployments) => {
-  const incidents = issues.filter((item) => {
-    const isIncident = item.labels.includes("incident");
+  const timeStamps = [];
 
-    return isIncident;
-  });
+  for (const deployment of deployments) {
+    timeStamps.push(deployment.timestamp);
+  }
 
+  timeStamps.sort();
+
+  const incidents = issues.filter((item) => item.labels.includes("incident"));
   const hotfixes = prs.filter((pr) => pr.labels.includes("hotfix"));
 
-  return 0;
+  incidents.forEach((inc) => {
+    for (let i = timeStamps.length; i > 0; i--) {
+      if (timeStamps[i] === null) continue;
+
+      const incidentTime = new Date(inc.created_timestamp);
+      const deploymentTime = new Date(timeStamps[i]);
+
+      if (incidentTime > deploymentTime) {
+        timeStamps[i] = null;
+      }
+    }
+  });
+
+  const remainingTimestamps = timeStamps.filter((ts) => ts !== null);
+
+  return (deployments.length - remainingTimestamps.length) / deployments.length;
 };
 
 export default calculateChangeFailureRate;

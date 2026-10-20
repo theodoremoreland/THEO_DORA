@@ -6,7 +6,7 @@ import { mockClient } from "aws-sdk-client-mock";
 import { jest } from "@jest/globals";
 
 // Custom
-import mockTableData from "./mock-table.json" with { type: "json" };
+import mockTableData from "./mock-table-data.json" with { type: "json" };
 import { getDoraMetricsHandler } from "../../../src/handlers/get-dora-metrics.mjs";
 
 describe("getDoraMetricsHandler", () => {
@@ -21,7 +21,7 @@ describe("getDoraMetricsHandler", () => {
     jest.restoreAllMocks();
   });
 
-  it("get DORA metrics", async () => {
+  it("gets DORA metrics", async () => {
     const result = await getDoraMetricsHandler({
       httpMethod: "GET",
       queryStringParameters: {

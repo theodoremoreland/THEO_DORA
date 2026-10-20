@@ -1,6 +1,6 @@
-# THEO_DORA
+# THEO_DORA (Work in progress)
 
-[View the application](https://theo-dora.theodoremoreland.dev/)
+This is a work in progress.
 
 ## Table of contents
 
@@ -13,8 +13,6 @@
 ## Overview
 
 DORA metrics, code quality, and metadata for my GitHub projects.
-
-_NOTE: The terms "project" and "repository" are used interchangeably throughout this document._
 
 ## Technologies Used
 

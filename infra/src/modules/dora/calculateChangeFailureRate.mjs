@@ -79,7 +79,11 @@ const calculateChangeFailureRate = (issues, prs, deployments) => {
     });
   });
 
-  return changeFailuresByDeployment;
+  const numberOfChangeFailures = Object.values(
+    changeFailuresByDeployment,
+  ).filter((val) => val > 0).length;
+
+  return numberOfChangeFailures / deployments.length;
 };
 
 export default calculateChangeFailureRate;

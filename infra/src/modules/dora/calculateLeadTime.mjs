@@ -29,7 +29,7 @@ const calculateLeadTime = (prs) => {
   }
 
   if (totalDifferenceBetweenChanges === 0) {
-    return 0;
+    return null;
   }
 
   return Number(

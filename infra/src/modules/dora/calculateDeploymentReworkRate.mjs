@@ -20,7 +20,7 @@ const calculateDeploymentReworkRate = (issues, prs, deployments) => {
   const deploymentsCount = deployments.length;
 
   if (deploymentsCount === 0) {
-    return 0;
+    return null;
   }
 
   return Number((incidentsCount + hotfixesCount) / deploymentsCount).toFixed(2);

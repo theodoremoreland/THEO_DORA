@@ -7,7 +7,7 @@
  */
 const calculateChangeFailureRate = (issues, prs, deployments) => {
   if (deployments.length === 0) {
-    return 0;
+    return null;
   }
 
   const incidents = issues.filter((item) => item.labels.includes("incident"));

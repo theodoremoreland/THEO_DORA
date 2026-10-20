@@ -18,11 +18,11 @@ const currentWeek = dayjs(today).week();
  */
 const calculateDeploymentFrequency = (deployments) => {
   const deploymentCountsByWeek = {};
-  let totalDeployments = 0;
+  let totalSuccessfulDeployments = 0;
   let totalWeeks = 0;
 
   if (deployments.length === 0) {
-    return 0;
+    return null;
   }
 
   const successfulDeployments = deployments.filter(
@@ -56,16 +56,16 @@ const calculateDeploymentFrequency = (deployments) => {
 
   for (const weeks of Object.values(deploymentCountsByWeek)) {
     for (const deployments of Object.values(weeks)) {
-      totalDeployments += deployments;
+      totalSuccessfulDeployments += deployments;
       totalWeeks += 1;
     }
   }
 
-  if (totalWeeks === 0 || totalDeployments === 0) {
-    return 0;
+  if (totalWeeks === 0 || totalSuccessfulDeployments === 0) {
+    return null;
   }
 
-  return Number(totalDeployments / totalWeeks).toFixed(2);
+  return Number(totalSuccessfulDeployments / totalWeeks).toFixed(2);
 };
 
 export default calculateDeploymentFrequency;

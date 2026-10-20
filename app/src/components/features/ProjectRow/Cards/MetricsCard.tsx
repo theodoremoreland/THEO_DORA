@@ -218,7 +218,11 @@ const MetricsCard = ({
                             <p>Lead Time</p>
                         </span>
                         <span className="dots"></span>
-                        <p className="metric">{doraMetrics?.leadTime}</p>
+                        <p className="metric">
+                            {doraMetrics?.leadTime === null
+                                ? 'N/A'
+                                : doraMetrics?.leadTime}
+                        </p>
                     </li>
                     <li title="Deployment Frequency: Counts total successful production deployments over a specific timeframe">
                         <span className="label-container">
@@ -227,7 +231,9 @@ const MetricsCard = ({
                         </span>
                         <span className="dots"></span>
                         <p className="metric">
-                            {doraMetrics?.deploymentFrequency}
+                            {doraMetrics?.deploymentFrequency === null
+                                ? 'N/A'
+                                : doraMetrics?.deploymentFrequency}
                         </p>
                     </li>
                     <li title="Failed Deployment Recovery Time: Time to recover from a failed deployment">
@@ -236,7 +242,11 @@ const MetricsCard = ({
                             <p>Recovery Time</p>
                         </span>
                         <span className="dots"></span>
-                        <p className="metric">{doraMetrics?.recoveryTime}</p>
+                        <p className="metric">
+                            {doraMetrics?.recoveryTime === null
+                                ? 'N/A'
+                                : doraMetrics?.recoveryTime}
+                        </p>
                     </li>
                     <li title="Change Failure Rate: Percentage of total deployments that resulted in a hotfix PR or incident issue">
                         <span className="label-container">
@@ -245,7 +255,9 @@ const MetricsCard = ({
                         </span>
                         <span className="dots"></span>
                         <p className="metric">
-                            {doraMetrics?.changeFailureRate}
+                            {doraMetrics?.changeFailureRate === null
+                                ? 'N/A'
+                                : doraMetrics?.changeFailureRate}
                         </p>
                     </li>
                     <li title="Deployment rework rate: Percentage of deployments that are unplanned work to fix bugs">
@@ -255,7 +267,9 @@ const MetricsCard = ({
                         </span>
                         <span className="dots"></span>
                         <p className="metric">
-                            {doraMetrics?.deploymentReworkRate}
+                            {doraMetrics?.deploymentReworkRate === null
+                                ? 'N/A'
+                                : doraMetrics?.deploymentReworkRate}
                         </p>
                     </li>
                     <div className="deployment-button-container">

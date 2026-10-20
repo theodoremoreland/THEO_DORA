@@ -1,8 +1,6 @@
 # THEO_DORA
 
-<img src="/presentation/thumbnail.webp" width="700">
-
-[View the application](https://project-dashboard.theodoremoreland.dev/)
+[View the application](https://theo-dora.theodoremoreland.dev/)
 
 ## Table of contents
 
@@ -11,9 +9,6 @@
   - [DORA Metrics](#dora-metrics)
   - [SonarQube Cloud Quality Measures](#sonarqube-cloud-quality-measures)
 - [Serverless infrastructure]
-
-Change failure rate = How often a deployment causes an incident or deployment failure
-Deployment rework rate = How often are hotfixes deployed
 
 ## Overview
 
@@ -31,11 +26,15 @@ _NOTE: The terms "project" and "repository" are used interchangeably throughout 
 - Tanstack React Query
 - MUI X Charts
 - GitHub API
-- SonarQube
+- GitHub Actions
+- SonarQube Cloud
 - Vite
 - Axios
 - Docker
 - AWS
+- AWS Lambda
+- AWS DynamoDB
+- AWS API Gateway
 - AWS SAM
 
 ### DORA Metrics

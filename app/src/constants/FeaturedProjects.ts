@@ -1,5 +1,5 @@
 const FeaturedProjectNames: string[] = [
-    'ProjectDashboard',
+    'THEO_DORA',
     'OrderVIA',
     'EssentialWorkers',
     'PortfolioExample',

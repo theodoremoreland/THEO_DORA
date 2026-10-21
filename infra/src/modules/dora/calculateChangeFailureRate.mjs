@@ -14,7 +14,7 @@ const calculateChangeFailureRate = (issues, prs, deployments) => {
   const hotfixes = prs.filter((pr) => pr.labels.includes("hotfix"));
 
   if (incidents.length === 0 && hotfixes.length === 0) {
-    return 0;
+    return "0%";
   }
 
   const timeStamps = [];
@@ -83,7 +83,9 @@ const calculateChangeFailureRate = (issues, prs, deployments) => {
     changeFailuresByDeployment,
   ).filter((val) => val > 0).length;
 
-  return numberOfChangeFailures / deployments.length;
+  return (
+    Number((numberOfChangeFailures / deployments.length) * 100).toFixed(2) + "%"
+  );
 };
 
 export default calculateChangeFailureRate;

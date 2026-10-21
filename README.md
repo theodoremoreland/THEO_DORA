@@ -12,9 +12,9 @@ This is a work in progress.
 
 ## Overview
 
-This project is an extension of my GitHub profile. It displays a dashboard featuring various data points such as DORA metrics, software quality measures, test coverage, typicality percentiles, and GitHub activity. Additionally, select projects feature screenshots and video previews.
+This project features a dashboard that calculates and displays DORA metrics, software quality measures, test coverage, typicality percentiles, and GitHub activity for my GitHub repositories.
 
-## Technologies Used
+### Technologies Used
 
 - React
 - TypeScript
@@ -38,7 +38,7 @@ This project is an extension of my GitHub profile. It displays a dashboard featu
 
 ### DORA Metrics
 
-DORA metrics measure the effectiveness and efficiency of a project's software delivery. The can be broken down into two categories: Throughput and Instability.
+DORA metrics measure the effectiveness of a project's software delivery. Effectiveness can be broken down into two categories: Throughput and Instability.
 
 [DORA Metrics](https://dora.dev/guides/dora-metrics/)
 
@@ -62,22 +62,25 @@ Instability is a measure of how well the software deployments go. When deploymen
 
 Taken together, these two factors for software delivery performance (throughput and instability) give teams a high-level understanding of their software delivery performance. Measuring these over time provides insight into how software delivery performance is changing. These factors can be used to measure any application or service, regardless of the technology stack, the complexity of the deployment processes, or its end users.
 
-##### Relationship between CFR and DRR
-
-- **1 failure can cause multiple deployment reworks**
-- **Multiple deployment reworks can happen without a single deployment failure**
-
-A **Deployment Failure** (CFR) specifically counts an original planned deployment that broke the system. However, **Deployment Rework** tracks _any_ unplanned deployment made in response to a production bug or incident.
-
-Rework can occur without a corresponding deployment failure in several scenarios:
-
-- **Environmental / Infrastructure Issues:** A third-party API changes, an SSL certificate unexpectedly expires, or cloud database load spikes. The original code deployment was perfectly fine, but you must trigger an **unplanned deployment** (e.g., config update or hotfix) to handle the outage.
-
-- **Discovered Production Bugs (Not tied to a recent release):** A subtle edge-case bug that was deployed 6 months ago suddenly gets triggered by a surge in traffic today. Because it wasn't caused by a recent deployment, it doesn't flag a new Change Failure—yet fixing it requires an **unplanned hotfix deployment** (Rework).
-
-- **User-Reported Data / UI Issues:** A bad data migration or broken UI element is discovered by users on live software. Even if it didn't crash the server or trigger a failed deployment alert, the emergency patch pushed to fix it counts as **Deployment Rework**.
-
 ### Software quality measures
+
+[Software quality measures](https://docs.sonarsource.com/sonarqube-cloud/standards/managing-rules/rules#software-qualities)
+
+High quality code contributes to software that is secure, reliable, and maintainable. SonarQube's software qualities help asses the overall health of your code. These three aspects - security, reliability, and maintainability - are called software qualities in SonarQube and they contribute to the long-term value of your software:
+
+    Security is the protection of your software from unauthorized access, use, or destruction.
+
+    Reliability is a measure of how your software is capable of maintaining its level of performance under stated conditions for a stated period of time.
+
+    Maintainability refers to the ease with which you can repair, improve and understand software code.
+
+Rules are assigned to one or more software qualities based on the answers to these questions:
+
+Is the rule about code that could be exploited by an attacker? If yes, then it’s a security rule.
+
+Is the rule about code that is demonstrably wrong, or more likely wrong than not? If the answer is "yes", then it’s a reliability rule.
+
+Is the rule neither a bug nor a vulnerability? If yes, then it’s a maintainability rule.
 
 ### Serverless infrastructure
 
@@ -91,9 +94,8 @@ This project contains source code and supporting files for a serverless applicat
 - `events` - Invocation events that you can use to invoke the function. Only used to test lambdas locally.
 - `env.json.example` - A template for an env.json file that stores variable overrides for the lambdas. Custom variables must be declared in the Globals section of the template.yaml file.
 - `template.yaml` - A template that defines the application's AWS resources.
-- `seed` - Files for creating tables and rows in PostgreSQL database.
 
-The application uses several AWS resources, including Lambda functions, an API Gateway API, AWS Secrets Manager, and AWS RDS. Only the latter of which is not defined in the `template.yaml` file in this project. You can update the template to add/configure AWS resources through the same deployment process that updates the application code.
+You can update the template to add/configure AWS resources through the same deployment process that updates the application code.
 
 #### How the application is deployed
 
@@ -105,20 +107,15 @@ To use the AWS SAM CLI, you need the following tools:
 - Node.js - [Install Node.js 22](https://nodejs.org/en/), including the npm package management tool.
 - Docker - [Install Docker community edition](https://hub.docker.com/search/?type=edition&offering=community).
 
-To build and deploy application for the first time, run the following in your shell:
-
-```bash
-sam build
-sam deploy --guided
-```
+To build and deploy application, run the following in your shell:
 
 Deploy with parameter overrides:
 
 ```bash
 sam deploy \
   --parameter-overrides \
-  SonarToken=your-sonar-token \
-  SonarHost=your-sonar-host
+  SonarToken={your-sonar-token} \
+  SonarHost={your-sonar-host}
 ```
 
 The API Gateway endpoint API will be displayed in the outputs when the deployment is complete assuming the API resource is referenced in the Outputs of the `template.yaml`.
@@ -190,7 +187,7 @@ npm run test
 To delete the sample application that you created, use the AWS CLI. Assuming you used your project name for the stack name, you can run the following:
 
 ```bash
-sam delete --stack-name theo-dora-infra
+sam delete --stack-name {stack-name}
 ```
 
 #### Resources
@@ -199,25 +196,11 @@ For an introduction to the AWS SAM specification, the AWS SAM CLI, and serverles
 
 #### SAM template notes
 
-Note to self regarding linting errors in VS Code and template.yml files, specifically in reference to !Ref, !Sub, etc...
-
-Environment variables in a Lambda function are defined as a generic dictionary (map) of keys and values. Because it accepts an object, it doesn't care if that object contains a Ref. It passes validation cleanly.
-
-AWS expects developers to reference other APIs frequently inside API Events. Because of this, the official AWS specification specifically defines RestApiId as a mixed type: it can be a plain String OR it can be a Supported Functions Object (like Ref or Fn::ImportValue). Your schema file explicitly has a rule allowing an object there.
-
-This is an oversight/strictness bug in the AWS schema generation for that specific property. The schema for ApiStages defines ApiId strictly as a "type": "string".
-
-When you deploy a SAM template, AWS doesn't name your resources exactly what you call them in the YAML file. To prevent naming conflicts, AWS automatically appends random characters and stack names to the end.
-• Your logical resource ProjectEventsApi might end up named my-stack-ProjectEventsApi-1A2B3C4D in the actual AWS console.
-• If you hardcode "ProjectEventsApi", AWS won't be able to find it because it doesn't match the auto-generated physical name.
-
-CloudFormation uses Ref to figure out the order in which it needs to build your infrastructure.
-• By using a reference, you tell AWS: "Hey, you cannot create this stage until after you finish building the ProjectEventsApi."
-• If you use a plain string literal, AWS thinks the resources are completely independent. It will try to build the stage and the API at the exact same time. The stage deployment will fail immediately with a "Resource not found" error because the API doesn't exist yet.
+Regarding linting errors in VS Code and template.yml files, specifically in reference to !Ref, !Sub, etc...
 
 https://docs.aws.amazon.com/AWSCloudFormation/latest/TemplateReference/intrinsic-function-reference.html
 
-Workplace settings:
+Add to Workplace settings to remove invalid linting errors for the valuing:
 
 ```json
 {

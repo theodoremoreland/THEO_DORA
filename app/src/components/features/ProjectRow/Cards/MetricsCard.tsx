@@ -29,7 +29,7 @@ import EventUpcomingIcon from '../../../../assets/images/icons/event_upcoming.sv
 import HourglassArrowUpIcon from '../../../../assets/images/icons/hourglass_arrow_up.svg?react';
 import PlannerReviewIcon from '../../../../assets/images/icons/planner_review.svg?react';
 import RunningWithErrorsIcon from '../../../../assets/images/icons/running_with_errors.svg?react';
-import InfoHollowIcon from '../../../../assets/images/icons/info_filled.svg?react';
+import QuestionBoxIcon from '../../../../assets/images/icons/indeterminate_question_box.svg?react';
 
 // Styles
 import './MetricsCard.css';
@@ -351,6 +351,7 @@ const MetricsHeader = (): ReactElement => {
                 <IconButton
                     id="software-quality-info-menu-icon-button"
                     className="icon-button"
+                    title="Click to see what defines Software Quality"
                     aria-label="top-streaks-info-menu"
                     aria-controls={
                         isSoftwareQualityInfoMenuOpen
@@ -364,7 +365,7 @@ const MetricsHeader = (): ReactElement => {
                     onClick={handleSoftwareQualityInfoMenuOpen}
                 >
                     {' '}
-                    <InfoHollowIcon className="info-icon" />
+                    <QuestionBoxIcon className="info-icon" />
                 </IconButton>
                 <Menu
                     id="top-streaks-info-menu"
@@ -391,6 +392,7 @@ const MetricsHeader = (): ReactElement => {
                 DORA Metrics{' '}
                 <IconButton
                     id="dora-metrics-info-menu-icon-button"
+                    title="Click to see what defines DORA metrics"
                     className="icon-button"
                     aria-label="dora-metrics-info-menu"
                     aria-controls={
@@ -404,7 +406,7 @@ const MetricsHeader = (): ReactElement => {
                     }
                     onClick={handleDoraMetricsInfoMenuOpen}
                 >
-                    <InfoHollowIcon className="info-icon" />
+                    <QuestionBoxIcon className="info-icon" />
                 </IconButton>
                 <Menu
                     id="dora-metrics-info-menu"

@@ -7,12 +7,12 @@ This is a work in progress.
 - [Overview](#overview)
   - [Technologies Used](#technologies-used)
   - [DORA Metrics](#dora-metrics)
-  - [SonarQube Cloud Quality Measures](#sonarqube-cloud-quality-measures)
-- [Serverless infrastructure]
+  - [Software quality measures](#software-quality-measures)
+- [Serverless infrastructure](#serverless-infrastructure)
 
 ## Overview
 
-DORA metrics, code quality, and metadata for my GitHub projects.
+This project is an extension of my GitHub profile. It displays a dashboard featuring various data points such as DORA metrics, software quality measures, test coverage, typicality percentiles, and GitHub activity. Additionally, select projects feature screenshots and video previews.
 
 ## Technologies Used
 
@@ -23,7 +23,8 @@ DORA metrics, code quality, and metadata for my GitHub projects.
 - CSS
 - Tanstack React Query
 - MUI X Charts
-- GitHub API
+- GitHub Rest API
+- GitHub GraphQL
 - GitHub Actions
 - SonarQube Cloud
 - Vite
@@ -37,12 +38,11 @@ DORA metrics, code quality, and metadata for my GitHub projects.
 
 ### DORA Metrics
 
+DORA metrics measure the effectiveness and efficiency of a project's software delivery. The can be broken down into two categories: Throughput and Instability.
+
 [DORA Metrics](https://dora.dev/guides/dora-metrics/)
 
-#### Throughput and instability
-
-DORA's software delivery performance metrics focus on a team's ability to deliver software safely, quickly, and efficiently. They can be divided into metrics that show the throughput of software changes, and metrics that show instability of software changes.
-Throughput
+#### Throughput
 
 Throughput is a measure of how many changes can move through the system over a period of time. Higher throughput means that the system can move more changes through to the production environment. DORA uses three factors to measure software delivery throughput:
 
@@ -62,106 +62,26 @@ Instability is a measure of how well the software deployments go. When deploymen
 
 Taken together, these two factors for software delivery performance (throughput and instability) give teams a high-level understanding of their software delivery performance. Measuring these over time provides insight into how software delivery performance is changing. These factors can be used to measure any application or service, regardless of the technology stack, the complexity of the deployment processes, or its end users.
 
-#### Relationship between CFR and DRR
+##### Relationship between CFR and DRR
 
 - **1 failure can cause multiple deployment reworks**
 - **Multiple deployment reworks can happen without a single deployment failure**
-
----
-
-### Why 1 Failure Can Cause Multiple Reworks
-
-A single initial failure or outage in production often requires a multi-step response.
-
-1. **Deployment 1 (Planned Feature):** Causes a memory leak in production. **(1 Change Failure)**
-2. **Deployment 2 (Rework):** The team deploys an emergency patch to limit traffic or roll back a specific flag.
-3. **Deployment 3 (Rework):** The patch didn't completely solve the memory leak, so they deploy a second follow-up fix.
-4. **Deployment 4 (Rework):** A third deployment restores full service after fixing the root cause.
-
-**Result:** $1$ Change Failure resulted in $3$ Deployment Reworks.
-
----
-
-### Why Deployment Rework Can Happen Without a Deployment Failure
 
 A **Deployment Failure** (CFR) specifically counts an original planned deployment that broke the system. However, **Deployment Rework** tracks _any_ unplanned deployment made in response to a production bug or incident.
 
 Rework can occur without a corresponding deployment failure in several scenarios:
 
 - **Environmental / Infrastructure Issues:** A third-party API changes, an SSL certificate unexpectedly expires, or cloud database load spikes. The original code deployment was perfectly fine, but you must trigger an **unplanned deployment** (e.g., config update or hotfix) to handle the outage.
+
 - **Discovered Production Bugs (Not tied to a recent release):** A subtle edge-case bug that was deployed 6 months ago suddenly gets triggered by a surge in traffic today. Because it wasn't caused by a recent deployment, it doesn't flag a new Change Failure—yet fixing it requires an **unplanned hotfix deployment** (Rework).
+
 - **User-Reported Data / UI Issues:** A bad data migration or broken UI element is discovered by users on live software. Even if it didn't crash the server or trigger a failed deployment alert, the emergency patch pushed to fix it counts as **Deployment Rework**.
 
-### Calculating
-
-Assumptions:
-
-- All PR merged to main trigger "deploy" GitHub action
-- Hotfixes are always submitted as a PR labeled "hotfix"
-- All production incidents are formally acknowledged once an issue labeled "incident" is created
-- Only incidents closed as completed are formally acknowledged as resolved
-- All enhancements and non urgent bugfixes will start on their own branch and be merged via PR labeled "enhancement" or "bugfix"
-
-Granted, these assumptions are done for version 1.0 of calculating DORA metrics, which is designed to be a simple and inexpensive as possible without compromising on the core value of DORA.
-
-Formula:
-
-- Lead Time for Changes: average (Deploy action timestamp - First commit of PR timestamp labeled "enhancement" or "bugfix")
-  **PRs** and **Deploy action metadata**
-
-- Deployment frequency: average successful "deploy" action runs per week
-  **Deploy action metadata**
-
-- Change failure rate: Number of deployments with AT LEAST ONE issue labeled "incident" or AT LEAST ONE PR labeled "hotfix" or a failed deployment / total deployment runs \* 100
-  **Deploy action metadata** and **PRs** and **Issues**
-
-- Deployment rework rate: (Number of issues labeled "incidents" closed and PRs labeled "hotfix" submitted) / number of successful deployments \* 100
-  **Issues** and **PRs**
-
-- Recovery time: average (issue labeled "incident" closed - issue labeled "incident" created time)
-  **Issues**
-
-Data points:
-
-PRs
-
-```raw
-- id
-- project_id
-- merged_timestamp
-- first_commit_timestamp
-- labels
-- submitted_timestamp
-- target_branch
-```
-
-Deployments
-
-```raw
-- id
-- project_id
-- target
-- status
-- timestamp
-- workflow_run_id
-```
-
-Issues
-
-```raw
-- id
-- project_id
-- created_timestamp
-- closed_timestamp
-- status
-- labels
-```
-
-### SonarQube Cloud Quality Measures
+### Software quality measures
 
 ### Serverless infrastructure
 
-### Files and folders
+#### Files and folders
 
 This project contains source code and supporting files for a serverless application that you can deploy with the AWS Serverless Application Model (AWS SAM) command line interface (CLI). It includes the following files and folders:
 
@@ -175,7 +95,7 @@ This project contains source code and supporting files for a serverless applicat
 
 The application uses several AWS resources, including Lambda functions, an API Gateway API, AWS Secrets Manager, and AWS RDS. Only the latter of which is not defined in the `template.yaml` file in this project. You can update the template to add/configure AWS resources through the same deployment process that updates the application code.
 
-## How the application is deployed
+#### How the application is deployed
 
 The AWS SAM CLI is an extension of the AWS CLI that adds functionality for building and testing Lambda applications. It uses Docker to run your functions in an Amazon Linux environment that matches Lambda. It can also emulate your application's build environment and API.
 
@@ -203,7 +123,7 @@ sam deploy \
 
 The API Gateway endpoint API will be displayed in the outputs when the deployment is complete assuming the API resource is referenced in the Outputs of the `template.yaml`.
 
-## How the AWS SAM CLI is used to build and test locally
+#### How the AWS SAM CLI is used to build and test locally
 
 Validate template.yaml.
 
@@ -255,7 +175,7 @@ Events:
       Method: GET
 ```
 
-## Unit tests
+#### Unit tests
 
 Tests are defined in the `src/__tests__` folder in this project. Use `npm` to install the [Jest test framework](https://jestjs.io/) and run unit tests.
 
@@ -265,7 +185,7 @@ npm install
 npm run test
 ```
 
-## Cleanup
+#### Cleanup
 
 To delete the sample application that you created, use the AWS CLI. Assuming you used your project name for the stack name, you can run the following:
 
@@ -273,11 +193,11 @@ To delete the sample application that you created, use the AWS CLI. Assuming you
 sam delete --stack-name theo-dora-infra
 ```
 
-## Resources
+#### Resources
 
 For an introduction to the AWS SAM specification, the AWS SAM CLI, and serverless application concepts, see the [AWS SAM Developer Guide](https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/what-is-sam.html).
 
-### SAM template notes
+#### SAM template notes
 
 Note to self regarding linting errors in VS Code and template.yml files, specifically in reference to !Ref, !Sub, etc...
 

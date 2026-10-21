@@ -50,13 +50,13 @@ const LayeredBar = ({
                 <span
                     className="top bar"
                     style={{
-                        height: convertToPercentage(topData.value || 0, 10_000),
+                        height: `${convertToPercentage(topData.value || 0, 10_000)}%`,
                     }}
                 ></span>
                 <span
                     className="bottom bar"
                     style={{
-                        height: convertToPercentage(bottomData.value || 0, 100),
+                        height: `${convertToPercentage(bottomData.value || 0, 100)}%`,
                     }}
                 ></span>
             </div>

@@ -211,7 +211,7 @@ const MetricsCard = ({
                 <ul
                     className={`dora-container ${hasSettled ? 'show' : 'hide'}`}
                 >
-                    <li title="Lead Time for Changes: Measures elapsed time from the initial commit timestamp to when the PR is merged/deployed">
+                    <li title="Lead Time for Changes: Elapsed time from the initial commit to deployment (in hours)">
                         <span className="label-container">
                             <EventUpcomingIcon className="icon" />
                             <p>Lead Time</p>
@@ -223,7 +223,7 @@ const MetricsCard = ({
                                 : doraMetrics?.leadTime}
                         </p>
                     </li>
-                    <li title="Deployment Frequency: Counts total successful production deployments over a specific timeframe">
+                    <li title="Deployment Frequency: Average number of successful deployments over a specific timeframe (in weeks)">
                         <span className="label-container">
                             <PlannerReviewIcon className="icon" />
                             <p>Frequency</p>
@@ -235,7 +235,7 @@ const MetricsCard = ({
                                 : doraMetrics?.deploymentFrequency}
                         </p>
                     </li>
-                    <li title="Failed Deployment Recovery Time: Time to recover from a failed deployment">
+                    <li title="Failed Deployment Recovery Time: Time to recover from a failed deployment (in hours)">
                         <span className="label-container">
                             <HourglassArrowUpIcon className="icon" />
                             <p>Recovery Time</p>

@@ -1,7 +1,7 @@
 /**
  * Recovery time: average (issue labeled "incident" closed time - issue labeled "incident" created time)
  * @param {{id: number, project_id: number, created_timestamp: string, closed_timestamp: string, status: string, labels: string[]}[]} issues
- * @returns {number} -
+ * @returns {number} - Recovery time in hours.
  */
 const calculateRecoveryTime = (issues) => {
   let totalDifferenceBetweenIncidents = 0;
@@ -30,9 +30,11 @@ const calculateRecoveryTime = (issues) => {
     return null;
   }
 
-  return Number(
-    totalDifferenceBetweenIncidents / incidents.length / (1000 * 60 * 60),
-  ).toFixed(2);
+  return (
+    Number(
+      totalDifferenceBetweenIncidents / incidents.length / (1000 * 60 * 60),
+    ).toFixed(2) + "hrs"
+  );
 };
 
 export default calculateRecoveryTime;

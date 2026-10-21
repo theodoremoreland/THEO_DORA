@@ -1,7 +1,7 @@
 /**
  * Lead Time for Changes: average (Merge timestamp - First commit of PR timestamp labeled "enhancement" or "bugfix")
  * @param {{ id: number, project_id: number, merged_timestamp: string, first_commit_timestamp: string, labels: string[], submitted_timestamp: string, target_branch: string }} prs
- * @returns {number}
+ * @returns {number} - lead time in hours.
  */
 const calculateLeadTime = (prs) => {
   let totalDifferenceBetweenChanges = 0;
@@ -32,9 +32,11 @@ const calculateLeadTime = (prs) => {
     return null;
   }
 
-  return Number(
-    totalDifferenceBetweenChanges / changes.length / (1000 * 60 * 60),
-  ).toFixed(2);
+  return (
+    Number(
+      totalDifferenceBetweenChanges / changes.length / (1000 * 60 * 60),
+    ).toFixed(2) + "hrs"
+  );
 };
 
 export default calculateLeadTime;

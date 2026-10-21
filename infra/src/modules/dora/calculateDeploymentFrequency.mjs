@@ -12,9 +12,9 @@ const currentYear = dayjs(today).year();
 const currentWeek = dayjs(today).week();
 
 /**
- * Deployment frequency: average successful "deploy" action runs per week
+ * Deployment frequency: How frequently the software is successfully deployed on average.
  * @param {{ project_id: number, id: number, target: string, status: string, timestamp: string, workflow_run_id: string}} deployments
- * @returns {number}
+ * @returns {number} - Deployment frequency in weeks.
  */
 const calculateDeploymentFrequency = (deployments) => {
   const deploymentCountsByWeek = {};
@@ -65,7 +65,7 @@ const calculateDeploymentFrequency = (deployments) => {
     return null;
   }
 
-  return Number(totalSuccessfulDeployments / totalWeeks).toFixed(2);
+  return Number(totalSuccessfulDeployments / totalWeeks).toFixed(2) + "/wk";
 };
 
 export default calculateDeploymentFrequency;

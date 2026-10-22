@@ -209,8 +209,8 @@ const ActivityCard = ({
 
                                 return (
                                     <li key={index} className="commit">
-                                        <h4>{commit.message}</h4>
-                                        <p>
+                                        <p>{commit.message}</p>
+                                        <p className="date">
                                             {commit.committedDate
                                                 ? l.toLocaleString()
                                                 : 'Unknown date'}

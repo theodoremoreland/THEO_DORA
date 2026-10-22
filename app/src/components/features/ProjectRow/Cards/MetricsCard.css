@@ -29,6 +29,7 @@
             --icon-size: 1rem;
 
             h3 {
+                font-size: 1rem;
                 margin-left: calc(var(--icon-size) + 1ch);
             }
 

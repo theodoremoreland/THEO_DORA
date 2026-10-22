@@ -65,8 +65,8 @@
     --analytics-layout-gap: 1.25rem;
     --analytics-content-gap: 10px;
     --content-gap: 20px;
-    --content-width: 88%;
-    --content-max-width: 1920px;
+    --content-width: 98%;
+    --content-max-width: 1280px;
 
     --background-color: #141418;
     --experimental-color: #d4d4d405;
@@ -84,13 +84,14 @@
 
 @media screen and (min-width: 481px) {
     :root {
-        --content-width: 96%;
+        --content-width: 95%;
     }
 }
 
 @media screen and (min-width: 769px) {
     :root {
         --navbar-horizontal-padding: 22.5px;
+        --content-width: 85%;
     }
 }
 
@@ -102,7 +103,8 @@
 
 @media screen and (min-width: 1440px) {
     :root {
-        --content-width: 95%;
+        --content-width: 90%;
+        --content-max-width: 1920px;
     }
 }
 

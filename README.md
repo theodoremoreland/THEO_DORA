@@ -6,8 +6,8 @@ This is a work in progress.
 
 - [Overview](#overview)
   - [Technologies Used](#technologies-used)
-  - [DORA Metrics](#dora-metrics)
-  - [Software quality measures](#software-quality-measures)
+- [DORA Metrics](#dora-metrics)
+- [Software quality measures](#software-quality-measures)
 - [Serverless infrastructure](#serverless-infrastructure)
 
 ## Overview
@@ -36,13 +36,13 @@ This project features a dashboard that calculates and displays DORA metrics, sof
 - AWS API Gateway
 - AWS SAM
 
-### DORA Metrics
+## DORA Metrics
 
 DORA metrics measure the effectiveness of a project's software delivery. Effectiveness can be broken down into two categories: Throughput and Instability.
 
 [DORA Metrics](https://dora.dev/guides/dora-metrics/)
 
-#### Throughput
+### Throughput
 
 Throughput is a measure of how many changes can move through the system over a period of time. Higher throughput means that the system can move more changes through to the production environment. DORA uses three factors to measure software delivery throughput:
 
@@ -52,7 +52,7 @@ Throughput is a measure of how many changes can move through the system over a p
 
 - Failed deployment recovery time: The time it takes to recover from a deployment that fails and requires immediate intervention.
 
-#### Instability
+### Instability
 
 Instability is a measure of how well the software deployments go. When deployments go well, teams can confidently push more changes into production and users are less likely to experience issues with the application immediately following a deployment. DORA uses two factors to measure software delivery instability:
 
@@ -62,7 +62,7 @@ Instability is a measure of how well the software deployments go. When deploymen
 
 Taken together, these two factors for software delivery performance (throughput and instability) give teams a high-level understanding of their software delivery performance. Measuring these over time provides insight into how software delivery performance is changing. These factors can be used to measure any application or service, regardless of the technology stack, the complexity of the deployment processes, or its end users.
 
-### Software quality measures
+## Software quality measures
 
 [Software quality measures](https://docs.sonarsource.com/sonarqube-cloud/standards/managing-rules/rules#software-qualities)
 
@@ -82,9 +82,9 @@ Is the rule about code that is demonstrably wrong, or more likely wrong than not
 
 Is the rule neither a bug nor a vulnerability? If yes, then it’s a maintainability rule.
 
-### Serverless infrastructure
+## Serverless infrastructure
 
-#### Files and folders
+### Files and folders
 
 This project contains source code and supporting files for a serverless application that you can deploy with the AWS Serverless Application Model (AWS SAM) command line interface (CLI). It includes the following files and folders:
 
@@ -97,7 +97,7 @@ This project contains source code and supporting files for a serverless applicat
 
 You can update the template to add/configure AWS resources through the same deployment process that updates the application code.
 
-#### How the application is deployed
+### How the application is deployed
 
 The AWS SAM CLI is an extension of the AWS CLI that adds functionality for building and testing Lambda applications. It uses Docker to run your functions in an Amazon Linux environment that matches Lambda. It can also emulate your application's build environment and API.
 
@@ -120,7 +120,7 @@ sam deploy \
 
 The API Gateway endpoint API will be displayed in the outputs when the deployment is complete assuming the API resource is referenced in the Outputs of the `template.yaml`.
 
-#### How the AWS SAM CLI is used to build and test locally
+### How the AWS SAM CLI is used to build and test locally
 
 Validate template.yaml.
 
@@ -172,7 +172,7 @@ Events:
       Method: GET
 ```
 
-#### Unit tests
+### Unit tests
 
 Tests are defined in the `src/__tests__` folder in this project. Use `npm` to install the [Jest test framework](https://jestjs.io/) and run unit tests.
 
@@ -182,7 +182,7 @@ npm install
 npm run test
 ```
 
-#### Cleanup
+### Cleanup
 
 To delete the sample application that you created, use the AWS CLI. Assuming you used your project name for the stack name, you can run the following:
 
@@ -190,11 +190,11 @@ To delete the sample application that you created, use the AWS CLI. Assuming you
 sam delete --stack-name {stack-name}
 ```
 
-#### Resources
+### Resources
 
 For an introduction to the AWS SAM specification, the AWS SAM CLI, and serverless application concepts, see the [AWS SAM Developer Guide](https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/what-is-sam.html).
 
-#### SAM template notes
+### SAM template notes
 
 Regarding linting errors in VS Code and template.yml files, specifically in reference to !Ref, !Sub, etc...
 

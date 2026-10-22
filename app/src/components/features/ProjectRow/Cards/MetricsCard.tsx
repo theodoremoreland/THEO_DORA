@@ -186,7 +186,6 @@ const MetricsCard = ({
                         className="RadarChart"
                         desc="A radar chart illustrating code quality grades for project."
                         colors={radarColors}
-                        height={220}
                         hideLegend
                         loading={isSonarMeasuresFetching}
                         series={radarData}

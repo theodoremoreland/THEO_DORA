@@ -101,6 +101,7 @@
 
         text {
             fill: var(--primary-font-color);
+            font-size: 0.8rem !important;
             font-family: custom-thin !important;
         }
 
@@ -124,7 +125,7 @@
             min-width: 20ch;
             width: 100%;
             color: var(--primary-font-color);
-            font-size: 16px;
+            font-size: 1rem;
             background-color: var(--temp-gray-3);
             box-shadow:
                 rgba(0, 0, 0, 0.09) 0px 2px 1px,

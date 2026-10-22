@@ -169,7 +169,6 @@ const ActivityCard = ({
                 <div className="top">
                     <BarChart
                         className={`DeltaBarChart ${hasSettled ? 'show' : 'hide'}`}
-                        height={270}
                         xAxis={barX}
                         yAxis={barY}
                         series={barSeries}

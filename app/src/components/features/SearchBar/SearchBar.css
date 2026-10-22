@@ -11,8 +11,11 @@
 #search-bar {
     position: relative;
     width: 100%;
-    min-width: 45rem;
     background-color: var(--secondary-color);
+
+    @media screen and (min-width: 965px) {
+        min-width: 45rem;
+    }
 
     &.active {
         z-index: 6;

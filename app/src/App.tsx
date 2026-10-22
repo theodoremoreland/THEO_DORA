@@ -19,7 +19,6 @@ import ToolBar from './components/layout/ToolBar/ToolBar';
 import Overview from './components/common/interactive/Modal/Overview/Overview';
 import Error from './components/common/interactive/Modal/Error/Error';
 import NotAScrollbar from './components/features/NotAScrollbar/NotAScrollbar';
-import Cursor from './components/features/Cursor/Cursor';
 
 // Custom Styles
 import './index.css';
@@ -94,7 +93,6 @@ const App = (): ReactElement => {
 
     return (
         <>
-            <Cursor userId="0001" replaceCursor={false} />
             {showErrorModal && <Error handleClose={handleCloseErrorModal} />}
             <header
                 ref={titleCardRef}

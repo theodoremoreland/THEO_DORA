@@ -116,7 +116,7 @@ const MetricsCard = ({
     isSonarMeasuresFetching,
 }: Props): ReactElement => {
     const hasValidDemoLink: boolean =
-        projectData.name !== 'ProjectDashboard' && projectData.demo_link !== '';
+        projectData.name !== 'THEO_DORA' && projectData.demo_link !== '';
 
     const onAxisClick = useCallback(
         (event: MouseEvent, d: ChartsAxisData | null): void => {

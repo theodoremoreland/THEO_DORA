@@ -81,10 +81,8 @@ const ProjectRow = ({
         projectData.name,
         hasSettled
     );
-    const { commitActivity, isCommitActivityFetching } = useCommitActivity(
-        projectData.name,
-        hasSettled
-    );
+    const { commitActivity, isCommitActivityFetching, isCommitActivityError } =
+        useCommitActivity(projectData.name, hasSettled);
 
     useEffect(() => {
         let timeoutId: number | undefined;
@@ -187,6 +185,7 @@ const ProjectRow = ({
                             hasSettled={showBaseContent}
                             isRecentCommitsFetching={isRecentCommitsFetching}
                             isCommitActivityFetching={isCommitActivityFetching}
+                            isCommitActivityError={isCommitActivityError}
                             projectName={projectData.name}
                             commits={commits}
                             commitActivity={commitActivity}

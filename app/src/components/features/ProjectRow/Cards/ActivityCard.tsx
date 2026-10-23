@@ -113,6 +113,7 @@ interface Props {
     commitActivity: CommitActivityData | undefined;
     isRecentCommitsFetching?: boolean;
     isCommitActivityFetching?: boolean;
+    isCommitActivityError?: boolean;
 }
 
 const ActivityCard = ({
@@ -122,6 +123,7 @@ const ActivityCard = ({
     projectName,
     isRecentCommitsFetching,
     isCommitActivityFetching,
+    isCommitActivityError,
 }: Props): ReactElement => {
     const commitsByDay: DayCommits[] = useMemo(
         () => getCommitsPerDay(commitActivity),
@@ -152,6 +154,23 @@ const ActivityCard = ({
     const sparklineData = useMemo(() => {
         return commitsByDay.map((dayCommits) => dayCommits.commitCount);
     }, [commitsByDay]);
+
+    const sparklineContainerClass = useMemo(() => {
+        if (isCommitActivityFetching) {
+            return 'loading';
+        }
+
+        if (isCommitActivityError) {
+            return 'error';
+        }
+
+        if (isCommitActivityFetching === false && sparklineData.length > 0) {
+            return 'loaded';
+        }
+
+        return '';
+    }, [isCommitActivityError, isCommitActivityFetching, sparklineData]);
+
     const onSparklineClick = useCallback((): void => {
         window.open(
             `https://github.com/${REPO_OWNER}/${projectName}/activity?ref=main&actor=${REPO_OWNER}&time_period=year`,
@@ -179,7 +198,7 @@ const ActivityCard = ({
                 <div className="middle">
                     <GlyphLane />
                     <div
-                        className={`sparkline-container ${isCommitActivityFetching || sparklineData.length === 0 ? '' : 'loaded'}`}
+                        className={`sparkline-container ${sparklineContainerClass}`}
                     >
                         <h4 className="label">Commit activity</h4>
                         <SparkLineChart
@@ -192,6 +211,15 @@ const ActivityCard = ({
                             showTooltip
                             showHighlight
                         />
+                        <div
+                            className={`loading-overlay ${sparklineContainerClass}`}
+                        >
+                            <p className="loading-text">
+                                {isCommitActivityError
+                                    ? 'Failed to load commit activity'
+                                    : '...'}
+                            </p>
+                        </div>
                     </div>
                     <GlyphLane />
                 </div>

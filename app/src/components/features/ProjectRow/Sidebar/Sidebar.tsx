@@ -32,7 +32,7 @@ const Sidebar = ({
             Object.entries(percentages)
                 .sort((a, b) => b[1] - a[1])
                 .forEach(([language, percentage], index) => {
-                    if (index < 9) {
+                    if (index < 6) {
                         updatedLanguagesByPosition[index] = {
                             label: language,
                             percentage,

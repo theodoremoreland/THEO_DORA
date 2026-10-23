@@ -5,7 +5,7 @@ export interface LanguagesByPosition {
 export const generateLanguagesByPositionObject = (): LanguagesByPosition => {
     const languagesByPosition: LanguagesByPosition = {};
 
-    for (let i = 0; i < 9; i++) {
+    for (let i = 0; i < 6; i++) {
         languagesByPosition[i] = {
             label: 'Null',
             percentage: 0,

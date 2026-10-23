@@ -65,7 +65,7 @@
     --analytics-layout-gap: 1.25rem;
     --analytics-content-gap: 10px;
     --content-gap: 20px;
-    --content-width: 98%;
+    --content-width: 95%;
     --content-max-width: 1280px;
 
     --background-color: #141418;
@@ -80,12 +80,6 @@
     --temp-white: #d6d6d8;
 
     --card-fade-speed: 1s;
-}
-
-@media screen and (min-width: 481px) {
-    :root {
-        --content-width: 95%;
-    }
 }
 
 @media screen and (min-width: 769px) {

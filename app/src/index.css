@@ -65,13 +65,13 @@
     --analytics-layout-gap: 1.25rem;
     --analytics-content-gap: 10px;
     --content-gap: 20px;
-    --content-width: 95%;
+    --content-width: 90%;
     --content-max-width: 1280px;
 
     --background-color: #141418;
     --experimental-color: #d4d4d405;
 
-    --sidebar-width: 15%;
+    --sidebar-width: 30%;
 
     --temp-gray: #131217;
     --temp-gray-2: #27282f;
@@ -92,6 +92,7 @@
 @media screen and (min-width: 1150px) {
     :root {
         --analytics-content-gap: 7px;
+        --sidebar-width: 15%;
     }
 }
 

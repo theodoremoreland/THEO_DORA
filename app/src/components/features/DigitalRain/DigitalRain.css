@@ -90,8 +90,14 @@
         background-color: black;
 
         &.garganta {
-            width: 60%;
+            width: 100%;
             clip-path: var(--clip-path);
+        }
+
+        @media screen and (min-width: 1150px) {
+            &.garganta {
+                width: 60%;
+            }
         }
     }
 }

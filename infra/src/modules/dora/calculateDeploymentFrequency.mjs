@@ -20,6 +20,9 @@ const calculateDeploymentFrequency = (deployments) => {
   const deploymentCountsByWeek = {};
   let totalSuccessfulDeployments = 0;
   let totalWeeks = 0;
+  let firstDate;
+  let firstWeek;
+  let firstYear;
 
   if (deployments.length === 0) {
     return null;
@@ -28,6 +31,10 @@ const calculateDeploymentFrequency = (deployments) => {
   const successfulDeployments = deployments.filter(
     (deployment) => deployment.status === "success",
   );
+
+  firstDate = new Date(successfulDeployments[0].timestamp);
+  firstYear = dayjs(firstDate).year();
+  firstWeek = dayjs(firstDate).week();
 
   for (const item of successfulDeployments) {
     const timestamp = item.timestamp;
@@ -41,6 +48,11 @@ const calculateDeploymentFrequency = (deployments) => {
       let weeksObject = {};
 
       for (let i = 1; i < numberOfWeeksInYear + 1; i++) {
+        // Attempts to start counting weeks at the first deployment
+        if (year === firstYear && i < firstWeek) {
+          continue;
+        }
+
         weeksObject[i] = 0;
 
         if (year === currentYear && currentWeek === i) {
@@ -48,6 +60,7 @@ const calculateDeploymentFrequency = (deployments) => {
         }
       }
 
+      console.log(deploymentCountsByWeek);
       deploymentCountsByWeek[year] = weeksObject;
     }
 

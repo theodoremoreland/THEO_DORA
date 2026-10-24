@@ -11,6 +11,12 @@
     width: 10px;
     background-color: transparent;
 
+    @media screen and (min-width: 769px) {
+        & {
+            width: 8px;
+        }
+    }
+
     #project-options {
         position: relative;
         display: flex;

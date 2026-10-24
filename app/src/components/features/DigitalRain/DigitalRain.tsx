@@ -34,7 +34,7 @@ const DigitalRain = ({
         () => (shouldProperCase ? properCase(topics) : topics),
         [topics, shouldProperCase]
     );
-    const fontSize: number = garganta ? 16 : 24;
+    const fontSize: number = garganta ? 22 : 24;
 
     const canvasRef = useRef<HTMLCanvasElement>(null);
     const animationFrameIdRef = useRef<number | undefined>(undefined);
@@ -74,11 +74,6 @@ const DigitalRain = ({
             const columnPositions: number[] = Array.from({
                 length: columns,
             }).fill(1) as number[];
-            const topicsThatFitCanvas: string[] = casedTopics.filter(
-                (topic: string) => {
-                    return topic.length * fontSize < canvas.height;
-                }
-            );
 
             const draw = (): void => {
                 if (!ctx) return;
@@ -154,11 +149,11 @@ const DigitalRain = ({
                                 activeColumnIndexRef.current
                             );
                         renderingTopicRef.current = formatRenderTopic(
-                            topicsThatFitCanvas[currentTopicIndexRef.current]
+                            casedTopics[currentTopicIndexRef.current]
                         );
                         currentTopicIndexRef.current =
                             currentTopicIndexRef.current ===
-                            topicsThatFitCanvas.length - 1
+                            casedTopics.length - 1
                                 ? 0
                                 : currentTopicIndexRef.current + 1;
                     }

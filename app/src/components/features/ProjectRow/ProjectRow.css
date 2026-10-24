@@ -74,21 +74,26 @@
         flex-direction: column;
         justify-content: center;
         align-items: flex-start;
-        gap: 1.5rem;
-        padding: 1rem 0;
+        gap: var(--content-gap);
+        padding: var(--content-gap) 0;
         width: 100%;
         height: 100%;
     }
 
+    @media screen and (min-width: 1280px) {
+        .project-row-content {
+            padding: 1rem 0;
+        }
+    }
+
     .project-row-header,
-    .project-row-main,
-    .project-row-footer {
+    .project-row-main {
         position: relative;
         display: flex;
         flex-direction: row;
         justify-content: flex-start;
-        align-items: center;
-        gap: 1.5rem;
+        align-items: flex-start;
+        gap: var(--content-gap);
         width: 100%;
     }
 
@@ -132,11 +137,7 @@
     }
 
     .project-row-main {
-        height: 70%;
-    }
-
-    .project-row-footer {
-        height: 20%;
+        height: 90%;
     }
 
     .project-name {
@@ -150,13 +151,20 @@
         font-size: 1rem;
         letter-spacing: 1rem;
         color: var(--primary-font-color);
-        padding: 15px;
+        padding: 0.9rem;
         margin: 0;
     }
 
-    @media screen and (min-width: 1150px) {
+    @media screen and (min-width: 720px) {
+        .project-name {
+            font-size: 1.25rem;
+        }
+    }
+
+    @media screen and (min-width: 1280px) {
         .project-name {
             font-size: 2.25rem;
+            padding: 1;
         }
     }
 
@@ -191,7 +199,7 @@
         grid-template-columns: repeat(3, 1fr); /* 3 columns of equal width */
         grid-template-rows: 1fr;
         flex-grow: 1; /* Fills the exact remaining space without overflowing */
-        gap: 8px;
+        gap: var(--content-gap);
         width: 100%;
         min-height: 0;
         height: 100%;
@@ -217,7 +225,7 @@
             font-size: 0.7rem;
             color: var(--temp-silver);
             width: 100%;
-            padding: 10px;
+            padding: 10px 10px 0 10px;
         }
     }
 
@@ -247,170 +255,6 @@
             font-size: 1.3rem;
             padding: 0;
             margin: 0;
-        }
-    }
-
-    .project-video-preview {
-        position: relative;
-        flex-shrink: 0;
-        width: var(--sidebar-width);
-        height: 110%;
-        margin-top: -10%;
-        border-radius: 4px;
-
-        h3,
-        .content {
-            animation: fadeIn var(--card-fade-speed) ease-in-out forwards;
-        }
-
-        h3 {
-            font-family: custom-thin;
-            font-size: 1.25rem;
-            color: var(--temp-gray-3);
-            width: 100%;
-            padding: 10px;
-            background-color: var(--secondary-color);
-        }
-
-        .content {
-            position: relative;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            width: 100%;
-            height: 100%;
-            background-color: #020202;
-            border: 1px solid var(--temp-gray-3);
-            object-fit: cover;
-
-            p {
-                font-size: 1.5rem;
-                color: darkred;
-            }
-        }
-    }
-
-    .topics-container {
-        position: relative;
-        display: flex;
-        flex-direction: row;
-        justify-content: center;
-        align-items: center;
-        width: 100%;
-        height: 100%;
-
-        .topics-dialog {
-            z-index: 3;
-            position: absolute;
-            display: none;
-            flex-direction: row;
-            justify-content: center;
-            align-items: center;
-            gap: 1rem;
-            font-size: 1.5rem;
-
-            button {
-                position: relative;
-                display: flex;
-                flex-direction: row;
-                justify-content: center;
-                align-items: center;
-                gap: 0.25rem;
-                font-family: bit-regular;
-                min-width: 8rem;
-                padding: 0.7rem 1rem;
-                margin: 0;
-                border: none;
-                border-radius: 4px;
-                box-shadow:
-                    rgba(0, 0, 0, 0.4) 0px 2px 4px,
-                    rgba(0, 0, 0, 0.3) 0px 7px 13px -3px;
-
-                .icon {
-                    fill: currentColor;
-                    width: 1rem;
-                    height: 1rem;
-                    margin-top: -2px;
-                }
-            }
-
-            button:hover,
-            button:active,
-            button:focus {
-                opacity: 0.95;
-            }
-
-            button:active {
-                transform: scale(0.95);
-            }
-
-            button.view-topics {
-                color: var(--secondary-font-color);
-                background-color: var(--tertiary-color);
-            }
-
-            button.pause-animation {
-                color: var(--primary-font-color);
-                background-color: darkred;
-            }
-
-            button.play-animation {
-                color: var(--secondary-font-color);
-                background-color: var(--secondary-highlight-color);
-            }
-        }
-
-        &.show,
-        &:hover {
-            .topics-dialog {
-                display: flex;
-            }
-        }
-
-        .topics-label {
-            position: absolute;
-            top: 0%;
-            left: 0;
-            display: flex;
-            flex-direction: row;
-            justify-content: center;
-            align-items: center;
-            gap: 9%;
-            width: 100%;
-            height: 100%;
-            font-family: custom-semibold;
-            font-size: 2.4rem;
-            text-align: center;
-            color: var(--temp-silver);
-            padding: 0;
-            margin: 0;
-
-            > span {
-                position: relative;
-                text-align: center;
-                height: 100%;
-            }
-
-            > :nth-child(2) {
-                top: -15%;
-            }
-
-            > :nth-child(3) {
-                top: -7%;
-            }
-
-            > :nth-child(4) {
-                top: -15%;
-            }
-
-            > :nth-child(5) {
-                top: -16%;
-            }
-        }
-
-        .topics-label {
-            z-index: 1;
         }
     }
 }

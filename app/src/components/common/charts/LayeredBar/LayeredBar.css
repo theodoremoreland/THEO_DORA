@@ -9,7 +9,7 @@
     font-size: 0.75rem;
     text-align: center;
     width: 20%;
-    height: 75%;
+    height: 100%;
 
     --stripe-1: var(--secondary-color);
     --stripe-2: color-mix(in srgb, var(--stripe-1), black 60%);

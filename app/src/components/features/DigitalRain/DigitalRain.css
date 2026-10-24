@@ -94,9 +94,9 @@
             clip-path: var(--clip-path);
         }
 
-        @media screen and (min-width: 1150px) {
+        @media screen and (min-width: 720px) {
             &.garganta {
-                width: 60%;
+                width: 90%;
             }
         }
     }

@@ -64,7 +64,7 @@
 
     --analytics-layout-gap: 1.25rem;
     --analytics-content-gap: 10px;
-    --content-gap: 20px;
+    --content-gap: 0.85rem;
     --content-width: 90%;
     --content-max-width: 1280px;
 
@@ -85,7 +85,7 @@
 @media screen and (min-width: 769px) {
     :root {
         --navbar-horizontal-padding: 22.5px;
-        --content-width: 85%;
+        --content-width: 95%;
     }
 }
 
@@ -98,6 +98,7 @@
 
 @media screen and (min-width: 1440px) {
     :root {
+        --content-gap: 1rem;
         --content-width: 92%;
         --content-max-width: 1920px;
     }
@@ -105,7 +106,7 @@
 
 @media screen and (min-width: 1920px) {
     :root {
-        --content-gap: 30px;
+        --content-gap: 1.25rem;
     }
 }
 
@@ -125,7 +126,7 @@ html {
     font-size: 8px;
 }
 
-@media screen and (min-height: 720px) {
+@media screen and (min-height: 550px) {
     html {
         font-size: 10px;
     }

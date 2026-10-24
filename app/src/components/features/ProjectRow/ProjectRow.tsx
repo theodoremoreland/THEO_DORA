@@ -20,8 +20,6 @@ import ThumbnailCard from './Cards/ThumbnailCard';
 import MetricsCard from './Cards/MetricsCard';
 import ActivityCard from './Cards/ActivityCard';
 import Corner from '../../common/primitives/Corner/Corner';
-import DigitalRain from '../DigitalRain/DigitalRain';
-import TopicsFullscreen from '../DigitalRain/TopicsFullscreen/TopicsFullscreen';
 
 // Types
 import { TaggedRepoData } from '../../../types';
@@ -30,9 +28,6 @@ import { TaggedRepoData } from '../../../types';
 import ForkRightIcon from '../../../assets/images/icons/fork_right.svg?react';
 import HotelClassIcon from '../../../assets/images/icons/hotel_class.svg?react';
 import WeightIcon from '../../../assets/images/icons/weight.svg?react';
-import EyeTrackingIcon from '../../../assets/images/icons/eye_tracking.svg?react';
-import MotionPlayIcon from '../../../assets/images/icons/motion_play.svg?react';
-import MotionPauseIcon from '../../../assets/images/icons/motion_photos_paused.svg?react';
 
 // Styles
 import './ProjectRow.css';
@@ -44,16 +39,9 @@ interface Props {
     setShowDigitalRainAnimation: Dispatch<SetStateAction<boolean>>;
 }
 
-const ProjectRow = ({
-    projectData,
-    setSelectedProject,
-    showDigitalRainAnimation,
-    setShowDigitalRainAnimation,
-}: Props) => {
+const ProjectRow = ({ projectData, setSelectedProject }: Props) => {
     const [hasSettled, setHasSettled] = useState<boolean>(false);
-    const [showTopicsFullscreen, setShowTopicsFullscreen] =
-        useState<boolean>(false);
-    const showBaseContent = hasSettled && !showTopicsFullscreen;
+    const showBaseContent = hasSettled;
 
     // Third party hooks
     const { ref, inView } = useInView({
@@ -163,6 +151,7 @@ const ProjectRow = ({
                 </div>
                 <div className="project-row-main">
                     <Sidebar
+                        showBaseContent={showBaseContent}
                         languages={topLanguagesData}
                         isTopLanguagesFetching={isTopLanguagesFetching}
                     />
@@ -192,87 +181,7 @@ const ProjectRow = ({
                         />
                     </ul>
                 </div>
-                <div className="project-row-footer">
-                    <div className="project-video-preview">
-                        {showBaseContent && (
-                            <>
-                                <h3>Video Preview</h3>
-                                <div className="content">
-                                    <p>No</p>
-                                    <p>Data</p>
-                                </div>
-                                {/* <img
-                                    className="content"
-                                    src="https://mir-s3-cdn-cf.behance.net/project_modules/source/d20511205038723.66b3a6fe1a294.gif"
-                                    alt="Project preview"
-                                /> */}
-                            </>
-                        )}
-                    </div>
-                    <div
-                        className={`topics-container ${!showDigitalRainAnimation ? 'show' : 'hide'}`}
-                    >
-                        <div className="topics-dialog">
-                            <button
-                                title="View project topics"
-                                className="view-topics"
-                                type="button"
-                                onClick={() => setShowTopicsFullscreen(true)}
-                            >
-                                <EyeTrackingIcon className="icon" />
-                                <span>View</span>
-                            </button>
-                            <button
-                                title={`${showDigitalRainAnimation ? 'Pause' : 'Play'} digital rain animation`}
-                                className={`${showDigitalRainAnimation ? 'pause' : 'play'}-animation`}
-                                type="button"
-                                onClick={() =>
-                                    setShowDigitalRainAnimation(
-                                        !showDigitalRainAnimation
-                                    )
-                                }
-                            >
-                                {showDigitalRainAnimation ? (
-                                    <>
-                                        <MotionPauseIcon className="icon" />{' '}
-                                        <span>Pause</span>
-                                    </>
-                                ) : (
-                                    <>
-                                        <MotionPlayIcon className="icon" />{' '}
-                                        <span>Play</span>
-                                    </>
-                                )}
-                            </button>
-                        </div>
-                        <h3 className="topics-label">
-                            <span>T</span>
-                            <span>O</span>
-                            <span>P</span>
-                            <span>I</span>
-                            <span>C</span>
-                            <span>S</span>
-                        </h3>
-                        {showBaseContent && (
-                            <DigitalRain
-                                topics={projectData.topics}
-                                shouldAnimate={
-                                    showBaseContent && showDigitalRainAnimation
-                                }
-                                garganta
-                            />
-                        )}
-                    </div>
-                </div>
             </div>
-            {hasSettled && (
-                <TopicsFullscreen
-                    show={showTopicsFullscreen}
-                    setShow={setShowTopicsFullscreen}
-                    topics={projectData.topics}
-                    projectName={projectData.name}
-                />
-            )}
         </article>
     );
 };

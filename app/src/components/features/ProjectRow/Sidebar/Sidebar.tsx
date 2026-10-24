@@ -14,11 +14,13 @@ import './Sidebar.css';
 interface Props {
     languages?: { [key: string]: number };
     isTopLanguagesFetching?: boolean;
+    showBaseContent?: boolean;
 }
 
 const Sidebar = ({
     languages,
     isTopLanguagesFetching,
+    showBaseContent,
 }: Props): ReactElement => {
     const [languagesByPosition, setLanguagesByPosition] =
         useState<LanguagesByPosition>(generateLanguagesByPositionObject());
@@ -79,6 +81,22 @@ const Sidebar = ({
                         )
                     )}
             </ol>
+            <div className="project-video-preview">
+                {showBaseContent && (
+                    <>
+                        <h3>Video Preview</h3>
+                        <div className="content">
+                            <p>No</p>
+                            <p>Data</p>
+                        </div>
+                        {/* <img
+                                    className="content"
+                                    src="https://mir-s3-cdn-cf.behance.net/project_modules/source/d20511205038723.66b3a6fe1a294.gif"
+                                    alt="Project preview"
+                                /> */}
+                    </>
+                )}
+            </div>
         </aside>
     );
 };

@@ -103,37 +103,6 @@
         justify-content: space-between;
         align-items: center;
         height: 10%;
-
-        .project-counts {
-            display: flex;
-            flex-direction: row;
-            justify-content: space-around;
-            align-items: center;
-            gap: 1rem;
-            font-family: custom-semibold;
-            font-size: 0.8rem;
-            color: var(--temp-silver);
-            width: 100%;
-
-            > * {
-                display: flex;
-                flex-direction: row;
-                justify-content: center;
-                align-items: center;
-                gap: 10px;
-            }
-
-            .icon {
-                fill: var(--temp-silver);
-                width: 0.8rem;
-                height: 0.8rem;
-            }
-
-            .plus {
-                font-family: custom-regular;
-                font-size: 0.8rem;
-            }
-        }
     }
 
     .project-row-main {
@@ -168,14 +137,52 @@
         }
     }
 
+    .project-counts {
+        display: none;
+        flex-direction: row;
+        justify-content: space-around;
+        align-items: center;
+        gap: 1rem;
+        font-family: custom-semibold;
+        font-size: 0.8rem;
+        color: var(--temp-silver);
+        width: 100%;
+
+        > * {
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .icon {
+            fill: var(--temp-silver);
+            width: 0.8rem;
+            height: 0.8rem;
+        }
+
+        .plus {
+            font-family: custom-regular;
+            font-size: 0.8rem;
+        }
+    }
+
     .meta {
-        display: flex;
+        display: none;
         flex-direction: column;
         justify-content: center;
         align-items: flex-end;
         gap: 5px;
         color: var(--temp-silver);
         flex-shrink: 0;
+    }
+
+    @media screen and (min-width: 769px) {
+        .project-counts,
+        .meta {
+            display: flex;
+        }
     }
 
     .project-date-label {

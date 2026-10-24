@@ -98,9 +98,8 @@ const SearchBar = ({ scrollToProject }: Props): ReactElement => {
                     ref={inputRef}
                     id="search"
                     type="text"
-                    aria-label="Search GitHub projects"
-                    // TODO: consider supporting comma delineated / multiple word search
-                    placeholder="Find GitHub projects by topic or name"
+                    aria-label="Search GitHub projects by topic"
+                    placeholder="Search by topic"
                     autoComplete="off"
                     value={searchValue}
                     onChange={(e) => setSearchValue(e.target.value)}

@@ -64,7 +64,7 @@ const Sidebar = ({
                                         className={`language-label-container`}
                                     >
                                         <h3 className={`language-label`}>
-                                            {label === 'Null' ? 'Nulll' : label}
+                                            {label === 'Null' ? 'Null' : label}
                                         </h3>
                                         <p className={`language-percentage`}>
                                             {percentage === 0

@@ -99,7 +99,7 @@ const SearchBar = ({ scrollToProject }: Props): ReactElement => {
                     id="search"
                     type="text"
                     aria-label="Search GitHub projects by topic"
-                    placeholder="Search by topic"
+                    placeholder="Search"
                     autoComplete="off"
                     value={searchValue}
                     onChange={(e) => setSearchValue(e.target.value)}

@@ -17,12 +17,16 @@
     flex-direction: column;
     justify-content: flex-start;
     align-items: flex-start;
-    width: 30rem;
+    width: 20rem;
     max-width: 450px;
     max-height: calc(100dvh - var(--navbar-height) * 2);
     overflow: hidden;
     background-color: rgb(4, 4, 4);
     transition: opacity 0.2s linear;
+
+    @media screen and (min-width: 768px) {
+        width: 30rem;
+    }
 
     .header {
         position: sticky;

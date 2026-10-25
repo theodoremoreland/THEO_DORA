@@ -19,7 +19,7 @@
     align-items: flex-start;
     width: 30rem;
     max-width: 450px;
-    max-height: 95vh;
+    max-height: calc(100dvh - var(--navbar-height) * 2);
     overflow: hidden;
     background-color: rgb(4, 4, 4);
     transition: opacity 0.2s linear;

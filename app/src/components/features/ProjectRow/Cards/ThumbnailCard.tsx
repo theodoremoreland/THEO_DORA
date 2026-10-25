@@ -5,6 +5,8 @@ import { ReactElement, useCallback, useMemo, useState } from 'react';
 import Corner from '../../../common/primitives/Corner/Corner';
 import GlyphLane from '../../../common/primitives/GlyphLane/GlyphLane';
 import ImageCarousel from '../../../common/interactive/ImageCarousel/ImageCarousel';
+import DigitalRain from '../../DigitalRain/DigitalRain';
+import TopicsFullscreen from '../../DigitalRain/TopicsFullscreen/TopicsFullscreen';
 
 // Custom
 import { TaggedRepoData } from '../../../../types';
@@ -13,8 +15,16 @@ import getProjectContext, {
 } from '../../../../utils/getProjectContext';
 import { getImagesFromReadme } from '../../../../modules/readme';
 
+// Icons
+import EyeTrackingIcon from '../../../../assets/images/icons/eye_tracking.svg?react';
+
 // Styles
 import './ThumbnailCard.css';
+
+enum Tab {
+    Screenshots = 'screenshots',
+    Topics = 'topics',
+}
 
 interface Props {
     hasSettled: boolean;
@@ -38,10 +48,14 @@ const ThumbnailCard = ({
         [projectData]
     );
 
+    const [activeTab, setActiveTab] = useState<Tab>(Tab.Screenshots);
     const [selectedImageIndex, setSelectedImageIndex] = useState<number>(0);
     const [isImageCarouselOpen, setIsImageCarouselOpen] =
         useState<boolean>(false);
 
+    const handleTabClick = useCallback((tab: Tab) => {
+        setActiveTab(tab);
+    }, []);
     const handleImageClick = useCallback((index: number) => {
         setSelectedImageIndex(index);
         setIsImageCarouselOpen(true);
@@ -74,7 +88,7 @@ const ThumbnailCard = ({
                                     title="Project type"
                                     className="project-context"
                                 >
-                                    {context}
+                                    #{context}
                                 </span>
                             ))}
                     </div>
@@ -111,8 +125,29 @@ const ThumbnailCard = ({
                     <GlyphLane />
                 </div>
                 <div className="bottom">
-                    <h4 className="project-screenshots-title">Screenshots</h4>
-                    <div className="project-screenshots-container">
+                    <h4 className="project-screenshots-title large">
+                        Screenshots
+                    </h4>
+                    <h4 className="project-screenshots-title small">
+                        <button
+                            className={`tab-button ${activeTab === Tab.Screenshots ? 'active' : 'inactive'}`}
+                            type="button"
+                            onClick={() => handleTabClick(Tab.Screenshots)}
+                        >
+                            Screenshots
+                        </button>
+                        <span>/</span>
+                        <button
+                            className={`tab-button ${activeTab === Tab.Screenshots ? 'inactive' : 'active'}`}
+                            type="button"
+                            onClick={() => handleTabClick(Tab.Topics)}
+                        >
+                            Topics
+                        </button>
+                    </h4>
+                    <div
+                        className={`project-screenshots-container ${activeTab === Tab.Screenshots ? 'show' : 'hide'}`}
+                    >
                         <ul className="project-screenshots">
                             {!isReadmeFetching &&
                                 hasSettled &&
@@ -130,6 +165,10 @@ const ThumbnailCard = ({
                                 ))}
                         </ul>
                     </div>
+                    <Something
+                        show={activeTab === Tab.Topics && hasSettled}
+                        projectData={projectData}
+                    />
                 </div>
             </div>
             <div className="trailing-text">
@@ -140,3 +179,47 @@ const ThumbnailCard = ({
 };
 
 export default ThumbnailCard;
+
+interface SomethingProps {
+    projectData: TaggedRepoData;
+    show: boolean;
+}
+
+const Something = ({ projectData, show }: SomethingProps): ReactElement => {
+    const [showTopicsFullscreen, setShowTopicsFullscreen] =
+        useState<boolean>(false);
+
+    return (
+        <>
+            <div className={`topics-container ${show ? 'show' : 'hide'}`}>
+                <div className="topics-dialog">
+                    <button
+                        title="View project topics"
+                        className="view-topics"
+                        type="button"
+                        onClick={() => setShowTopicsFullscreen(true)}
+                    >
+                        <EyeTrackingIcon className="icon" />
+                        <span>View</span>
+                    </button>
+                </div>
+
+                {show && (
+                    <DigitalRain
+                        topics={projectData.topics}
+                        shouldAnimate
+                        garganta
+                    />
+                )}
+            </div>
+            {show && (
+                <TopicsFullscreen
+                    show={showTopicsFullscreen}
+                    setShow={setShowTopicsFullscreen}
+                    topics={projectData.topics}
+                    projectName={projectData.name}
+                />
+            )}
+        </>
+    );
+};

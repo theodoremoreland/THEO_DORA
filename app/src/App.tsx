@@ -98,12 +98,12 @@ const App = (): ReactElement => {
                 ref={titleCardRef}
                 className={`title-card ${repos ? 'transition' : ''}`}
             >
-                <video id="intro-video" playsInline loop muted autoPlay>
+                {/* <video id="intro-video" playsInline loop muted autoPlay>
                     <source
                         src="https://videos.pexels.com/video-files/34908014/14788136_1920_1080_30fps.mp4"
                         type="video/mp4"
                     />
-                </video>
+                </video> */}
                 <h1 className={`app-title ${repos ? 'transition' : ''}`}>
                     THEO_DORA
                 </h1>

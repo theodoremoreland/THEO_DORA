@@ -163,116 +163,111 @@ const ProjectRow = ({
                 </div>
                 <div className="project-row-main">
                     <Sidebar
+                        showBaseContent={showBaseContent}
                         languages={topLanguagesData}
                         isTopLanguagesFetching={isTopLanguagesFetching}
                     />
-                    <ul className="project-cards">
-                        <ThumbnailCard
-                            hasSettled={showBaseContent}
-                            projectData={projectData}
-                            readme={readmeData}
-                            isReadmeFetching={isReadmeFetching}
-                        />
-                        <MetricsCard
-                            hasSettled={showBaseContent}
-                            projectData={projectData}
-                            sonarMeasures={sonarMeasuresData}
-                            doraMetrics={doraMetricsData}
-                            isSonarMeasuresFetching={isSonarMeasuresFetching}
-                            isDoraMetricsFetching={isDoraMetricsFetching}
-                        />
-                        <ActivityCard
-                            hasSettled={showBaseContent}
-                            isRecentCommitsFetching={isRecentCommitsFetching}
-                            isCommitActivityFetching={isCommitActivityFetching}
-                            isCommitActivityError={isCommitActivityError}
-                            projectName={projectData.name}
-                            commits={commits}
-                            commitActivity={commitActivity}
-                        />
-                    </ul>
-                </div>
-                <div className="project-row-footer">
-                    <div className="project-video-preview">
-                        {showBaseContent && (
-                            <>
-                                <h3>Video Preview</h3>
-                                <div className="content">
-                                    <p>No</p>
-                                    <p>Data</p>
-                                </div>
-                                {/* <img
-                                    className="content"
-                                    src="https://mir-s3-cdn-cf.behance.net/project_modules/source/d20511205038723.66b3a6fe1a294.gif"
-                                    alt="Project preview"
-                                /> */}
-                            </>
-                        )}
-                    </div>
-                    <div
-                        className={`topics-container ${!showDigitalRainAnimation ? 'show' : 'hide'}`}
-                    >
-                        <div className="topics-dialog">
-                            <button
-                                title="View project topics"
-                                className="view-topics"
-                                type="button"
-                                onClick={() => setShowTopicsFullscreen(true)}
-                            >
-                                <EyeTrackingIcon className="icon" />
-                                <span>View</span>
-                            </button>
-                            <button
-                                title={`${showDigitalRainAnimation ? 'Pause' : 'Play'} digital rain animation`}
-                                className={`${showDigitalRainAnimation ? 'pause' : 'play'}-animation`}
-                                type="button"
-                                onClick={() =>
-                                    setShowDigitalRainAnimation(
-                                        !showDigitalRainAnimation
-                                    )
-                                }
-                            >
-                                {showDigitalRainAnimation ? (
-                                    <>
-                                        <MotionPauseIcon className="icon" />{' '}
-                                        <span>Pause</span>
-                                    </>
-                                ) : (
-                                    <>
-                                        <MotionPlayIcon className="icon" />{' '}
-                                        <span>Play</span>
-                                    </>
-                                )}
-                            </button>
-                        </div>
-                        <h3 className="topics-label">
-                            <span>T</span>
-                            <span>O</span>
-                            <span>P</span>
-                            <span>I</span>
-                            <span>C</span>
-                            <span>S</span>
-                        </h3>
-                        {showBaseContent && (
-                            <DigitalRain
-                                topics={projectData.topics}
-                                shouldAnimate={
-                                    showBaseContent && showDigitalRainAnimation
-                                }
-                                garganta
+                    <div className="cards-and-topics">
+                        <ul className="project-cards">
+                            <ThumbnailCard
+                                hasSettled={showBaseContent}
+                                projectData={projectData}
+                                readme={readmeData}
+                                isReadmeFetching={isReadmeFetching}
                             />
-                        )}
+                            <MetricsCard
+                                hasSettled={showBaseContent}
+                                projectData={projectData}
+                                sonarMeasures={sonarMeasuresData}
+                                doraMetrics={doraMetricsData}
+                                isSonarMeasuresFetching={
+                                    isSonarMeasuresFetching
+                                }
+                                isDoraMetricsFetching={isDoraMetricsFetching}
+                            />
+                            <ActivityCard
+                                hasSettled={showBaseContent}
+                                isRecentCommitsFetching={
+                                    isRecentCommitsFetching
+                                }
+                                isCommitActivityFetching={
+                                    isCommitActivityFetching
+                                }
+                                isCommitActivityError={isCommitActivityError}
+                                projectName={projectData.name}
+                                commits={commits}
+                                commitActivity={commitActivity}
+                            />
+                        </ul>
+                        <div
+                            className={`btopics-container ${!showDigitalRainAnimation ? 'show' : 'hide'}`}
+                        >
+                            <div className="topics-dialog">
+                                <button
+                                    title="View project topics"
+                                    className="view-topics"
+                                    type="button"
+                                    onClick={() =>
+                                        setShowTopicsFullscreen(true)
+                                    }
+                                >
+                                    <EyeTrackingIcon className="icon" />
+                                    <span>View</span>
+                                </button>
+                                <button
+                                    title={`${showDigitalRainAnimation ? 'Pause' : 'Play'} digital rain animation`}
+                                    className={`${showDigitalRainAnimation ? 'pause' : 'play'}-animation`}
+                                    type="button"
+                                    onClick={() =>
+                                        setShowDigitalRainAnimation(
+                                            !showDigitalRainAnimation
+                                        )
+                                    }
+                                >
+                                    {showDigitalRainAnimation ? (
+                                        <>
+                                            <MotionPauseIcon className="icon" />{' '}
+                                            <span>Pause</span>
+                                        </>
+                                    ) : (
+                                        <>
+                                            <MotionPlayIcon className="icon" />{' '}
+                                            <span>Play</span>
+                                        </>
+                                    )}
+                                </button>
+                            </div>
+                            <h3 className="topics-label">
+                                <span>T</span>
+                                <span>O</span>
+                                <span>P</span>
+                                <span>I</span>
+                                <span>C</span>
+                                <span>S</span>
+                            </h3>
+                            {showBaseContent && (
+                                <DigitalRain
+                                    topics={projectData.topics}
+                                    shouldAnimate={
+                                        showBaseContent &&
+                                        showDigitalRainAnimation
+                                    }
+                                    garganta
+                                    large
+                                />
+                            )}
+                        </div>
                     </div>
+                    {hasSettled && (
+                        <TopicsFullscreen
+                            show={showTopicsFullscreen}
+                            setShow={setShowTopicsFullscreen}
+                            topics={projectData.topics}
+                            projectName={projectData.name}
+                        />
+                    )}
                 </div>
             </div>
-            {hasSettled && (
-                <TopicsFullscreen
-                    show={showTopicsFullscreen}
-                    setShow={setShowTopicsFullscreen}
-                    topics={projectData.topics}
-                    projectName={projectData.name}
-                />
-            )}
         </article>
     );
 };

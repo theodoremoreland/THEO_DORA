@@ -74,21 +74,32 @@
         flex-direction: column;
         justify-content: center;
         align-items: flex-start;
-        gap: 1.5rem;
-        padding: 1rem 0;
+        gap: var(--content-gap);
+        padding: var(--content-gap) 0;
         width: 100%;
         height: 100%;
     }
 
+    @media screen and (min-width: 1280px) {
+        .project-row-content {
+            padding: 1rem 0;
+        }
+    }
+
+    @media screen and (min-width: 1440px) {
+        .project-row-content {
+            padding: 1.5rem 0;
+        }
+    }
+
     .project-row-header,
-    .project-row-main,
-    .project-row-footer {
+    .project-row-main {
         position: relative;
         display: flex;
         flex-direction: row;
         justify-content: flex-start;
-        align-items: center;
-        gap: 1.5rem;
+        align-items: flex-start;
+        gap: var(--content-gap);
         width: 100%;
     }
 
@@ -98,45 +109,10 @@
         justify-content: space-between;
         align-items: center;
         height: 10%;
-
-        .project-counts {
-            display: flex;
-            flex-direction: row;
-            justify-content: space-around;
-            align-items: center;
-            gap: 1rem;
-            font-family: custom-semibold;
-            font-size: 0.8rem;
-            color: var(--temp-silver);
-            width: 100%;
-
-            > * {
-                display: flex;
-                flex-direction: row;
-                justify-content: center;
-                align-items: center;
-                gap: 10px;
-            }
-
-            .icon {
-                fill: var(--temp-silver);
-                width: 0.8rem;
-                height: 0.8rem;
-            }
-
-            .plus {
-                font-family: custom-regular;
-                font-size: 0.8rem;
-            }
-        }
     }
 
     .project-row-main {
-        height: 70%;
-    }
-
-    .project-row-footer {
-        height: 20%;
+        height: 90%;
     }
 
     .project-name {
@@ -150,24 +126,69 @@
         font-size: 1rem;
         letter-spacing: 1rem;
         color: var(--primary-font-color);
-        padding: 15px;
+        padding: 0.9rem;
         margin: 0;
     }
 
-    @media screen and (min-width: 1150px) {
+    @media screen and (min-width: 720px) {
+        .project-name {
+            font-size: 1.25rem;
+        }
+    }
+
+    @media screen and (min-width: 1280px) {
         .project-name {
             font-size: 2.25rem;
+            padding: 1;
+        }
+    }
+
+    .project-counts {
+        display: none;
+        flex-direction: row;
+        justify-content: space-around;
+        align-items: center;
+        gap: 1rem;
+        font-family: custom-semibold;
+        font-size: 0.8rem;
+        color: var(--temp-silver);
+        width: 100%;
+
+        > * {
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .icon {
+            fill: var(--temp-silver);
+            width: 0.8rem;
+            height: 0.8rem;
+        }
+
+        .plus {
+            font-family: custom-regular;
+            font-size: 0.8rem;
         }
     }
 
     .meta {
-        display: flex;
+        display: none;
         flex-direction: column;
         justify-content: center;
         align-items: flex-end;
         gap: 5px;
         color: var(--temp-silver);
         flex-shrink: 0;
+    }
+
+    @media screen and (min-width: 769px) {
+        .project-counts,
+        .meta {
+            display: flex;
+        }
     }
 
     .project-date-label {
@@ -185,16 +206,32 @@
         font-family: custom-semibold;
     }
 
+    .cards-and-topics {
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        align-items: flex-start;
+        width: 100%;
+        height: 100%;
+    }
+
     .project-cards {
         position: relative;
         display: grid;
-        grid-template-columns: repeat(3, 1fr); /* 3 columns of equal width */
+        grid-template-columns: repeat(3, 1fr);
         grid-template-rows: 1fr;
-        flex-grow: 1; /* Fills the exact remaining space without overflowing */
-        gap: 8px;
+        gap: var(--content-gap);
         width: 100%;
         min-height: 0;
         height: 100%;
+        overflow-x: auto;
+
+        @media screen and (min-height: 1160px) {
+            & {
+                height: 75%;
+            }
+        }
     }
 
     .project-card-container {
@@ -204,7 +241,13 @@
         width: 100%;
         min-height: 0;
         height: 100%;
-        min-width: 0;
+        min-width: 215px;
+
+        @media screen and (min-width: 1150px) {
+            & {
+                min-width: 0;
+            }
+        }
 
         .trailing-text {
             position: relative;
@@ -217,7 +260,7 @@
             font-size: 0.7rem;
             color: var(--temp-silver);
             width: 100%;
-            padding: 10px;
+            padding: 10px 10px 0 10px;
         }
     }
 
@@ -250,55 +293,20 @@
         }
     }
 
-    .project-video-preview {
+    .btopics-container {
         position: relative;
-        flex-shrink: 0;
-        width: var(--sidebar-width);
-        height: 110%;
-        margin-top: -10%;
-        border-radius: 4px;
-
-        h3,
-        .content {
-            animation: fadeIn var(--card-fade-speed) ease-in-out forwards;
-        }
-
-        h3 {
-            font-family: custom-thin;
-            font-size: 1.25rem;
-            color: var(--temp-gray-3);
-            width: 100%;
-            padding: 10px;
-            background-color: var(--secondary-color);
-        }
-
-        .content {
-            position: relative;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            width: 100%;
-            height: 100%;
-            background-color: #020202;
-            border: 1px solid var(--temp-gray-3);
-            object-fit: cover;
-
-            p {
-                font-size: 1.5rem;
-                color: darkred;
-            }
-        }
-    }
-
-    .topics-container {
-        position: relative;
-        display: flex;
+        display: none;
         flex-direction: row;
         justify-content: center;
         align-items: center;
         width: 100%;
-        height: 100%;
+        height: 20%;
+
+        @media screen and (min-height: 1160px) {
+            & {
+                display: flex;
+            }
+        }
 
         .topics-dialog {
             z-index: 3;

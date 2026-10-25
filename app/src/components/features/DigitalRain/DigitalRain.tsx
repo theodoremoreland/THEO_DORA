@@ -21,6 +21,7 @@ interface Props {
     topics: string[];
     shouldAnimate: boolean;
     garganta: boolean;
+    large?: boolean;
     shouldProperCase?: boolean;
 }
 
@@ -28,6 +29,7 @@ const DigitalRain = ({
     topics,
     shouldAnimate,
     garganta,
+    large,
     shouldProperCase = true,
 }: Props): ReactElement => {
     const casedTopics: string[] = useMemo(
@@ -74,11 +76,6 @@ const DigitalRain = ({
             const columnPositions: number[] = Array.from({
                 length: columns,
             }).fill(1) as number[];
-            const topicsThatFitCanvas: string[] = casedTopics.filter(
-                (topic: string) => {
-                    return topic.length * fontSize < canvas.height;
-                }
-            );
 
             const draw = (): void => {
                 if (!ctx) return;
@@ -154,11 +151,11 @@ const DigitalRain = ({
                                 activeColumnIndexRef.current
                             );
                         renderingTopicRef.current = formatRenderTopic(
-                            topicsThatFitCanvas[currentTopicIndexRef.current]
+                            casedTopics[currentTopicIndexRef.current]
                         );
                         currentTopicIndexRef.current =
                             currentTopicIndexRef.current ===
-                            topicsThatFitCanvas.length - 1
+                            casedTopics.length - 1
                                 ? 0
                                 : currentTopicIndexRef.current + 1;
                     }
@@ -196,7 +193,7 @@ const DigitalRain = ({
         <div className={`DigitalRainContainer `}>
             <canvas
                 ref={canvasRef}
-                className={`DigitalRain ${garganta ? 'garganta' : ''}`}
+                className={`DigitalRain ${garganta ? 'garganta' : ''} ${large ? 'large' : ''}`}
             >
                 A The Matrix-style wall of falling text that occasionally reads
                 GitHub topics related to this project.

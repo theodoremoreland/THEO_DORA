@@ -64,14 +64,15 @@
 
     --analytics-layout-gap: 1.25rem;
     --analytics-content-gap: 10px;
-    --content-gap: 20px;
+    --content-gap: 0.85rem;
     --content-width: 90%;
     --content-max-width: 1280px;
+    --project-card-padding: 10px;
 
     --background-color: #141418;
     --experimental-color: #d4d4d405;
 
-    --sidebar-width: 30%;
+    --sidebar-width: 25%;
 
     --temp-gray: #131217;
     --temp-gray-2: #27282f;
@@ -85,7 +86,7 @@
 @media screen and (min-width: 769px) {
     :root {
         --navbar-horizontal-padding: 22.5px;
-        --content-width: 85%;
+        --content-width: 95%;
     }
 }
 
@@ -93,19 +94,22 @@
     :root {
         --analytics-content-gap: 7px;
         --sidebar-width: 15%;
+        --content-max-width: 1600px;
     }
 }
 
 @media screen and (min-width: 1440px) {
     :root {
-        --content-width: 92%;
-        --content-max-width: 1920px;
+        --content-gap: 1rem;
+        --project-card-padding: 20px;
     }
 }
 
 @media screen and (min-width: 1920px) {
     :root {
-        --content-gap: 30px;
+        --content-width: 92%;
+        --content-max-width: 1920px;
+        --content-gap: 1.25rem;
     }
 }
 
@@ -125,13 +129,19 @@ html {
     font-size: 8px;
 }
 
-@media screen and (min-height: 720px) {
+@media screen and (min-height: 550px) {
     html {
         font-size: 10px;
     }
 }
 
-@media screen and (min-height: 1280px) {
+@media screen and (min-height: 720px) {
+    html {
+        font-size: 12px;
+    }
+}
+
+@media screen and (min-height: 1080px) {
     html {
         font-size: 16px;
     }

@@ -37,7 +37,7 @@
         gap: 15px;
         height: 40%;
         flex-grow: 1;
-        padding-bottom: 20px;
+        padding-bottom: var(--project-card-padding);
     }
 
     .middle {
@@ -168,8 +168,12 @@
                 align-items: center;
                 width: 100%;
                 height: 100%;
-                font-size: 1.5rem;
+                font-size: 3rem;
                 text-align: center;
+
+                & .failed {
+                    font-size: 1rem;
+                }
             }
         }
 
@@ -205,7 +209,7 @@
         gap: 10px;
         width: 100%;
         height: 100%;
-        padding: 20px;
+        padding: var(--project-card-padding);
         transition: opacity var(--card-fade-speed) ease-in-out;
 
         &.hide {
@@ -229,9 +233,10 @@
         flex-direction: column;
         justify-content: flex-start;
         align-items: flex-start;
-        gap: 1em;
+        gap: var(--content-gap);
         width: 100%;
         height: 100%;
+        padding-bottom: var(--project-card-padding);
         list-style: none;
         overflow-x: hidden;
         overflow-y: auto;
@@ -241,7 +246,7 @@
             flex-direction: column;
             justify-content: center;
             align-items: flex-start;
-            gap: 12px;
+            gap: var(--content-gap);
             width: 100%;
             padding: 0.5em 0;
             border-bottom: 1px solid var(--border-color);

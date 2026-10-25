@@ -203,13 +203,14 @@
     .project-cards {
         position: relative;
         display: grid;
-        grid-template-columns: repeat(3, 1fr); /* 3 columns of equal width */
+        grid-template-columns: repeat(3, 1fr);
         grid-template-rows: 1fr;
-        flex-grow: 1; /* Fills the exact remaining space without overflowing */
+        flex-grow: 1;
         gap: var(--content-gap);
         width: 100%;
         min-height: 0;
         height: 100%;
+        overflow-x: auto;
     }
 
     .project-card-container {
@@ -219,7 +220,13 @@
         width: 100%;
         min-height: 0;
         height: 100%;
-        min-width: 0;
+        min-width: 215px;
+
+        @media screen and (min-width: 1150px) {
+            & {
+                min-width: 0;
+            }
+        }
 
         .trailing-text {
             position: relative;

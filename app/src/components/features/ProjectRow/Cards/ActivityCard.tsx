@@ -215,9 +215,13 @@ const ActivityCard = ({
                             className={`loading-overlay ${sparklineContainerClass}`}
                         >
                             <p className="loading-text">
-                                {isCommitActivityError
-                                    ? 'Failed to load commit activity'
-                                    : '...'}
+                                {isCommitActivityError ? (
+                                    <span className="failed">
+                                        Failed to load commit activity
+                                    </span>
+                                ) : (
+                                    <span>...</span>
+                                )}
                             </p>
                         </div>
                     </div>

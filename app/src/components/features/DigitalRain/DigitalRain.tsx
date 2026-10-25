@@ -34,7 +34,7 @@ const DigitalRain = ({
         () => (shouldProperCase ? properCase(topics) : topics),
         [topics, shouldProperCase]
     );
-    const fontSize: number = garganta ? 22 : 24;
+    const fontSize: number = garganta ? 16 : 24;
 
     const canvasRef = useRef<HTMLCanvasElement>(null);
     const animationFrameIdRef = useRef<number | undefined>(undefined);

@@ -81,7 +81,7 @@
     .software-quality-container {
         flex-direction: row;
         justify-content: center;
-        align-items: flex-start;
+        align-items: center;
         contain-intrinsic-size: auto 0px;
         transition: opacity var(--card-fade-speed) ease-in-out;
     }
@@ -99,6 +99,12 @@
     .RadarChart {
         width: 75%;
         height: 100%;
+
+        @media screen and (min-width: 1440px) {
+            & {
+                height: 75%;
+            }
+        }
 
         text {
             fill: var(--primary-font-color);

@@ -105,6 +105,12 @@
         }
     }
 
+    @media screen and (min-width: 1440px) {
+        & {
+            max-height: 20dvh;
+        }
+    }
+
     h3,
     .content {
         animation: fadeIn var(--card-fade-speed) ease-in-out forwards;

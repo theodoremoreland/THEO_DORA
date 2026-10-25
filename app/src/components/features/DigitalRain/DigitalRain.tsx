@@ -21,6 +21,7 @@ interface Props {
     topics: string[];
     shouldAnimate: boolean;
     garganta: boolean;
+    large?: boolean;
     shouldProperCase?: boolean;
 }
 
@@ -28,6 +29,7 @@ const DigitalRain = ({
     topics,
     shouldAnimate,
     garganta,
+    large,
     shouldProperCase = true,
 }: Props): ReactElement => {
     const casedTopics: string[] = useMemo(
@@ -191,7 +193,7 @@ const DigitalRain = ({
         <div className={`DigitalRainContainer `}>
             <canvas
                 ref={canvasRef}
-                className={`DigitalRain ${garganta ? 'garganta' : ''}`}
+                className={`DigitalRain ${garganta ? 'garganta' : ''} ${large ? 'large' : ''}`}
             >
                 A The Matrix-style wall of falling text that occasionally reads
                 GitHub topics related to this project.

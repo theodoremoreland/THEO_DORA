@@ -125,7 +125,10 @@ const ThumbnailCard = ({
                     <GlyphLane />
                 </div>
                 <div className="bottom">
-                    <h4 className="project-screenshots-title">
+                    <h4 className="project-screenshots-title large">
+                        Screenshots
+                    </h4>
+                    <h4 className="project-screenshots-title small">
                         <button
                             className={`tab-button ${activeTab === Tab.Screenshots ? 'active' : 'inactive'}`}
                             type="button"
@@ -142,33 +145,30 @@ const ThumbnailCard = ({
                             Topics
                         </button>
                     </h4>
-                    {activeTab === Tab.Screenshots && (
-                        <div className="project-screenshots-container">
-                            <ul className="project-screenshots">
-                                {!isReadmeFetching &&
-                                    hasSettled &&
-                                    readmeImages
-                                        .slice(0, 4)
-                                        .map((src, index) => (
-                                            <li
-                                                key={index}
-                                                onClick={() =>
-                                                    handleImageClick(index)
-                                                }
-                                            >
-                                                <img
-                                                    className="project-screenshot"
-                                                    src={src}
-                                                    alt={`${projectData.name} screenshot ${index + 1}`}
-                                                />
-                                            </li>
-                                        ))}
-                            </ul>
-                        </div>
-                    )}
-                    {activeTab === Tab.Topics && hasSettled && (
-                        <Something projectData={projectData} />
-                    )}
+                    <div
+                        className={`project-screenshots-container ${activeTab === Tab.Screenshots ? 'show' : 'hide'}`}
+                    >
+                        <ul className="project-screenshots">
+                            {!isReadmeFetching &&
+                                hasSettled &&
+                                readmeImages.slice(0, 4).map((src, index) => (
+                                    <li
+                                        key={index}
+                                        onClick={() => handleImageClick(index)}
+                                    >
+                                        <img
+                                            className="project-screenshot"
+                                            src={src}
+                                            alt={`${projectData.name} screenshot ${index + 1}`}
+                                        />
+                                    </li>
+                                ))}
+                        </ul>
+                    </div>
+                    <Something
+                        show={activeTab === Tab.Topics && hasSettled}
+                        projectData={projectData}
+                    />
                 </div>
             </div>
             <div className="trailing-text">
@@ -182,15 +182,16 @@ export default ThumbnailCard;
 
 interface SomethingProps {
     projectData: TaggedRepoData;
+    show: boolean;
 }
 
-const Something = ({ projectData }: SomethingProps): ReactElement => {
+const Something = ({ projectData, show }: SomethingProps): ReactElement => {
     const [showTopicsFullscreen, setShowTopicsFullscreen] =
         useState<boolean>(false);
 
     return (
         <>
-            <div className={`topics-container`}>
+            <div className={`topics-container ${show ? 'show' : 'hide'}`}>
                 <div className="topics-dialog">
                     <button
                         title="View project topics"
@@ -202,20 +203,23 @@ const Something = ({ projectData }: SomethingProps): ReactElement => {
                         <span>View</span>
                     </button>
                 </div>
-                (
-                <DigitalRain
-                    topics={projectData.topics}
-                    shouldAnimate
-                    garganta
-                />
-                )
+
+                {show && (
+                    <DigitalRain
+                        topics={projectData.topics}
+                        shouldAnimate
+                        garganta
+                    />
+                )}
             </div>
-            <TopicsFullscreen
-                show={showTopicsFullscreen}
-                setShow={setShowTopicsFullscreen}
-                topics={projectData.topics}
-                projectName={projectData.name}
-            />
+            {show && (
+                <TopicsFullscreen
+                    show={showTopicsFullscreen}
+                    setShow={setShowTopicsFullscreen}
+                    topics={projectData.topics}
+                    projectName={projectData.name}
+                />
+            )}
         </>
     );
 };

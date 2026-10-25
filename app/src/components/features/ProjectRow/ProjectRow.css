@@ -86,6 +86,12 @@
         }
     }
 
+    @media screen and (min-width: 1440px) {
+        .project-row-content {
+            padding: 1.5rem 0;
+        }
+    }
+
     .project-row-header,
     .project-row-main {
         position: relative;
@@ -200,17 +206,32 @@
         font-family: custom-semibold;
     }
 
+    .cards-and-topics {
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        align-items: flex-start;
+        width: 100%;
+        height: 100%;
+    }
+
     .project-cards {
         position: relative;
         display: grid;
         grid-template-columns: repeat(3, 1fr);
         grid-template-rows: 1fr;
-        flex-grow: 1;
         gap: var(--content-gap);
         width: 100%;
         min-height: 0;
         height: 100%;
         overflow-x: auto;
+
+        @media screen and (min-height: 1160px) {
+            & {
+                height: 75%;
+            }
+        }
     }
 
     .project-card-container {
@@ -269,6 +290,135 @@
             font-size: 1.3rem;
             padding: 0;
             margin: 0;
+        }
+    }
+
+    .btopics-container {
+        position: relative;
+        display: none;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+        height: 20%;
+
+        @media screen and (min-height: 1160px) {
+            & {
+                display: flex;
+            }
+        }
+
+        .topics-dialog {
+            z-index: 3;
+            position: absolute;
+            display: none;
+            flex-direction: row;
+            justify-content: center;
+            align-items: center;
+            gap: 1rem;
+            font-size: 1.5rem;
+
+            button {
+                position: relative;
+                display: flex;
+                flex-direction: row;
+                justify-content: center;
+                align-items: center;
+                gap: 0.25rem;
+                font-family: bit-regular;
+                min-width: 8rem;
+                padding: 0.7rem 1rem;
+                margin: 0;
+                border: none;
+                border-radius: 4px;
+                box-shadow:
+                    rgba(0, 0, 0, 0.4) 0px 2px 4px,
+                    rgba(0, 0, 0, 0.3) 0px 7px 13px -3px;
+
+                .icon {
+                    fill: currentColor;
+                    width: 1rem;
+                    height: 1rem;
+                    margin-top: -2px;
+                }
+            }
+
+            button:hover,
+            button:active,
+            button:focus {
+                opacity: 0.95;
+            }
+
+            button:active {
+                transform: scale(0.95);
+            }
+
+            button.view-topics {
+                color: var(--secondary-font-color);
+                background-color: var(--tertiary-color);
+            }
+
+            button.pause-animation {
+                color: var(--primary-font-color);
+                background-color: darkred;
+            }
+
+            button.play-animation {
+                color: var(--secondary-font-color);
+                background-color: var(--secondary-highlight-color);
+            }
+        }
+
+        &.show,
+        &:hover {
+            .topics-dialog {
+                display: flex;
+            }
+        }
+
+        .topics-label {
+            position: absolute;
+            top: 0%;
+            left: 0;
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            align-items: center;
+            gap: 9%;
+            width: 100%;
+            height: 100%;
+            font-family: custom-semibold;
+            font-size: 2.4rem;
+            text-align: center;
+            color: var(--temp-silver);
+            padding: 0;
+            margin: 0;
+
+            > span {
+                position: relative;
+                text-align: center;
+                height: 100%;
+            }
+
+            > :nth-child(2) {
+                top: -15%;
+            }
+
+            > :nth-child(3) {
+                top: -7%;
+            }
+
+            > :nth-child(4) {
+                top: -15%;
+            }
+
+            > :nth-child(5) {
+                top: -16%;
+            }
+        }
+
+        .topics-label {
+            z-index: 1;
         }
     }
 }

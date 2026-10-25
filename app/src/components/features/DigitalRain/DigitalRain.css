@@ -99,5 +99,9 @@
                 width: 90%;
             }
         }
+
+        &.garganta.large {
+            width: 60% !important;
+        }
     }
 }

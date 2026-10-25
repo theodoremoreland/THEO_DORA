@@ -142,7 +142,7 @@ const ThumbnailCard = ({
                             Topics
                         </button>
                     </h4>
-                    {activeTab === Tab.Screenshots ? (
+                    {activeTab === Tab.Screenshots && (
                         <div className="project-screenshots-container">
                             <ul className="project-screenshots">
                                 {!isReadmeFetching &&
@@ -165,7 +165,8 @@ const ThumbnailCard = ({
                                         ))}
                             </ul>
                         </div>
-                    ) : (
+                    )}
+                    {activeTab === Tab.Topics && hasSettled && (
                         <Something projectData={projectData} />
                     )}
                 </div>

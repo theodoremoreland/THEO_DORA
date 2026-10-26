@@ -68,10 +68,13 @@ const SearchBar = ({ scrollToProject }: Props): ReactElement => {
         const hasFocus = inputRef?.current === document.activeElement;
 
         if (hasFocus && searchValue && repos) {
-            const fuse = new Fuse(repos, {
-                keys: ['name', 'topics'],
-                threshold: 0.3,
-            });
+            const fuse = new Fuse(
+                repos.filter((repo) => repo.isFeatured),
+                {
+                    keys: ['name', 'topics'],
+                    threshold: 0.3,
+                }
+            );
             const results = fuse.search(searchValue);
 
             results.sort((a, b) => {
@@ -183,7 +186,8 @@ const SearchBar = ({ scrollToProject }: Props): ReactElement => {
                                 })
                             ) : (
                                 <li className="search-result">
-                                    No results found
+                                    No results match your search or filter
+                                    criteria
                                 </li>
                             )}
                         </ul>

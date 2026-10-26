@@ -161,7 +161,8 @@ body {
 body::-webkit-scrollbar,
 ul::-webkit-scrollbar,
 section::-webkit-scrollbar,
-div::-webkit-scrollbar {
+div::-webkit-scrollbar,
+article::-webkit-scrollbar {
     height: 3px;
     width: 3px;
 }
@@ -169,7 +170,8 @@ div::-webkit-scrollbar {
 body::-webkit-scrollbar-track,
 ul::-webkit-scrollbar-track,
 section::-webkit-scrollbar-track,
-div::-webkit-scrollbar-track {
+div::-webkit-scrollbar-track,
+article::-webkit-scrollbar-track {
     background: var(--secondary-color);
     border: none;
     border-radius: 10px;
@@ -178,7 +180,8 @@ div::-webkit-scrollbar-track {
 body::-webkit-scrollbar-thumb,
 ul::-webkit-scrollbar-thumb,
 section::-webkit-scrollbar-thumb,
-div::-webkit-scrollbar-thumb {
+div::-webkit-scrollbar-thumb,
+article::-webkit-scrollbar-thumb {
     border-radius: 10px;
     background-color: var(--quaternary-color);
 }

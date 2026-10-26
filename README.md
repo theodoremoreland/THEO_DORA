@@ -58,7 +58,7 @@ Regarding linting errors in VS Code and template.yml files, specifically in refe
 
 https://docs.aws.amazon.com/AWSCloudFormation/latest/TemplateReference/intrinsic-function-reference.html
 
-Add to Workplace settings to remove invalid linting errors for the valuing:
+Add to Workplace settings to remove invalid linting errors for the following values:
 
 ```json
 {

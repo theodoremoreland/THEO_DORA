@@ -118,6 +118,7 @@
         justify-content: flex-start;
         align-items: center;
         width: 100%;
+        min-width: 22rem;
         max-height: 85vh;
         padding: 0;
         margin-bottom: var(--navbar-height);
@@ -130,6 +131,7 @@
         color: var(--secondary-color);
 
         .search-result {
+            position: relative;
             display: flex;
             flex-direction: column;
             justify-content: center;

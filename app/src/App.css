@@ -136,7 +136,11 @@ main {
         #dff30653 0.8px,
         transparent 0.8px
     );
-    background-size: 27px 27px;
+    background-size: 17px 17px;
+
+    @media screen and (min-width: 768px) {
+        background-size: 27px 27px;
+    }
 
     > .row {
         display: flex;

@@ -131,15 +131,16 @@
         gap: 8px;
         font-family: custom-bold;
         font-size: 1rem;
-        letter-spacing: 1rem;
+        letter-spacing: 0.5rem;
         color: var(--primary-font-color);
         padding: 0.9rem;
         margin: 0;
     }
 
-    @media screen and (min-width: 720px) {
+    @media screen and (min-width: 768px) {
         .project-name {
             font-size: 1.25rem;
+            letter-spacing: 1rem;
         }
     }
 

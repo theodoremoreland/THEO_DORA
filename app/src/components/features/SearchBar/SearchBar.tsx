@@ -186,7 +186,8 @@ const SearchBar = ({ scrollToProject }: Props): ReactElement => {
                                 })
                             ) : (
                                 <li className="search-result">
-                                    No results found
+                                    No results match your search or filter
+                                    criteria
                                 </li>
                             )}
                         </ul>

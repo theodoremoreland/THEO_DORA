@@ -38,7 +38,7 @@
         align-items: flex-start;
         gap: 5px;
         width: 100%;
-        font-family: custom-bold;
+        font-family: custom-bold, monospace;
         background-color: inherit;
         padding: 1.5rem;
         border-bottom: 1px solid var(--border-color);
@@ -98,7 +98,7 @@
     width: 100%;
     padding: 0.35em 0;
     color: var(--secondary-color);
-    font-family: custom-bold;
+    font-family: custom-bold, monospace;
     font-size: 1.1rem;
 }
 

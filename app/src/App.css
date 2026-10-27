@@ -50,7 +50,7 @@
 
 .app-title {
     font-size: 2rem;
-    font-family: custom-bold;
+    font-family: custom-bold, monospace;
     font-style: oblique;
     letter-spacing: -1px;
     margin: 0;
@@ -59,7 +59,7 @@
 .app-subtitle {
     font-size: 1rem;
     font-style: oblique;
-    font-family: custom-regular;
+    font-family: custom-regular, monospace;
 }
 
 @media screen and (min-width: 769px) {
@@ -193,7 +193,7 @@ main {
     border-radius: 1em;
     margin: 0;
     color: var(--secondary-font-color);
-    font-family: bit-regular;
+    font-family: bit-regular, system-ui;
     font-size: 1em;
     background-color: var(--primary-highlight-color);
 }

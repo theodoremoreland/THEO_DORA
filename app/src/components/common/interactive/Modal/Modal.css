@@ -33,7 +33,7 @@
 
         h2,
         h3 {
-            font-family: custom-bold;
+            font-family: custom-bold, monospace;
         }
 
         h2,
@@ -89,7 +89,7 @@
         }
 
         .custom-modal-title {
-            font-family: custom-bold;
+            font-family: custom-bold, monospace;
             font-size: 2em;
         }
 

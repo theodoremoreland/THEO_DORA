@@ -125,7 +125,7 @@ html {
     height: 100dvh;
     background-color: var(--background-color);
     overflow: hidden;
-    font-family: custom-regular;
+    font-family: custom-regular, monospace;
     font-size: 8px;
 }
 

@@ -109,7 +109,7 @@
         text {
             fill: var(--primary-font-color);
             font-size: 0.8rem !important;
-            font-family: custom-thin !important;
+            font-family: custom-thin, monospace !important;
         }
 
         .MuiRadarChart-gridRadial,
@@ -145,7 +145,7 @@
 
             .content {
                 width: 100%;
-                font-family: bit-regular;
+                font-family: bit-regular, system-ui;
             }
 
             h4 {
@@ -251,7 +251,7 @@
     .view-deployment {
         color: var(--primary-font-color);
         font-size: 1rem;
-        font-family: bit-regular;
+        font-family: bit-regular, system-ui;
         line-height: 1;
         text-align: center;
         min-width: 14ch;

@@ -6,6 +6,6 @@
     }
 
     text {
-        font-family: custom-regular !important;
+        font-family: custom-regular, monospace !important;
     }
 }

@@ -25,7 +25,7 @@ const calculateChangeFailureRate = (issues, prs, deployments) => {
     timeStamps.push(deployment.timestamp);
   }
 
-  timeStamps.sort();
+  timeStamps.sort((a, b) => new Date(a) - new Date(b));
 
   for (let i = 0; i < timeStamps.length; i++) {
     const deploymentTimestamp = timeStamps[i];

@@ -25,7 +25,7 @@ a {
     span {
         color: var(--primary-font-color);
         background-color: transparent;
-        font-family: custom-thin;
+        font-family: custom-thin, monospace;
         font-size: 0.9rem;
         padding: 0.35rem 0.5rem;
         border-radius: 8px;

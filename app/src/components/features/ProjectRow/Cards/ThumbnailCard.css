@@ -121,7 +121,7 @@
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            font-family: bit-regular;
+            font-family: bit-regular, system-ui;
             font-size: 1.5rem;
             text-align: center;
             color: var(--tertiary-color);
@@ -143,7 +143,7 @@
 
     .tab-button {
         font-size: 0.8rem;
-        font-family: bit-regular;
+        font-family: bit-regular, system-ui;
         min-width: 6rem;
         padding: 0.5rem 0.75rem;
         border: none;
@@ -297,7 +297,7 @@
                 justify-content: center;
                 align-items: center;
                 gap: 0.25rem;
-                font-family: bit-regular;
+                font-family: bit-regular, system-ui;
                 font-size: 0.8rem;
                 min-width: 6rem;
                 padding: 0.5rem 0.75rem;

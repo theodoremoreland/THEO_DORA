@@ -17,7 +17,7 @@ import NavBar from './components/layout/NavBar/NavBar';
 import ProjectRow from './components/features/ProjectRow/ProjectRow';
 import ToolBar from './components/layout/ToolBar/ToolBar';
 import Overview from './components/common/interactive/Modal/Overview/Overview';
-import Error from './components/common/interactive/Modal/Error/Error';
+import ErrorModal from './components/common/interactive/Modal/ErrorModal/ErrorModal';
 import NotAScrollbar from './components/features/NotAScrollbar/NotAScrollbar';
 
 // Custom Styles
@@ -93,7 +93,9 @@ const App = (): ReactElement => {
 
     return (
         <>
-            {showErrorModal && <Error handleClose={handleCloseErrorModal} />}
+            {showErrorModal && (
+                <ErrorModal handleClose={handleCloseErrorModal} />
+            )}
             <header
                 ref={titleCardRef}
                 className={`title-card ${repos ? 'transition' : ''}`}

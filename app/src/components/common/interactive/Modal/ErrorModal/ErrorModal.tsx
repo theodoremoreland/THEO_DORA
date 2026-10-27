@@ -6,7 +6,7 @@ interface Props {
     handleClose: () => void;
 }
 
-const Error = ({ handleClose }: Props): ReactElement => {
+const ErrorModal = ({ handleClose }: Props): ReactElement => {
     return (
         <Modal title="Something went wrong" handleClose={handleClose}>
             <p>
@@ -18,4 +18,4 @@ const Error = ({ handleClose }: Props): ReactElement => {
     );
 };
 
-export default Error;
+export default ErrorModal;

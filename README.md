@@ -10,7 +10,9 @@
 
 ## Overview
 
-This project features a dashboard that calculates and displays DORA metrics, software quality measures, test coverage, typicality percentiles, and GitHub activity for my GitHub repositories. **This is a work in progress.**
+**This is a work in progress.**
+
+This project encourages continuous improvement of software quality and delivery. It features a dashboard that calculates and displays DORA metrics, software quality measures, test coverage, typicality percentiles, and GitHub activity for my GitHub repositories.
 
 ### Technologies Used
 

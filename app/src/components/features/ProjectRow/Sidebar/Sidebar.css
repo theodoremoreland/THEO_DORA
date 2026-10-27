@@ -5,7 +5,7 @@
     justify-content: space-between;
     align-items: flex-start;
     flex-shrink: 0;
-    font-family: custom-thin;
+    font-family: custom-thin, monospace;
     font-size: 0.7rem;
     width: var(--sidebar-width);
     height: 100%;
@@ -24,7 +24,7 @@
     }
 
     .sidebar-title {
-        font-family: custom-bold;
+        font-family: custom-bold, monospace;
         font-size: 1.2em;
         padding-bottom: 1.5em;
     }
@@ -127,7 +127,7 @@
     }
 
     h3 {
-        font-family: custom-thin;
+        font-family: custom-thin, monospace;
         font-size: 0.8rem;
         color: var(--temp-gray-3);
         width: 100%;

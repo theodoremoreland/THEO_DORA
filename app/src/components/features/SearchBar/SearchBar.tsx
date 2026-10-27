@@ -49,6 +49,10 @@ const SearchBar = ({ scrollToProject }: Props): ReactElement => {
         inputRef?.current?.focus();
     }, [inputRef]);
 
+    const handleCloseSearchMenu = useCallback(() => {
+        setShowResults(false);
+    }, []);
+
     useEffect(() => {
         const input = inputRef.current;
         const focusHandler = () => setShowResults(true);
@@ -90,13 +94,20 @@ const SearchBar = ({ scrollToProject }: Props): ReactElement => {
             {searchValue && showResults && (
                 <div
                     id="clickaway-area__search"
-                    onClick={() => setShowResults(false)}
+                    role="button"
+                    aria-label="Close search menu"
+                    tabIndex={0}
+                    onClick={handleCloseSearchMenu}
                 ></div>
             )}
             <div id="search-bar" className={`${showResults ? 'active' : ''}`}>
-                <span id="search-icon-area" onClick={handleCancelClick}>
+                <button
+                    id="search-icon-button"
+                    type="button"
+                    onClick={handleCancelClick}
+                >
                     <SearchIcon className="icon" />
-                </span>
+                </button>
                 <input
                     ref={inputRef}
                     id="search"
@@ -107,9 +118,13 @@ const SearchBar = ({ scrollToProject }: Props): ReactElement => {
                     value={searchValue}
                     onChange={(e) => setSearchValue(e.target.value)}
                 />
-                <span id="delete-icon-area" onClick={handleCancelClick}>
+                <button
+                    id="delete-icon-button"
+                    type="button"
+                    onClick={handleCancelClick}
+                >
                     <CancelIcon className="icon" />
-                </span>
+                </button>
                 {searchValue && showResults && (
                     // Wrapper is here solely for the purpose of positioning data attribute (i.e. result count) in desired location
                     <div

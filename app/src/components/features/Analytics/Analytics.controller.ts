@@ -157,5 +157,5 @@ export const getTopics = (projects: TaggedRepoData[]): string[] => {
         });
     });
 
-    return [...topics].sort();
+    return [...topics].sort((a, b) => a.localeCompare(b));
 };

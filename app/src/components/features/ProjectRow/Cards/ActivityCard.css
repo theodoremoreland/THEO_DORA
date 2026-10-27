@@ -64,7 +64,7 @@
 
         text {
             font-size: 0.8rem !important;
-            font-family: custom-thin !important;
+            font-family: custom-thin, monospace !important;
         }
 
         &.hide {
@@ -99,7 +99,7 @@
         }
 
         .MuiBarChart-label {
-            font-family: custom-bold !important;
+            font-family: custom-bold, monospace !important;
 
             &:nth-last-of-type(1) {
                 fill: #c8c8c8;
@@ -127,7 +127,7 @@
             right: 0;
             color: var(--temp-silver);
             font-size: 0.75rem;
-            font-family: custom-thin;
+            font-family: custom-thin, monospace;
             width: auto;
             padding: 0.5em 10px;
             opacity: 0;
@@ -287,7 +287,7 @@
 
     .content {
         width: 100%;
-        font-family: bit-regular;
+        font-family: bit-regular, system-ui;
     }
 
     h4 {

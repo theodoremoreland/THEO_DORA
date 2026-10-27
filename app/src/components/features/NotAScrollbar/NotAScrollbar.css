@@ -119,7 +119,7 @@
                     color: var(--primary-font-color);
                     text-align: center;
                     letter-spacing: 2px;
-                    font-family: custom-regular;
+                    font-family: custom-regular, monospace;
                     margin-top: -2%;
                     padding: 0 0.5rem;
                     padding-bottom: 4%;

@@ -129,6 +129,10 @@ const ImageCarousel: FC<Props> = ({
 
     return (
         <div
+            id="clickaway_area__ImageCarousel"
+            role="button"
+            aria-label="Close image carousel"
+            tabIndex={0}
             className="ImageCarousel"
             ref={selfRef}
             onClick={handleBackdropClick}

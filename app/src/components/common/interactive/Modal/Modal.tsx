@@ -12,6 +12,9 @@ interface Props {
 const Modal = ({ children, title, handleClose }: Props) => {
     return (
         <div
+            role="button"
+            aria-label="Close menu"
+            tabIndex={0}
             className="custom-modal-backdrop"
             onClick={(e) => {
                 if (e.target === e.currentTarget) handleClose();

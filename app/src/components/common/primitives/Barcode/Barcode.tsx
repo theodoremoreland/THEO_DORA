@@ -27,7 +27,7 @@ const Barcode = ({ value }: Props): ReactElement => {
         }
     }, [value]);
 
-    return <svg className="Barcode" ref={barcodeRef}></svg>;
+    return <svg role="presentation" className="Barcode" ref={barcodeRef}></svg>;
 };
 
 export default Barcode;

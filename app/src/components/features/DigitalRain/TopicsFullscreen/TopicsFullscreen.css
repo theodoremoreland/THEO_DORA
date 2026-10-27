@@ -23,7 +23,7 @@
 
         & li {
             animation: fadeOutSlideDown 0.6s ease-in-out forwards;
-            animation-delay: none;
+            animation-delay: 0s;
 
             @media (prefers-reduced-motion: reduce) {
                 animation: none;
@@ -71,12 +71,12 @@
         height: 100%;
 
         .title {
-            font-family: custom-bold;
+            font-family: custom-bold, monospace;
             font-size: 1.2rem;
         }
 
         .subtitle {
-            font-family: custom-semibold;
+            font-family: custom-semibold, monospace;
             font-size: 1rem;
         }
 

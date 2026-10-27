@@ -1,5 +1,7 @@
 # THEO_DORA (Work in progress)
 
+<img src="presentation/thumbnail.webp" width="700">
+
 ## Table of contents
 
 - [Overview](#overview)

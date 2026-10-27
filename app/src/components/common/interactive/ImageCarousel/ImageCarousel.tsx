@@ -18,6 +18,7 @@ import ArrowUpwardIcon from '../../../../assets/images/icons/arrow_upward.svg?re
 import './ImageCarousel.css';
 
 interface Props {
+    name: string;
     images: string[];
     selectedImageIndex: number;
     setIsImageCarouselOpen: Dispatch<SetStateAction<boolean>>;
@@ -26,6 +27,7 @@ interface Props {
 const AUTO_PLAY_INTERVAL_TIME: number = 4_000;
 
 const ImageCarousel: FC<Props> = ({
+    name,
     images,
     selectedImageIndex,
     setIsImageCarouselOpen,
@@ -143,7 +145,7 @@ const ImageCarousel: FC<Props> = ({
                 </button>
                 <img
                     src={currentImage}
-                    alt={`Carousel image ${currentIndex + 1}`}
+                    alt={`${name} carousel ${currentIndex + 1}`}
                     onLoad={(e) => {
                         const target: EventTarget = e.target;
 

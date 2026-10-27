@@ -62,7 +62,7 @@ const ToolBar = ({
                         <button
                             id="nav-overview"
                             title="Overview"
-                            role="presentation"
+                            type="button"
                             onClick={() => setShowOverviewModal(true)}
                             className={`toolbar-button`}
                         >

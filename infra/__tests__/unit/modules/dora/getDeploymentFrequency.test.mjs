@@ -4,7 +4,7 @@ import { jest } from "@jest/globals";
 // Custom
 import calculateDeploymentFrequency from "../../../../src/modules/dora/calculateDeploymentFrequency.mjs";
 
-describe.only("calculateDeploymentFrequency", () => {
+describe("calculateDeploymentFrequency", () => {
   const deploymentEvents = [
     {
       id: 1,

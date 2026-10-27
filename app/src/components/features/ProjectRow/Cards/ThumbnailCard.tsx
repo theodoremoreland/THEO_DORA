@@ -69,6 +69,7 @@ const ThumbnailCard = ({
         >
             {isImageCarouselOpen && (
                 <ImageCarousel
+                    name={projectData.name}
                     images={readmeImages}
                     selectedImageIndex={selectedImageIndex}
                     setIsImageCarouselOpen={setIsImageCarouselOpen}
@@ -153,8 +154,16 @@ const ThumbnailCard = ({
                                 hasSettled &&
                                 readmeImages.slice(0, 4).map((src, index) => (
                                     <li
+                                        role="button"
+                                        title={`Click to view ${projectData.name} screenshot`}
+                                        tabIndex={0}
                                         key={index}
                                         onClick={() => handleImageClick(index)}
+                                        onKeyDown={(e) => {
+                                            if (e.key === 'Enter') {
+                                                handleImageClick(index);
+                                            }
+                                        }}
                                     >
                                         <img
                                             className="project-screenshot"

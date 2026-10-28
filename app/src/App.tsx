@@ -167,12 +167,6 @@ const App = (): ReactElement => {
                             />
                         )}
                     </div>
-                    {/* ! This logic assumes the sidebar, repo count, and limited vertical real estate are enough
-                        to warrant a scroll to top button fixed beneath the sidebar. I didn't want to base the
-                        logic on the actual scroll position of the app content container because unless I placed the
-                        button in the area of the project grid and thus potentially obscuring the projects or being hard
-                        to see, it would potentially overlap with the sidebar.
-                    */}
                 </div>
                 <ToolBar
                     scrollToProject={scrollToProject}

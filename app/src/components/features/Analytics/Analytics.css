@@ -66,10 +66,8 @@
             border-radius: var(--border-radius);
 
             @media screen and (min-width: 1150px) {
-                & {
-                    min-width: 170px;
-                    flex-grow: 1;
-                }
+                min-width: 170px;
+                flex-grow: 1;
             }
         }
 
@@ -117,11 +115,9 @@
         }
 
         @media screen and (min-width: 1150px) {
-            & {
-                flex-direction: row;
-                justify-content: space-between;
-                min-height: 450px;
-            }
+            flex-direction: row;
+            justify-content: space-between;
+            min-height: 450px;
 
             & text {
                 user-select: auto !important;
@@ -153,10 +149,8 @@
         padding: 0;
 
         @media screen and (min-width: 1150px) {
-            & {
-                width: 40%;
-                min-height: 300px;
-            }
+            width: 40%;
+            min-height: 300px;
         }
 
         .pie-chart-container {

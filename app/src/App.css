@@ -199,13 +199,12 @@ main {
 }
 
 .close-button:hover,
-.close-button:active,
 .close-button:focus {
     opacity: 0.7;
 }
 
 .close-button:active {
-    transform: scale(0.95);
+    background-color: var(--quaternary-color) !important;
 }
 
 @keyframes pulsate {

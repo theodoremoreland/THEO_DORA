@@ -22,19 +22,14 @@ const Modal = ({ children, title, handleClose }: Props) => {
         >
             <div className="custom-modal">
                 <header className="custom-modal-header">
-                    {/* Putting the onClick handler on the div because
-                    the padding on the button wasn't triggering to onClick event.
-                    This is a workaround to make the button padding clickable.
-                */}
-                    <div onClick={handleClose}>
-                        <button
-                            type="button"
-                            title="Close"
-                            className="close-button"
-                        >
-                            Close
-                        </button>
-                    </div>
+                    <button
+                        type="button"
+                        title="Close menu"
+                        className="close-button"
+                        onClick={handleClose}
+                    >
+                        Close
+                    </button>
                 </header>
                 {title && <h2 className="custom-modal-title">{title}</h2>}
                 <div className="custom-modal-content">{children}</div>

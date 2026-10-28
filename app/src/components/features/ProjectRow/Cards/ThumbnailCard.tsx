@@ -157,7 +157,7 @@ const ThumbnailCard = ({
                                         role="button"
                                         title={`Click to view ${projectData.name} screenshot`}
                                         tabIndex={0}
-                                        key={index}
+                                        key={src}
                                         onClick={() => handleImageClick(index)}
                                         onKeyDown={(e) => {
                                             if (e.key === 'Enter') {

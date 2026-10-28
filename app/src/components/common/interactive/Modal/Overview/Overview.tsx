@@ -30,69 +30,48 @@ const Overview = ({ handleClose }: Props): ReactElement => {
                             GitHub API
                         </a>
                         . Each project is configured in a such a way that
-                        software quality measures, DORA metrics, commit
-                        activity, and views can be viewed from this dashboard.
+                        software quality measures, DORA metrics, and commit
+                        activity can be viewed from this dashboard.
                     </p>
                     <p>
-                        Additionally, metadata concerning project content is
-                        accessible directly from this dashboard such as
-                        screenshots, video previews, and deployment links.
+                        Additionally, project related content is accessible
+                        directly from this dashboard such as screenshots, video
+                        previews, and deployment links.
                     </p>
                 </article>
                 <article>
                     <h3>SonarQube Quality measures</h3>
-                    <ul>
-                        <li>
-                            <strong>Maintainability:</strong> How easy the code
-                            is to understand, change, and keep healthy over
-                            time.
-                        </li>
-                        <li>
-                            <strong>Security:</strong> How well the code is
-                            protected against vulnerabilities and security
-                            weaknesses.
-                        </li>
-                        <li>
-                            <strong>Reliability:</strong> How likely the code is
-                            to behave correctly and avoid bugs or failures in
-                            production.
-                        </li>
-                    </ul>
+                    <p>
+                        SonarQube's software qualities help asses the overall
+                        health of code. These three aspects - security,
+                        reliability, and maintainability - are called software
+                        qualities in SonarQube and they contribute to the
+                        long-term value of software. {''}
+                        <a
+                            target="_blank"
+                            rel="noreferrer"
+                            href="https://docs.sonarsource.com/sonarqube-cloud/standards/managing-rules/rules#software-qualities"
+                        >
+                            Learn more SonarQube quality measures
+                        </a>
+                        .
+                    </p>
                 </article>
                 <article>
                     <h3>DORA Metrics</h3>
-                    <ul>
-                        <li>
-                            <strong>Lead Time for Changes:</strong> Measures
-                            elapsed time from the initial commit timestamp to
-                            when the PR is merged or deployed.
-                        </li>
-                        <li>
-                            <strong>Deployment Frequency:</strong> Counts total
-                            successful production deployments over a specific
-                            timeframe.
-                        </li>
-                        <li>
-                            <strong>Time to Restore Service:</strong> Measures
-                            the time required to recover from a failed
-                            deployment.
-                        </li>
-                        <li>
-                            <strong>Change Failure Rate:</strong> Measures the
-                            percentage of total deployments that resulted in a
-                            hotfix PR or incident issue.
-                        </li>
-                        <li>
-                            <strong>Deployment Rework Rate:</strong>While CFR
-                            shows the immediate failure rate of changes,
-                            Deployment Rework Rate shows how much work must be
-                            done to fix a production issue regardless of whether
-                            or not said issue was a deployment failure
-                            in-and-of-itself. In other words, 1 failure can
-                            cause 6 reworks, and you can have 6 reworks without
-                            necessarily causing 1+ deployment failures.
-                        </li>
-                    </ul>
+                    <p>
+                        DORA metrics measure the effectiveness of a project's
+                        software delivery. Effectiveness can be broken down into
+                        two categories: Throughput and Instability. {''}
+                        <a
+                            target="_blank"
+                            rel="noreferrer"
+                            href="https://dora.dev/guides/dora-metrics/"
+                        >
+                            Learn more about DORA metrics
+                        </a>
+                        .
+                    </p>
                 </article>
                 <article>
                     <h3>Source Code</h3>

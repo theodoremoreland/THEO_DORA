@@ -157,7 +157,8 @@
     }
 }
 
-#tech-list > li:hover {
+#tech-list > li:hover,
+#tech-list > li:focus {
     opacity: 1;
     background-color: var(--quaternary-color);
 }
@@ -174,7 +175,8 @@
 
 #tech-list > li.selected .tech-icon,
 #tech-list > li:hover .tech-icon,
-#tech-list > li.active .tech-icon {
+#tech-list > li.active .tech-icon,
+#tech-list > li:focus .tech-icon {
     height: 130%;
     opacity: 1;
     transform: rotate(15deg);

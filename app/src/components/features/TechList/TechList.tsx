@@ -7,6 +7,7 @@ import {
     useContext,
     useEffect,
     useState,
+    KeyboardEvent,
     MouseEvent,
     useMemo,
 } from 'react';
@@ -44,6 +45,15 @@ const TechList = ({ setShowTechList }: Props): ReactElement => {
 
     const [topicsCount, setTopicsCount] = useState<TopicCounts | null>(null);
 
+    const handleEnterPress = useCallback(
+        (event: KeyboardEvent) => {
+            if (event.key === 'Enter') {
+                setShowTechList(false);
+            }
+        },
+        [setShowTechList]
+    );
+
     const handleClickAway = useCallback(
         (event: MouseEvent) => {
             if (event.target === event.currentTarget) {
@@ -61,7 +71,14 @@ const TechList = ({ setShowTechList }: Props): ReactElement => {
 
     return (
         <>
-            <div id="clickaway-area__filter" onClick={handleClickAway}></div>
+            <div
+                id="clickaway-area__filter"
+                role="button"
+                aria-label="Close filter menu"
+                tabIndex={0}
+                onKeyDown={handleEnterPress}
+                onClick={handleClickAway}
+            ></div>
             <div id="tech-list-container">
                 <div className="header">
                     <h2>Filter projects</h2>

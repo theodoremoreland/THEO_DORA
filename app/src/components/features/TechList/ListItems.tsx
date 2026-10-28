@@ -46,6 +46,7 @@ const ListItems = ({
             >
                 <h3 className="tech-category">{groupName}</h3>
                 <button
+                    type="button"
                     className="toggle-visibility-button"
                     onClick={() => setIsGroupVisible((prev) => !prev)}
                     title={`Toggle ${groupName.toLowerCase()} visibility`}
@@ -74,6 +75,15 @@ const ListItems = ({
                                     : `Click to remove ${topicLabel} filter`
                             }
                             className={className}
+                            role="button"
+                            aria-label={`Toggle ${topicLabel} filter`}
+                            onKeyDown={(event) => {
+                                if (event.key === 'Enter') {
+                                    updateFeaturedTopics(
+                                        findKeyForTopicLabel(topicLabel)
+                                    );
+                                }
+                            }}
                             onClick={() =>
                                 updateFeaturedTopics(
                                     findKeyForTopicLabel(topicLabel)

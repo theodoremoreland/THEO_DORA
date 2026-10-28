@@ -174,7 +174,7 @@ const ThumbnailCard = ({
                                 ))}
                         </ul>
                     </div>
-                    <Something
+                    <Topics
                         show={activeTab === Tab.Topics && hasSettled}
                         projectData={projectData}
                     />
@@ -189,12 +189,12 @@ const ThumbnailCard = ({
 
 export default ThumbnailCard;
 
-interface SomethingProps {
+interface TopicsProps {
     projectData: TaggedRepoData;
     show: boolean;
 }
 
-const Something = ({ projectData, show }: SomethingProps): ReactElement => {
+const Topics = ({ projectData, show }: TopicsProps): ReactElement => {
     const [showTopicsFullscreen, setShowTopicsFullscreen] =
         useState<boolean>(false);
 

@@ -41,8 +41,10 @@ const LayeredBar = ({
                         <Corner position="bottom-right" />
                         <Corner position="top-right" />
                         <Corner position="bottom-left" />
-                        {topData.value}
-                        {topData.format === 'percent' ? '%' : null}
+                        {topData.value > 0 ? topData.value : 'N/A'}
+                        {topData.value > 0 && topData.format === 'percent'
+                            ? '%'
+                            : null}
                     </span>
                 </div>
             </div>
@@ -70,8 +72,10 @@ const LayeredBar = ({
                         <Corner position="bottom-right" />
                         <Corner position="top-right" />
                         <Corner position="bottom-left" />
-                        {bottomData.value}
-                        {bottomData.format === 'percent' ? '%' : null}
+                        {bottomData.value > 0 ? bottomData.value : 'N/A'}
+                        {bottomData.value > 0 && bottomData.format === 'percent'
+                            ? '%'
+                            : null}
                     </span>
                 </div>
             </div>

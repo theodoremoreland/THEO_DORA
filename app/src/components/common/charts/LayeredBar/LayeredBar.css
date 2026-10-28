@@ -12,9 +12,7 @@
     height: 100%;
 
     @media screen and (min-height: 768px) {
-        & {
-            height: 85%;
-        }
+        height: 85%;
     }
 
     --stripe-1: var(--secondary-color);

@@ -161,9 +161,9 @@ const ImageCarousel: FC<Props> = ({
                     <ArrowUpwardIcon className="icon" />
                 </button>
                 <div className="circles">
-                    {images.map((_, index) => (
+                    {images.map((image, index) => (
                         <button
-                            key={index}
+                            key={image}
                             className={`index ${currentIndex === index ? 'selected' : ''}`}
                             onClick={() => handleCircleClick(index)}
                         ></button>

@@ -236,11 +236,11 @@ const ActivityCard = ({
                             {isRecentCommitsFetching && (
                                 <p>Loading commits...</p>
                             )}
-                            {commits?.map((commit, index) => {
+                            {commits?.map((commit) => {
                                 const l = new Date(commit.committedDate);
 
                                 return (
-                                    <li key={index} className="commit">
+                                    <li key={commit.id} className="commit">
                                         <p>{commit.message}</p>
                                         <p className="date">
                                             {commit.committedDate

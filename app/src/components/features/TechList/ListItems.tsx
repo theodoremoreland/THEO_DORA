@@ -103,9 +103,7 @@ const ListItems = ({
                                     name={`${topicLabel}-checkbox`}
                                     type="checkbox"
                                     className="checkbox"
-                                    checked={
-                                        className === 'selected' ? true : false
-                                    }
+                                    checked={className === 'selected'}
                                     readOnly
                                 />
                             </label>

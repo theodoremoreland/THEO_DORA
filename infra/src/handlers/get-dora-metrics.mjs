@@ -23,7 +23,7 @@ const CORS_HEADERS = {
  * - Lead Time for Changes: average (merged timestamp - First commit of PR timestamp labeled "enhancement" or "bugfix")
  * - Deployment frequency: average successful "deploy" action runs per week
  * - Change failure rate: Number of deployments with AT LEAST ONE issue labeled "incident" or AT LEAST ONE PR labeled "hotfix" or a failed deployment / total deployment runs \* 100
- * - Deployment rework rate: (Number of issues labeled "incidents" closed and PRs labeled "hotfix" submitted) / number of successful deployments \* 100
+ * - Deployment rework rate: (Number of issues labeled "incidents" closed and PRs labeled "hotfix" or "bugfix" submitted) / number of successful deployments \* 100
  * - Recovery time: average (issue labeled "incident" closed time - issue labeled "incident" created time)
  */
 export const getDoraMetricsHandler = async (event) => {

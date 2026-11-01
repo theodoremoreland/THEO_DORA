@@ -211,7 +211,7 @@ const MetricsCard = ({
                 <ul
                     className={`dora-container ${hasSettled ? 'show' : 'hide'}`}
                 >
-                    <li title="Lead Time for Changes: Elapsed time from the initial commit to deployment (in hours)">
+                    <li title="Lead Time for Changes: Elapsed time from the initial commit to deployment (in hours).">
                         <span className="label-container">
                             <EventUpcomingIcon className="icon" />
                             <p>Lead Time</p>
@@ -223,7 +223,7 @@ const MetricsCard = ({
                                 : doraMetrics?.leadTime}
                         </p>
                     </li>
-                    <li title="Deployment Frequency: Average number of successful deployments over a specific timeframe (in weeks)">
+                    <li title="Deployment Frequency: Average number of successful deployments over a specific timeframe (in weeks).">
                         <span className="label-container">
                             <PlannerReviewIcon className="icon" />
                             <p>Frequency</p>
@@ -235,7 +235,7 @@ const MetricsCard = ({
                                 : doraMetrics?.deploymentFrequency}
                         </p>
                     </li>
-                    <li title="Failed Deployment Recovery Time: Time to recover from a failed deployment (in hours)">
+                    <li title="Failed Deployment Recovery Time: Time to recover from a failed deployment (in hours).">
                         <span className="label-container">
                             <HourglassArrowUpIcon className="icon" />
                             <p>Recovery Time</p>
@@ -247,7 +247,7 @@ const MetricsCard = ({
                                 : doraMetrics?.recoveryTime}
                         </p>
                     </li>
-                    <li title="Change Failure Rate: Percentage of total deployments that resulted in a hotfix PR or incident issue">
+                    <li title="Change Failure Rate: Percentage of total deployments that resulted in a deployment failure, hotfix, or incident issue.">
                         <span className="label-container">
                             <RunningWithErrorsIcon className="icon" />
                             <p>Failure Rate</p>
@@ -259,7 +259,7 @@ const MetricsCard = ({
                                 : doraMetrics?.changeFailureRate}
                         </p>
                     </li>
-                    <li title="Deployment rework rate: Percentage of deployments that are unplanned work to fix bugs">
+                    <li title="Deployment rework rate: Percentage of deployments that are unplanned work to fix bugs (i.e. the bug was caught in production). DRR is reactionary and not proactive insofar as the problem was unexpected subsequently the fix was not planned pre-deployment.">
                         <span className="label-container">
                             <DeleteHistoryIcon className="icon" />
                             <p className="label-container">Rework Rate</p>

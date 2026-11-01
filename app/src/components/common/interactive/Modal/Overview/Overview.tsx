@@ -42,11 +42,10 @@ const Overview = ({ handleClose }: Props): ReactElement => {
                 <article>
                     <h3>SonarQube Quality measures</h3>
                     <p>
-                        SonarQube's software qualities help asses the overall
-                        health of code. These three aspects - security,
-                        reliability, and maintainability - are called software
-                        qualities in SonarQube and they contribute to the
-                        long-term value of software. {''}
+                        Security, reliability, and maintainability are called
+                        software qualities in SonarQube and they help asses the
+                        overall health of code and promote the long-term value
+                        of software. {''}
                         <a
                             target="_blank"
                             rel="noreferrer"

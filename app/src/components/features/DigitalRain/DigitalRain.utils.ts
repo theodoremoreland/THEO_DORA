@@ -1,7 +1,6 @@
 export type RenderTopic = { char: string; hasRendered: boolean }[];
 
-export const KATAKANA: string[] =
-    'ｱｲｳｴｵｶｷｸｹｺｻｼｽｾｿﾀﾁﾂﾃﾄﾅﾆﾇﾈﾉﾊﾋﾌﾍﾎﾏﾐﾑﾒﾓﾔﾕﾖﾗﾘﾙﾚﾛﾜﾝ1234567890'.split('');
+export const KATAKANA: string[] = '#*^-=+x/:_<>[]{}01■□'.split('');
 export const BUFFER_AMOUNT: number = 3;
 
 /**

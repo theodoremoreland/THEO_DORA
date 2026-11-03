@@ -45,10 +45,18 @@ const NotAScrollbar = ({
                         >
                             <button
                                 id={`scroll-to-${project.name}-button`}
+                                title={`Scroll to ${project.name}${project.demo_link ? ' [Live deployment available]' : ''}`}
                                 disabled={classState.trim() === 'disabled'}
                                 onClick={() => scrollToProject(project.name)}
                             >
-                                <span className="index">-{index + 1}</span>
+                                <span className="index">
+                                    -{index + 1}
+                                    {project.demo_link && (
+                                        <span className="is-live-indicator">
+                                            ⌝
+                                        </span>
+                                    )}
+                                </span>
                             </button>
                             <span className="project-name">
                                 <Corner position="top-left" />

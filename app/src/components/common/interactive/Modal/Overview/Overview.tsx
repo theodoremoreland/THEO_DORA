@@ -51,7 +51,7 @@ const Overview = ({ handleClose }: Props): ReactElement => {
                             rel="noreferrer"
                             href="https://docs.sonarsource.com/sonarqube-cloud/standards/managing-rules/rules#software-qualities"
                         >
-                            Learn more SonarQube quality measures
+                            Learn more about SonarQube quality measures
                         </a>
                         .
                     </p>

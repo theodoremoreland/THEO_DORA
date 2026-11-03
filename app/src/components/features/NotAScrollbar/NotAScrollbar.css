@@ -78,6 +78,10 @@
                 background-color: transparent;
             }
 
+            .is-live-indicator {
+                color: var(--primary-highlight-color);
+            }
+
             .index {
                 pointer-events: none;
                 user-select: none;

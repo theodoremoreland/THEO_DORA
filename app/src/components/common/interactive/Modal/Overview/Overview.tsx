@@ -40,7 +40,7 @@ const Overview = ({ handleClose }: Props): ReactElement => {
                     </p>
                 </article>
                 <article>
-                    <h3>SonarQube Quality measures</h3>
+                    <h3>SonarQube quality measures</h3>
                     <p>
                         Security, reliability, and maintainability are called
                         software qualities in SonarQube and they help asses the
@@ -57,7 +57,7 @@ const Overview = ({ handleClose }: Props): ReactElement => {
                     </p>
                 </article>
                 <article>
-                    <h3>DORA Metrics</h3>
+                    <h3>DORA metrics</h3>
                     <p>
                         DORA metrics measure the effectiveness of a project's
                         software delivery. Effectiveness can be broken down into
@@ -73,7 +73,7 @@ const Overview = ({ handleClose }: Props): ReactElement => {
                     </p>
                 </article>
                 <article>
-                    <h3>Source Code</h3>
+                    <h3>Source code</h3>
                     <p>
                         Learn more about this project by visiting the {''}
                         <a

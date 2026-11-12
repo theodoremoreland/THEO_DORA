@@ -9,7 +9,7 @@ const FeaturedProjectNames: string[] = [
     'JavaScriptQuiz',
     'BellyButtonBiodiversity',
     'WeatherDashboard',
-    'HawaiiClimateDataAPI',
+    'HawaiiClimateAPI',
     'html-me-something',
     'Decades',
     'TopWine',
